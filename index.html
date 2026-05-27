@@ -59,7 +59,7 @@
       border-radius: 25px;
       box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
       margin-bottom: 15px;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Tối ưu transition */
     }
 
     .logo img:hover {
@@ -101,10 +101,11 @@
       text-decoration: none;
       border-radius: 12px;
       margin-bottom: 8px;
-      transition: all 0.25s ease;
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
+      /* Tối ưu: Chỉ transition các thuộc tính cần thiết, không dùng 'all' */
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     }
 
     .menu a:hover {
@@ -127,7 +128,8 @@
       border-left: 1px solid #2a3441;
       margin-bottom: 10px;
       display: none;
-      animation: slideDown 0.3s ease-out forwards;
+      /* Tối ưu: Giảm thời gian animation xuống 0.15s cho cảm giác click nhạy hơn */
+      animation: slideDown 0.15s ease-out forwards; 
     }
 
     .submenu.open { display: block; }
@@ -140,7 +142,7 @@
 
     .arrow {
       font-size: 10px;
-      transition: transform 0.3s ease;
+      transition: transform 0.2s ease;
       opacity: 0.6;
     }
     
@@ -162,7 +164,8 @@
     /* SPA VIEW LOGIC */
     .view-section {
       display: none;
-      animation: fadeIn 0.5s ease forwards;
+      /* Tối ưu: Giảm thời gian mờ vào từ 0.5s -> 0.2s để tránh cảm giác chờ đợi */
+      animation: fadeIn 0.2s ease-out forwards;
     }
 
     .view-section.active-view { display: block; }
@@ -213,20 +216,22 @@
       border: 1px solid #2a3441;
       border-radius: 20px;
       overflow: hidden;
-      transition: all 0.3s ease;
       display: flex;
       flex-direction: column;
+      /* Tối ưu: Chỉ định rõ thuộc tính thay vì dùng all */
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      will-change: transform; /* Bật tăng tốc phần cứng nhẹ */
     }
 
     .card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-5px); /* Giảm nhẹ độ giật của hình khi hover */
       border-color: #00d9ff;
-      box-shadow: 0 12px 25px rgba(0, 217, 255, 0.15);
+      box-shadow: 0 8px 20px rgba(0, 217, 255, 0.12); /* Giảm nhẹ bóng để render mượt hơn */
     }
 
     .card img {
       width: 100%;
-      height: auto; /* Fix lỗi cắt ảnh */
+      height: auto;
       display: block;
       border-bottom: 1px solid #2a3441;
     }
@@ -261,17 +266,18 @@
       border-radius: 10px;
       font-weight: 700;
       font-size: 14.5px;
-      transition: all 0.2s ease;
       text-align: center;
       border: none;
       cursor: pointer;
+      /* Tối ưu Transition */
+      transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
     }
 
     .btn:hover {
       background: white;
       color: #0f1117;
-      transform: scale(1.03);
-      box-shadow: 0 0 15px rgba(0, 217, 255, 0.4);
+      transform: scale(1.02);
+      box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
     }
     
     .btn-outline {
@@ -326,20 +332,20 @@
       font-size: 14px;
     }
 
-    /* ANIMATIONS */
+    /* ANIMATIONS (Đã được làm nhanh hơn) */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
     @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-5px); }
+      from { opacity: 0; transform: translateY(-3px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* MOBILE RESPONSIVE */
     @media(max-width: 900px){
       body { display: block; }
-      .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222b3b; padding: 25px; }
+      .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222b3b; padding: 25px; box-shadow: none; }
       .main { margin-left: 0; width: 100%; padding: 25px; }
       .hero { padding: 30px; }
       .hero h2 { font-size: 28px; }
@@ -351,7 +357,7 @@
 
   <aside class="sidebar">
     <div class="logo">
-      <img src="images/Logo.jpg" alt="MiniApp4All Logo" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'">
+      <img src="images/Logo.jpg" alt="MiniApp4All Logo" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'">
       <h1>MiniApp4All</h1>
       <p>Công cụ nhỏ • Tiện ích lớn</p>
     </div>
@@ -410,7 +416,7 @@
       <h2 class="section-title">Truy Cập Nhanh</h2>
       <div class="content-grid">
         <div class="card">
-          <img src="images/t2spp.png" alt="T2SPP" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP+Banner'">
+          <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP+Banner'">
           <div class="card-body">
             <h3>T2SPP AI Voice</h3>
             <p>Ứng dụng chuyển đổi văn bản thành giọng nói siêu tốc, dung lượng cực nhẹ, giao diện thân thiện và hoạt động 100% offline không cần Internet.</p>
@@ -424,7 +430,7 @@
       <h2 class="section-title">Kho Ứng Dụng Nổi Bật</h2>
       <div class="content-grid">
         <div class="card">
-          <img src="images/t2spp.png" alt="T2SPP" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'">
+          <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'">
           <div class="card-body">
             <h3>T2SPP</h3>
             <p>Chuyển đổi văn bản sang giọng nói (Text-to-Speech) hoàn toàn offline. Dung lượng nhẹ, hỗ trợ đa dạng giọng đọc với độ trễ cực thấp.</p>
@@ -432,7 +438,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="images/translator.png" alt="Translator" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Translator'">
+          <img src="images/translator.png" alt="Translator" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Translator'">
           <div class="card-body">
             <h3>Realtime Translator</h3>
             <p>Dịch thuật phụ đề và văn bản theo thời gian thực ngay trên màn hình. (Phần mềm đang trong giai đoạn phát triển và thử nghiệm).</p>
@@ -440,7 +446,7 @@
           </div>
         </div>
         <div class="card">
-          <img src="images/minidawn.png" alt="Mini Dawn" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Mini+Dawn'">
+          <img src="images/minidawn.png" alt="Mini Dawn" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Mini+Dawn'">
           <div class="card-body">
             <h3>Mini Dawn</h3>
             <p>Giải pháp cắt ghép và tinh chỉnh âm thanh chuyên nghiệp, trực quan, hỗ trợ xử lý siêu tốc mọi định dạng âm thanh phổ biến.</p>
@@ -521,7 +527,7 @@
       <h2 class="section-title">Mini Dawn > Cập Nhật</h2>
       <div class="article">
         <h3>Đang phát triển</h3>
-        <p>Cập nhật tính năng cao cấp cho việc tích hợp chỉnh sủa âm thanh chuyên sâu.</p>
+        <p>Cập nhật tính năng cao cấp cho việc tích hợp chỉnh sửa âm thanh chuyên sâu.</p>
       </div>
     </div>
 
@@ -569,11 +575,11 @@
         // 1. Ẩn tất cả các khung nội dung
         viewSections.forEach(section => section.classList.remove('active-view'));
         
-        // 2. Hiện khung nội dung được chọn & Cuộn lên đầu
+        // 2. Hiện khung nội dung được chọn & Cuộn lên đầu ngay lập tức (Xóa behavior: smooth để cảm giác load cực nhanh)
         const targetView = document.getElementById(targetId);
         if (targetView) {
           targetView.classList.add('active-view');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.scrollTo({ top: 0, behavior: 'instant' }); 
         }
 
         // 3. Xóa bôi sáng của tất cả nút Menu
