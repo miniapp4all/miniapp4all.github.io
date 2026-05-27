@@ -1,383 +1,795 @@
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=utf-8">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Aptos;
-	panose-1:2 11 0 4 2 2 2 2 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin-top:0in;
-	margin-right:0in;
-	margin-bottom:8.0pt;
-	margin-left:0in;
-	line-height:115%;
-	font-size:14.0pt;
-	font-family:"Times New Roman",serif;}
-.MsoChpDefault
-	{font-size:14.0pt;}
-.MsoPapDefault
-	{margin-bottom:8.0pt;
-	line-height:115%;}
-@page WordSection1
-	{size:612.1pt 792.1pt;
-	margin:56.7pt 56.7pt 56.7pt 56.7pt;}
-div.WordSection1
-	{page:WordSection1;}
--->
-</style>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MiniApp4All</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      background:#0f1117;
+      color:white;
+      font-family:Arial, Helvetica, sans-serif;
+      display:flex;
+      min-height:100vh;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar{
+      width:280px;
+      background:#151a24;
+      border-right:1px solid #222b3b;
+      padding:25px;
+      position:fixed;
+      left:0;
+      top:0;
+      bottom:0;
+      overflow-y:auto;
+    }
+
+    .logo{
+      text-align:center;
+      margin-bottom:30px;
+    }
+
+    .logo img{
+      width:120px;
+      height:120px;
+      object-fit:cover;
+      border-radius:25px;
+      box-shadow:0 0 25px #00d9ff44;
+      margin-bottom:15px;
+    }
+
+    .logo h1{
+      color:#00d9ff;
+      font-size:28px;
+      margin-bottom:8px;
+    }
+
+    .logo p{
+      color:#98a3b3;
+      font-size:14px;
+    }
+
+    /* MENU */
+
+    .menu-title{
+      color:#00d9ff;
+      margin:25px 0 12px;
+      font-size:15px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .menu a{
+      display:block;
+      padding:14px 16px;
+      background:#1b2230;
+      color:white;
+      text-decoration:none;
+      border-radius:12px;
+      margin-bottom:12px;
+      transition:0.2s;
+      border:1px solid transparent;
+    }
+
+    .menu a:hover{
+      border-color:#00d9ff;
+      transform:translateX(4px);
+      background:#20293a;
+    }
+
+    /* SUBMENU */
+
+    .submenu{
+      margin-left:20px;
+      margin-bottom:15px;
+    }
+
+    .submenu a{
+      background:#111722;
+      font-size:14px;
+      padding:10px 14px;
+    }
+
+    /* MAIN */
+
+    .main{
+      margin-left:280px;
+      width:calc(100% - 280px);
+      padding:40px;
+    }
+
+    /* HERO */
+
+    .hero{
+      background:linear-gradient(135deg,#171d2b,#10151f);
+      border:1px solid #232d40;
+      border-radius:24px;
+      padding:50px;
+      margin-bottom:35px;
+    }
+
+    .hero h2{
+      font-size:42px;
+      margin-bottom:15px;
+      color:#00d9ff;
+    }
+
+    .hero p{
+      color:#aeb7c4;
+      font-size:18px;
+      max-width:800px;
+      line-height:1.8;
+    }
+
+    /* GRID */
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:25px;
+    }
+
+    /* CARD */
+
+    .card{
+      background:#171d29;
+      border:1px solid #232d40;
+      border-radius:20px;
+      overflow:hidden;
+      transition:0.25s;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:#00d9ff;
+      box-shadow:0 0 20px #00d9ff22;
+    }
+
+    .card img{
+      width:100%;
+      display:block;
+    }
+
+    .card-body{
+      padding:24px;
+    }
+
+    .card-body h3{
+      font-size:24px;
+      margin-bottom:12px;
+    }
+
+    .card-body p{
+      color:#aab4c0;
+      line-height:1.7;
+      margin-bottom:20px;
+    }
+
+    /* BUTTON */
+
+    .btn{
+      display:inline-block;
+      background:#00d9ff;
+      color:black;
+      text-decoration:none;
+      padding:12px 22px;
+      border-radius:12px;
+      font-weight:bold;
+    }
+
+    .btn:hover{
+      opacity:0.9;
+    }
+
+    /* SECTION */
+
+    .section-title{
+      margin:45px 0 25px;
+      color:#00d9ff;
+      font-size:30px;
+    }
+
+    /* ARTICLE */
+
+    .article{
+      background:#171d29;
+      border:1px solid #232d40;
+      border-radius:18px;
+      padding:28px;
+      margin-bottom:20px;
+    }
+
+    .article h3{
+      margin-bottom:12px;
+      font-size:24px;
+    }
+
+    .article p{
+      color:#aab4c0;
+      line-height:1.8;
+      margin-bottom:18px;
+    }
+
+    /* ACTIVE HTML */
+
+    #activate-content{
+      color:#d0d7e2;
+      line-height:1.8;
+    }
+
+    #activate-content img{
+      max-width:100%;
+      border-radius:12px;
+      margin:15px 0;
+    }
+
+    #activate-content h1,
+    #activate-content h2,
+    #activate-content h3{
+      margin:20px 0 10px;
+      color:#00d9ff;
+    }
+
+    #activate-content p{
+      margin-bottom:15px;
+    }
+
+    /* FOOTER */
+
+    footer{
+      margin-top:50px;
+      padding-top:30px;
+      border-top:1px solid #222b3b;
+      color:#768192;
+      text-align:center;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:900px){
+
+      body{
+        display:block;
+      }
+
+      .sidebar{
+        position:relative;
+        width:100%;
+        border-right:none;
+        border-bottom:1px solid #222b3b;
+      }
+
+      .main{
+        margin-left:0;
+        width:100%;
+        padding:25px;
+      }
+
+      .hero{
+        padding:35px;
+      }
+
+      .hero h2{
+        font-size:32px;
+      }
+
+    }
+
+  </style>
 
 </head>
 
-<body lang=EN-US style='word-wrap:break-word'>
+<body>
 
-<div class=WordSection1>
+  <!-- SIDEBAR -->
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-size:22.0pt;line-height:115%;font-family:"Arial",sans-serif;
-color:red'>HƯỚNG DẪN KÍCH HOẠT</span></b></p>
+  <aside class="sidebar">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:blue'>- Tại giao diện chính, chọn mục Ebook - chọn Active Tool ở dưới
-cùng</span></b></p>
+    <div class="logo">
 
-<p class=MsoNormal style='margin-bottom:0in'><span style='position:absolute;
-z-index:251674624;margin-left:422px;margin-top:1px;width:319px;height:232px'><img
-width=319 height=232 src="activate_files/image001.png" alt=" "></span><span
-style='position:absolute;z-index:251659264;margin-left:220px;margin-top:1px;
-width:42px;height:41px'><img width=42 height=41
-src="activate_files/image002.png"></span><b><span style='font-family:"Arial",sans-serif'><img
-width=282 height=230 id="Picture 1" src="activate_files/image003.png"></span></b><b><span
-style='font-family:"Arial",sans-serif'>                                                 </span></b></p>
+      <!-- LOGO -->
+      <!-- ĐẢM BẢO FILE:
+           images/logo.jpg
+           tồn tại đúng tên -->
 
-<p class=MsoNormal style='margin-bottom:0in'>
+      <img src="images/logo.jpg" alt="MiniApp4All Logo">
 
-<table cellpadding=0 cellspacing=0 align=left>
- <tr>
-  <td width=0 height=161></td>
- </tr>
- <tr>
-  <td></td>
-  <td><img width=295 height=64 src="activate_files/image004.png"></td>
- </tr>
-</table>
+      <h1>MiniApp4All</h1>
 
-<b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <p>
+        Small Tools • Smart Utilities
+      </p>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+    </div>
 
-<br clear=ALL>
+    <div class="menu">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:blue'>- Giao diện nhập Key xuất hiện</span></b></p>
+      <!-- NAVIGATION -->
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <div class="menu-title">Navigation</div>
 
-<p class=MsoNormal style='margin-bottom:0in'>
+      <a href="#home">🏠 Home</a>
 
-<table cellpadding=0 cellspacing=0 align=left>
- <tr>
-  <td width=0 height=7></td>
- </tr>
- <tr>
-  <td></td>
-  <td><img width=333 height=295 src="activate_files/image005.png" alt=" "></td>
- </tr>
-</table>
+      <a href="#tools">🛠 Tools</a>
 
-<b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <a href="#tutorials">📚 Tutorials</a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <a href="#downloads">⬇ Downloads</a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <a href="#about">💡 About</a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <!-- FEATURED TOOLS -->
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <div class="menu-title">Featured Tools</div>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <!-- T2SPP -->
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <a href="#t2spp">
+        🎤 T2SPP
+      </a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <div class="submenu">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <a href="#t2spp-setup">
+          a. Setup
+        </a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <a href="#t2spp-update">
+          b. Update
+        </a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <a href="#t2spp-modules">
+          c. Modules
+        </a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <a href="#t2spp-activate">
+          d. Hướng dẫn kích hoạt Pro
+        </a>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      </div>
 
-<br clear=ALL>
+      <!-- TRANSLATOR -->
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-text-indent:.5in'><b><span style='font-family:"Arial",sans-serif;color:blue'>BẠN
-CÓ THỂ COPPY MÃ GỬI TÁC GIẢ HOẶC CHỤP HÌNH</span></b></p>
+      <a href="#translator">
+        🌍 Realtime Translator
+      </a>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-text-indent:.5in'><b><span style='font-family:"Arial",sans-serif;color:blue'>VÀ
-GỬI TÁC GIẢ</span></b></p>
+      <div class="submenu">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:red'>&nbsp;</span></b></p>
+        <a href="#translator-setup">
+          a. Setup
+        </a>
 
-<b><span style='font-size:14.0pt;line-height:115%;font-family:"Arial",sans-serif;
-color:red'><br clear=all style='page-break-before:always'>
-</span></b>
+        <a href="#translator-update">
+          b. Update
+        </a>
 
-<p class=MsoNormal><b><span style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></b></p>
+      </div>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><span
-style='position:absolute;z-index:251663360;left:0px;margin-left:195px;
-margin-top:28px;width:304px;height:262px'><img width=304 height=262
-src="activate_files/image006.png" alt=" "></span><b><span style='font-family:
-"Arial",sans-serif;color:red'>- ZALO      </span></b><b><span style='font-family:
-"Arial",sans-serif'>                                                                                                                   </span></b></p>
+      <!-- MINI DAWN -->
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <a href="#minidawn">
+        ⚡ Mini Dawn
+      </a>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <div class="submenu">
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <a href="#minidawn-setup">
+          a. Setup
+        </a>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <a href="#minidawn-update">
+          b. Update
+        </a>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      </div>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <!-- LINKS -->
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <div class="menu-title">Links</div>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></b></p>
+      <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">
+        ▶ YouTube
+      </a>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></b></p>
+      <a href="https://facebook.com/" target="_blank">
+        💬 FaceBook
+      </a>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></b></p>
+      <a href="https://github.com/lehieutlhp" target="_blank">
+        🐙 GitHub
+      </a>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></b></p>
+    </div>
 
-<p class=MsoNormal style='margin-bottom:0in;text-indent:.5in'><b><span
-style='font-family:"Arial",sans-serif;color:red'>- MESSENGER</span></b></p>
+  </aside>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+  <!-- MAIN -->
 
-<p class=MsoNormal style='margin-bottom:0in'>
+  <main class="main">
 
-<table cellpadding=0 cellspacing=0 align=left>
- <tr>
-  <td width=201 height=1></td>
- </tr>
- <tr>
-  <td></td>
-  <td><img width=315 height=284 src="activate_files/image007.png" alt=" "></td>
- </tr>
-</table>
+    <!-- HERO -->
 
-<b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+    <section class="hero" id="home">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <h2>
+        Lightweight Apps For Everyday Use
+      </h2>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <p>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        MiniApp4All is a collection of lightweight utilities,
+        AI tools, subtitle helpers, realtime translation software
+        and practical Windows tools designed for speed,
+        simplicity and real-world usage.
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      </p>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+    </section>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+    <!-- TOOLS -->
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+    <h2 class="section-title" id="tools">
+      Featured Tools
+    </h2>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+    <div class="content-grid">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <!-- T2SPP -->
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      <div class="card" id="t2spp">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <img src="images/t2spp.png" alt="T2SPP">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+        <div class="card-body">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:blue'>&nbsp;</span></b></p>
+          <h3>T2SPP</h3>
 
-<br clear=ALL>
+          <p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-family:"Arial",sans-serif;color:blue'>TÁC GIẢ SẼ GỬI KEY THỦ CÔNG TỚI
-BẠN</span></b></p>
+            Ứng dụng chuyển văn bản sang giọng nói
+            nhanh, nhẹ, tiện dụng, hoàn toàn offline.
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-family:"Arial",sans-serif;color:blue'>CHỈ CẦN COPPY VÀ DÁN VÀO
-KHUNG NHẬP KEY</span></b></p>
+          </p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-family:"Arial",sans-serif;color:#00B0F0'>&nbsp;</span></b></p>
+          <a class="btn"
+             href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
+             target="_blank">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-size:22.0pt;
-line-height:115%;font-family:"Arial",sans-serif;color:red'>CHI PHÍ KÍCH HOẠT LÀ:
-                  250.000 VNĐ </span></b></p>
+            Download
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:red'>&nbsp;</span></b></p>
+          </a>
 
-<b><span style='font-size:14.0pt;line-height:115%;font-family:"Arial",sans-serif'><br
-clear=all style='page-break-before:always'>
-</span></b>
+        </div>
 
-<p class=MsoNormal><b><span style='font-family:"Arial",sans-serif'>&nbsp;</span></b></p>
+      </div>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-family:"Arial",sans-serif;color:blue'>CHUYỂN KHOẢN TRỰC TIẾP QUA 1
-TRONG 2 NGÂN HÀNG</span></b></p>
+      <!-- TRANSLATOR -->
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:red'>&nbsp;</span></b></p>
+      <div class="card" id="translator">
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:red'>- MB BANK                                                                            -
-VP BANK</span></b></p>
+        <img src="images/translator.png" alt="Translator">
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><span
-style='position:relative;z-index:251670528;left:-40px;top:24px;width:713px;
-height:446px'>
+        <div class="card-body">
 
-<table cellpadding=0 cellspacing=0 align=left>
- <tr>
-  <td width=0 height=0></td>
-  <td width=272></td>
-  <td width=158></td>
-  <td width=283></td>
- </tr>
- <tr>
-  <td height=1></td>
-  <td colspan=2></td>
-  <td rowspan=2 align=left valign=top><img width=283 height=411
-  src="activate_files/image008.png" alt=" "></td>
- </tr>
- <tr>
-  <td height=410></td>
-  <td rowspan=2 align=left valign=top><img width=272 height=421
-  src="activate_files/image009.png" alt=" "></td>
- </tr>
- <tr>
-  <td height=11></td>
- </tr>
-</table>
+          <h3>Realtime Translator</h3>
 
-</span><b><i><span style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+          <p>
+            ĐANG PHÁT TRIỂN
+          </p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+          <a class="btn" href="#">
+            Download
+          </a>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+        </div>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+      </div>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+      <!-- MINI DAWN -->
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+      <div class="card" id="minidawn">
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+        <img src="images/minidawn.png" alt="Mini Dawn">
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+        <div class="card-body">
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+          <h3>Mini Dawn</h3>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+          <p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+            Cắt ghép âm thanh chuyên nghiệp,
+            trực quan và siêu tốc.
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+          </p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+          <a class="btn" href="#">
+            Download
+          </a>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+        </div>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+      </div>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+    </div>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+    <!-- T2SPP DETAIL -->
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+    <h2 class="section-title">
+      T2SPP
+    </h2>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>&nbsp;</span></i></b></p>
+    <!-- SETUP -->
 
-<br clear=ALL>
+    <div class="article" id="t2spp-setup">
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>Vui lòng gửi kèm ảnh chụp biên
-lai và mã HWID (hoặc ảnh QR)</span></i></b></p>
+      <h3>a. Setup</h3>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><i><span
-style='font-family:"Arial",sans-serif;color:red'>để nhận Key kích hoạt</span></i></b></p>
+      <p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-family:"Arial",sans-serif;color:blue'>Thời gian phản hồi và cấp key
-thông thường từ 10-30 phút</span></b></p>
+        Download T2SPP.7z,
+        giải nén và chạy trực tiếp file T2SPP.exe
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span
-style='font-family:"Arial",sans-serif;color:blue'>trong giờ hành chính</span></b></p>
+      </p>
 
-<p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'>
+      <p>
 
-<table cellpadding=0 cellspacing=0 align=left>
- <tr>
-  <td width=73 height=1></td>
- </tr>
- <tr>
-  <td></td>
-  <td><img width=567 height=76 src="activate_files/image010.png"
-  alt="TRÂN TRỌNG CẢM ƠN!"></td>
- </tr>
-</table>
+        Recommended:
+        Máy tính có cài WinRAR.
 
-<b><span style='font-family:"Arial",sans-serif;color:#0070C0'>&nbsp;</span></b></p>
+      </p>
 
-<p class=MsoNormal style='margin-bottom:0in'><b><span style='font-family:"Arial",sans-serif;
-color:#0070C0'>&nbsp;</span></b></p>
+      <a class="btn"
+         href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
+         target="_blank">
 
-</div>
+        Download Setup
+
+      </a>
+
+    </div>
+
+    <!-- UPDATE -->
+
+    <div class="article" id="t2spp-update">
+
+      <h3>b. Update</h3>
+
+      <p>
+
+        Latest update package for T2SPP.
+
+      </p>
+
+      <p>
+
+        Current Version:
+        v1.2.0
+
+      </p>
+
+      <a class="btn"
+         href="https://drive.google.com/file/d/1vQR8qAD9Kyd-_qk6EcaTjUiICNR37-Uj/view?usp=drive_link"
+         target="_blank">
+
+        Download Update
+
+      </a>
+
+    </div>
+
+    <!-- MODULES -->
+
+    <div class="article" id="t2spp-modules">
+
+      <h3>c. Modules</h3>
+
+      <p>
+
+        Chép models vào:
+
+        <br><br>
+
+        C:/Tools/Text To Speech/models
+
+      </p>
+
+      <a class="btn"
+         href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link"
+         target="_blank">
+
+        Download Modules
+
+      </a>
+
+    </div>
+
+    <!-- ACTIVATION GUIDE -->
+
+    <div class="article" id="t2spp-activate">
+
+      <h3>
+        d. Hướng dẫn kích hoạt Pro
+      </h3>
+
+      <div id="activate-content">
+
+        Loading guide...
+
+      </div>
+
+    </div>
+
+    <!-- LOAD HTML -->
+
+    <script>
+
+      fetch('./posts/activate.html')
+
+        .then(function(response){
+
+          if(!response.ok){
+            throw new Error('File not found');
+          }
+
+          return response.text();
+
+        })
+
+        .then(function(data){
+
+          document.getElementById('activate-content').innerHTML = data;
+
+        })
+
+        .catch(function(error){
+
+          document.getElementById('activate-content').innerHTML =
+          '<p>Cannot load activation guide.</p>';
+
+          console.error(error);
+
+        });
+
+    </script>
+
+    <!-- TRANSLATOR -->
+
+    <h2 class="section-title">
+      Realtime Translator
+    </h2>
+
+    <div class="article" id="translator-setup">
+
+      <h3>a. Setup</h3>
+
+      <p>
+        Install realtime translator package.
+      </p>
+
+    </div>
+
+    <div class="article" id="translator-update">
+
+      <h3>b. Update</h3>
+
+      <p>
+        Latest experimental build.
+      </p>
+
+    </div>
+
+    <!-- MINI DAWN -->
+
+    <h2 class="section-title">
+      Mini Dawn
+    </h2>
+
+    <div class="article" id="minidawn-setup">
+
+      <h3>a. Setup</h3>
+
+      <p>
+        Install Mini Dawn package.
+      </p>
+
+    </div>
+
+    <div class="article" id="minidawn-update">
+
+      <h3>b. Update</h3>
+
+      <p>
+        Latest Mini Dawn update package.
+      </p>
+
+    </div>
+
+    <!-- TUTORIALS -->
+
+    <h2 class="section-title" id="tutorials">
+      Tutorials & Tips
+    </h2>
+
+    <div class="article">
+
+      <h3>
+        Fix IDM Not Detecting Videos
+      </h3>
+
+      <p>
+
+        Learn how to capture hidden media streams,
+        troubleshoot browser extensions and detect
+        video requests more effectively.
+
+      </p>
+
+    </div>
+
+    <!-- DOWNLOADS -->
+
+    <h2 class="section-title" id="downloads">
+      Downloads
+    </h2>
+
+    <div class="article">
+
+      <h3>
+        Download Center
+      </h3>
+
+      <p>
+
+        T2SPP :
+        <a href="https://drive.google.com/" target="_blank">
+          Google Drive
+        </a>
+
+      </p>
+
+    </div>
+
+    <!-- ABOUT -->
+
+    <h2 class="section-title" id="about">
+      About
+    </h2>
+
+    <div class="article">
+
+      <p>
+
+        MiniApp4All focuses on lightweight,
+        fast and practical tools for everyday use.
+
+      </p>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+      MiniApp4All © 2026
+
+    </footer>
+
+  </main>
 
 </body>
 
