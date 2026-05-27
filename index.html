@@ -1,769 +1,531 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>MiniApp4All</title>
-
   <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body{
-      background:#0f1117;
-      color:white;
-      font-family:Arial, Helvetica, sans-serif;
-      display:flex;
-      min-height:100vh;
+    body {
+      background: #0f1117;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
     /* SIDEBAR */
-
-    .sidebar{
-      width:280px;
-      background:#151a24;
-      border-right:1px solid #222b3b;
-      padding:25px;
-      position:fixed;
-      left:0;
-      top:0;
-      bottom:0;
-      overflow-y:auto;
+    .sidebar {
+      width: 280px;
+      background: #151a24;
+      border-right: 1px solid #222b3b;
+      padding: 25px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
     }
 
-    .logo{
-      text-align:center;
-      margin-bottom:30px;
+    /* Tùy chỉnh thanh cuộn cho sidebar */
+    .sidebar::-webkit-scrollbar { width: 6px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #222b3b; border-radius: 10px; }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
     }
 
-    .logo img{
-      width:120px;
-      height:120px;
-      object-fit:cover;
-      border-radius:25px;
-      box-shadow:0 0 25px #00d9ff44;
-      margin-bottom:15px;
+    .logo img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 25px;
+      box-shadow: 0 0 25px #00d9ff44;
+      margin-bottom: 15px;
     }
 
-    .logo h1{
-      color:#00d9ff;
-      font-size:28px;
-      margin-bottom:8px;
+    .logo h1 {
+      color: #00d9ff;
+      font-size: 28px;
+      margin-bottom: 8px;
     }
 
-    .logo p{
-      color:#98a3b3;
-      font-size:14px;
+    .logo p {
+      color: #98a3b3;
+      font-size: 14px;
     }
 
     /* MENU */
-
-    .menu-title{
-      color:#00d9ff;
-      margin:25px 0 12px;
-      font-size:15px;
-      text-transform:uppercase;
-      letter-spacing:1px;
+    .menu-title {
+      color: #00d9ff;
+      margin: 25px 0 12px;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    .menu a{
-      display:block;
-      padding:14px 16px;
-      background:#1b2230;
-      color:white;
-      text-decoration:none;
-      border-radius:12px;
-      margin-bottom:12px;
-      transition:0.2s;
-      border:1px solid transparent;
+    .menu a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 16px;
+      background: #1b2230;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
     }
 
-    .menu a:hover{
-      border-color:#00d9ff;
-      transform:translateX(4px);
-      background:#20293a;
+    .menu a:hover, .menu a.active-link {
+      border-color: #00d9ff;
+      background: #20293a;
+      transform: translateX(4px);
     }
 
-    /* SUBMENU */
-
-    .submenu{
-      margin-left:20px;
-      margin-bottom:15px;
+    /* SUBMENU (Ẩn mặc định) */
+    .submenu {
+      margin-left: 20px;
+      margin-bottom: 15px;
+      display: none; /* Ẩn đi */
+      animation: slideDown 0.3s ease;
     }
 
-    .submenu a{
-      background:#111722;
-      font-size:14px;
-      padding:10px 14px;
+    .submenu.open {
+      display: block; /* Hiện ra khi có class open */
+    }
+
+    .submenu a {
+      background: #111722;
+      font-size: 14px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+    }
+
+    .arrow {
+      font-size: 10px;
+      transition: transform 0.3s ease;
+    }
+    
+    .menu a.menu-open .arrow {
+      transform: rotate(180deg);
+      color: #00d9ff;
     }
 
     /* MAIN */
+    .main {
+      margin-left: 280px;
+      width: calc(100% - 280px);
+      padding: 40px;
+    }
 
-    .main{
-      margin-left:280px;
-      width:calc(100% - 280px);
-      padding:40px;
+    /* QUẢN LÝ HIỂN THỊ CÁC SECTION (Tính năng mới) */
+    .view-section {
+      display: none; /* Ẩn tất cả nội dung mặc định */
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .view-section.active-view {
+      display: block; /* Chỉ hiện section được chọn */
     }
 
     /* HERO */
-
-    .hero{
-      background:linear-gradient(135deg,#171d2b,#10151f);
-      border:1px solid #232d40;
-      border-radius:24px;
-      padding:50px;
-      margin-bottom:35px;
+    .hero {
+      background: linear-gradient(135deg, #171d2b, #10151f);
+      border: 1px solid #232d40;
+      border-radius: 24px;
+      padding: 50px;
+      margin-bottom: 35px;
     }
 
-    .hero h2{
-      font-size:42px;
-      margin-bottom:15px;
-      color:#00d9ff;
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 15px;
+      color: #00d9ff;
     }
 
-    .hero p{
-      color:#aeb7c4;
-      font-size:18px;
-      max-width:800px;
-      line-height:1.8;
+    .hero p {
+      color: #aeb7c4;
+      font-size: 18px;
+      max-width: 800px;
+      line-height: 1.8;
     }
 
     /* GRID */
-
-    .content-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:25px;
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
     }
 
     /* CARD */
-
-    .card{
-      background:#171d29;
-      border:1px solid #232d40;
-      border-radius:20px;
-      overflow:hidden;
-      transition:0.25s;
+    .card {
+      background: #171d29;
+      border: 1px solid #232d40;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: 0.25s;
     }
 
-    .card:hover{
-      transform:translateY(-6px);
-      border-color:#00d9ff;
-      box-shadow:0 0 20px #00d9ff22;
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #00d9ff;
+      box-shadow: 0 0 20px #00d9ff22;
     }
 
-    .card img{
-      width:100%;
-      display:block;
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
     }
 
-    .card-body{
-      padding:24px;
+    .card-body {
+      padding: 24px;
     }
 
-    .card-body h3{
-      font-size:24px;
-      margin-bottom:12px;
+    .card-body h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
     }
 
-    .card-body p{
-      color:#aab4c0;
-      line-height:1.7;
-      margin-bottom:20px;
+    .card-body p {
+      color: #aab4c0;
+      line-height: 1.7;
+      margin-bottom: 20px;
     }
 
     /* BUTTON */
-
-    .btn{
-      display:inline-block;
-      background:#00d9ff;
-      color:black;
-      text-decoration:none;
-      padding:12px 22px;
-      border-radius:12px;
-      font-weight:bold;
+    .btn {
+      display: inline-block;
+      background: #00d9ff;
+      color: black;
+      text-decoration: none;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: 0.2s;
     }
 
-    .btn:hover{
-      opacity:0.9;
-    }
-
-    /* SECTION */
-
-    .section-title{
-      margin:45px 0 25px;
-      color:#00d9ff;
-      font-size:30px;
+    .btn:hover {
+      opacity: 0.9;
+      box-shadow: 0 0 10px #00d9ff88;
     }
 
     /* ARTICLE */
-
-    .article{
-      background:#171d29;
-      border:1px solid #232d40;
-      border-radius:18px;
-      padding:28px;
-      margin-bottom:20px;
+    .section-title {
+      margin: 0 0 25px;
+      color: #00d9ff;
+      font-size: 30px;
     }
 
-    .article h3{
-      margin-bottom:12px;
-      font-size:24px;
+    .article {
+      background: #171d29;
+      border: 1px solid #232d40;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 20px;
     }
 
-    .article p{
-      color:#aab4c0;
-      line-height:1.8;
-      margin-bottom:18px;
+    .article h3 {
+      margin-bottom: 12px;
+      font-size: 24px;
+      color: white;
     }
 
-    /* ACTIVE HTML */
-
-    #activate-content{
-      color:#d0d7e2;
-      line-height:1.8;
-    }
-
-    #activate-content img{
-      max-width:100%;
-      border-radius:12px;
-      margin:15px 0;
-    }
-
-    #activate-content h1,
-    #activate-content h2,
-    #activate-content h3{
-      margin:20px 0 10px;
-      color:#00d9ff;
-    }
-
-    #activate-content p{
-      margin-bottom:15px;
+    .article p {
+      color: #aab4c0;
+      line-height: 1.8;
+      margin-bottom: 18px;
     }
 
     /* FOOTER */
+    footer {
+      margin-top: 50px;
+      padding-top: 30px;
+      border-top: 1px solid #222b3b;
+      color: #768192;
+      text-align: center;
+    }
 
-    footer{
-      margin-top:50px;
-      padding-top:30px;
-      border-top:1px solid #222b3b;
-      color:#768192;
-      text-align:center;
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* MOBILE */
-
     @media(max-width:900px){
-
-      body{
-        display:block;
-      }
-
-      .sidebar{
-        position:relative;
-        width:100%;
-        border-right:none;
-        border-bottom:1px solid #222b3b;
-      }
-
-      .main{
-        margin-left:0;
-        width:100%;
-        padding:25px;
-      }
-
-      .hero{
-        padding:35px;
-      }
-
-      .hero h2{
-        font-size:32px;
-      }
-
+      body { display: block; }
+      .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222b3b; }
+      .main { margin-left: 0; width: 100%; padding: 25px; }
+      .hero { padding: 35px; }
+      .hero h2 { font-size: 32px; }
     }
-
   </style>
-
 </head>
 
 <body>
 
-  <!-- SIDEBAR -->
-
   <aside class="sidebar">
-
     <div class="logo">
-
-      <!-- LOGO -->
-      <!-- ĐẢM BẢO FILE:
-           images/logo.jpg
-           tồn tại đúng tên -->
-
-      <img src="images/Logo.jpg" alt="MiniApp4All Logo">
-
+      <img src="images/Logo.jpg" alt="MiniApp4All Logo" onerror="this.src='https://via.placeholder.dcom/120/151a24/00d9ff?text=Logo'">
       <h1>MiniApp4All</h1>
-
-      <p>
-        Small Tools • Smart Utilities
-      </p>
-
+      <p>Small Tools • Smart Utilities</p>
     </div>
 
     <div class="menu">
-
-      <!-- NAVIGATION -->
-
       <div class="menu-title">Navigation</div>
-
-      <a href="#home">🏠 Home</a>
-
-      <a href="#tools">🛠 Tools</a>
-
-      <a href="#tutorials">📚 Tutorials</a>
-
-      <a href="#downloads">⬇ Downloads</a>
-
-      <a href="#about">💡 About</a>
-
-      <!-- FEATURED TOOLS -->
+      <a class="nav-btn active-link" data-target="view-home">🏠 Home</a>
+      <a class="nav-btn" data-target="view-tools">🛠 Tools Overview</a>
+      <a class="nav-btn" data-target="view-tutorials">📚 Tutorials</a>
+      <a class="nav-btn" data-target="view-downloads">⬇ Downloads</a>
+      <a class="nav-btn" data-target="view-about">💡 About</a>
 
       <div class="menu-title">Featured Tools</div>
 
-      <!-- T2SPP -->
-
-      <a href="#t2spp">
-        🎤 T2SPP
+      <a class="toggle-submenu" data-menu="submenu-t2spp">
+        <span>🎤 T2SPP</span> <span class="arrow">▼</span>
       </a>
-
-      <div class="submenu">
-
-        <a href="#t2spp-setup">
-          a. Setup
-        </a>
-
-        <a href="#t2spp-update">
-          b. Update
-        </a>
-
-        <a href="#t2spp-modules">
-          c. Modules
-        </a>
-
-        <a href="#t2spp-activate">
-          d. Hướng dẫn kích hoạt Pro
-        </a>
-
+      <div class="submenu" id="submenu-t2spp">
+        <a class="nav-btn" data-target="view-t2spp-setup">a. Setup</a>
+        <a class="nav-btn" data-target="view-t2spp-update">b. Update</a>
+        <a class="nav-btn" data-target="view-t2spp-modules">c. Modules</a>
+        <a class="nav-btn" data-target="view-t2spp-activate">d. Kích hoạt Pro</a>
       </div>
 
-      <!-- TRANSLATOR -->
-
-      <a href="#translator">
-        🌍 Realtime Translator
+      <a class="toggle-submenu" data-menu="submenu-translator">
+        <span>🌍 Realtime Translator</span> <span class="arrow">▼</span>
       </a>
-
-      <div class="submenu">
-
-        <a href="#translator-setup">
-          a. Setup
-        </a>
-
-        <a href="#translator-update">
-          b. Update
-        </a>
-
+      <div class="submenu" id="submenu-translator">
+        <a class="nav-btn" data-target="view-translator-setup">a. Setup</a>
+        <a class="nav-btn" data-target="view-translator-update">b. Update</a>
       </div>
 
-      <!-- MINI DAWN -->
-
-      <a href="#minidawn">
-        ⚡ Mini Dawn
+      <a class="toggle-submenu" data-menu="submenu-minidawn">
+        <span>⚡ Mini Dawn</span> <span class="arrow">▼</span>
       </a>
-
-      <div class="submenu">
-
-        <a href="#minidawn-setup">
-          a. Setup
-        </a>
-
-        <a href="#minidawn-update">
-          b. Update
-        </a>
-
+      <div class="submenu" id="submenu-minidawn">
+        <a class="nav-btn" data-target="view-minidawn-setup">a. Setup</a>
+        <a class="nav-btn" data-target="view-minidawn-update">b. Update</a>
       </div>
-
-      <!-- LINKS -->
 
       <div class="menu-title">Links</div>
-
-      <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">
-        ▶ YouTube
-      </a>
-
-      <a href="https://facebook.com/" target="_blank">
-        💬 FaceBook
-      </a>
-
-      <a href="https://github.com/lehieutlhp" target="_blank">
-        🐙 GitHub
-      </a>
-
+      <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">▶ YouTube</a>
+      <a href="https://facebook.com/" target="_blank">💬 FaceBook</a>
+      <a href="https://github.com/lehieutlhp" target="_blank">🐙 GitHub</a>
     </div>
-
   </aside>
-
-  <!-- MAIN -->
 
   <main class="main">
 
-    <!-- HERO -->
-
-    <section class="hero" id="home">
-
-      <h2>
-        Lightweight Apps For Everyday Use
-      </h2>
-
-      <p>
-
-        MiniApp4All is a collection of lightweight utilities,
-        AI tools, subtitle helpers, realtime translation software
-        and practical Windows tools designed for speed,
-        simplicity and real-world usage.
-
-      </p>
-
-    </section>
-
-    <!-- TOOLS -->
-
-    <h2 class="section-title" id="tools">
-      Featured Tools
-    </h2>
-
-    <div class="content-grid">
-
-      <!-- T2SPP -->
-
-      <div class="card" id="t2spp">
-
-        <img src="images/t2spp.png" alt="T2SPP">
-
-        <div class="card-body">
-
-          <h3>T2SPP</h3>
-
-          <p>
-
-            Ứng dụng chuyển văn bản sang giọng nói
-            nhanh, nhẹ, tiện dụng, hoàn toàn offline.
-
-          </p>
-
-          <a class="btn"
-             href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
-             target="_blank">
-
-            Download
-
-          </a>
-
+    <div id="view-home" class="view-section active-view">
+      <section class="hero">
+        <h2>Lightweight Apps For Everyday Use</h2>
+        <p>MiniApp4All is a collection of lightweight utilities, AI tools, subtitle helpers, realtime translation software and practical Windows tools designed for speed, simplicity and real-world usage.</p>
+      </section>
+      
+      <h2 class="section-title">Quick Access</h2>
+      <div class="content-grid">
+        <div class="card">
+          <img src="images/t2spp.png" alt="T2SPP" onerror="this.src='https://via.placeholder.com/300x180/1b2230/00d9ff?text=T2SPP'">
+          <div class="card-body">
+            <h3>T2SPP</h3>
+            <p>Ứng dụng chuyển văn bản sang giọng nói nhanh, nhẹ, hoàn toàn offline.</p>
+            <a class="btn nav-btn" data-target="view-t2spp-setup">Go to Setup</a>
+          </div>
         </div>
-
       </div>
+    </div>
 
-      <!-- TRANSLATOR -->
-
-      <div class="card" id="translator">
-
-        <img src="images/translator.png" alt="Translator">
-
-        <div class="card-body">
-
-          <h3>Realtime Translator</h3>
-
-          <p>
-            ĐANG PHÁT TRIỂN
-          </p>
-
-          <a class="btn" href="#">
-            Download
-          </a>
-
+    <div id="view-tools" class="view-section">
+      <h2 class="section-title">All Featured Tools</h2>
+      <div class="content-grid">
+        <div class="card">
+          <img src="images/t2spp.png" alt="T2SPP" onerror="this.src='https://via.placeholder.com/300x180/1b2230/00d9ff?text=T2SPP'">
+          <div class="card-body">
+            <h3>T2SPP</h3>
+            <p>Ứng dụng chuyển văn bản sang giọng nói nhanh, nhẹ, tiện dụng, hoàn toàn offline.</p>
+            <a class="btn nav-btn" data-target="view-t2spp-setup">Details</a>
+          </div>
         </div>
-
-      </div>
-
-      <!-- MINI DAWN -->
-
-      <div class="card" id="minidawn">
-
-        <img src="images/minidawn.png" alt="Mini Dawn">
-
-        <div class="card-body">
-
-          <h3>Mini Dawn</h3>
-
-          <p>
-
-            Cắt ghép âm thanh chuyên nghiệp,
-            trực quan và siêu tốc.
-
-          </p>
-
-          <a class="btn" href="#">
-            Download
-          </a>
-
+        <div class="card">
+          <img src="images/translator.png" alt="Translator" onerror="this.src='https://via.placeholder.com/300x180/1b2230/00d9ff?text=Translator'">
+          <div class="card-body">
+            <h3>Realtime Translator</h3>
+            <p>ĐANG PHÁT TRIỂN</p>
+            <a class="btn nav-btn" data-target="view-translator-setup">Details</a>
+          </div>
         </div>
-
+        <div class="card">
+          <img src="images/minidawn.png" alt="Mini Dawn" onerror="this.src='https://via.placeholder.com/300x180/1b2230/00d9ff?text=Mini+Dawn'">
+          <div class="card-body">
+            <h3>Mini Dawn</h3>
+            <p>Cắt ghép âm thanh chuyên nghiệp, trực quan và siêu tốc.</p>
+            <a class="btn nav-btn" data-target="view-minidawn-setup">Details</a>
+          </div>
+        </div>
       </div>
-
     </div>
 
-    <!-- T2SPP DETAIL -->
-
-    <h2 class="section-title">
-      T2SPP
-    </h2>
-
-    <!-- SETUP -->
-
-    <div class="article" id="t2spp-setup">
-
-      <h3>a. Setup</h3>
-
-      <p>
-
-        Download T2SPP.7z,
-        giải nén và chạy trực tiếp file T2SPP.exe
-
-      </p>
-
-      <p>
-
-        Recommended:
-        Máy tính có cài WinRAR.
-
-      </p>
-
-      <a class="btn"
-         href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
-         target="_blank">
-
-        Download Setup
-
-      </a>
-
+    <div id="view-t2spp-setup" class="view-section">
+      <h2 class="section-title">T2SPP > Setup</h2>
+      <div class="article">
+        <h3>Installation Guide</h3>
+        <p>Download T2SPP.7z, giải nén và chạy trực tiếp file <b>T2SPP.exe</b></p>
+        <p><i>Recommended: Máy tính có cài WinRAR.</i></p>
+        <a class="btn" href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link" target="_blank">Download Setup</a>
+      </div>
     </div>
 
-    <!-- UPDATE -->
-
-    <div class="article" id="t2spp-update">
-
-      <h3>b. Update</h3>
-
-      <p>
-
-        Latest update package for T2SPP.
-
-      </p>
-
-      <p>
-
-        Current Version:
-        v1.2.0
-
-      </p>
-
-      <a class="btn"
-         href="https://drive.google.com/file/d/1vQR8qAD9Kyd-_qk6EcaTjUiICNR37-Uj/view?usp=drive_link"
-         target="_blank">
-
-        Download Update
-
-      </a>
-
+    <div id="view-t2spp-update" class="view-section">
+      <h2 class="section-title">T2SPP > Update</h2>
+      <div class="article">
+        <h3>Latest Release</h3>
+        <p>Latest update package for T2SPP.<br>Current Version: <b>v1.2.0</b></p>
+        <a class="btn" href="https://drive.google.com/file/d/1vQR8qAD9Kyd-_qk6EcaTjUiICNR37-Uj/view?usp=drive_link" target="_blank">Download Update</a>
+      </div>
     </div>
 
-    <!-- MODULES -->
-
-    <div class="article" id="t2spp-modules">
-
-      <h3>c. Modules</h3>
-
-      <p>
-
-        Chép models vào:
-
-        <br><br>
-
-        C:/Tools/Text To Speech/models
-
-      </p>
-
-      <a class="btn"
-         href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link"
-         target="_blank">
-
-        Download Modules
-
-      </a>
-
+    <div id="view-t2spp-modules" class="view-section">
+      <h2 class="section-title">T2SPP > Modules</h2>
+      <div class="article">
+        <h3>Additional Modules</h3>
+        <p>Chép models vào đường dẫn sau:<br><br><code>C:/Tools/Text To Speech/models</code></p>
+        <a class="btn" href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link" target="_blank">Download Modules</a>
+      </div>
     </div>
 
-    <!-- ACTIVATION GUIDE -->
-
-    <div class="article" id="t2spp-activate">
-
-      <h3>
-        d. Hướng dẫn kích hoạt Pro
-      </h3>
-	  
-	  <p>
-	    Hướng dẫn kích hoạt đầy đủ bằng hình ảnh.
-	  </p>
-	  
-	  <a class="btn"
-	    href="posts/activate.html"
-		target="_blank">
-		
-		Open Guide
-		
-	  </a>
-	  
-	</div>
-	  
-    <!-- TRANSLATOR -->
-
-    <h2 class="section-title">
-      Realtime Translator
-    </h2>
-
-    <div class="article" id="translator-setup">
-
-      <h3>a. Setup</h3>
-
-      <p>
-        Install realtime translator package.
-      </p>
-
+    <div id="view-t2spp-activate" class="view-section">
+      <h2 class="section-title">T2SPP > Activation</h2>
+      <div class="article">
+        <h3>Hướng dẫn kích hoạt Pro</h3>
+        <p>Hướng dẫn kích hoạt đầy đủ bằng hình ảnh.</p>
+        <a class="btn" href="post/activate.html" target="_blank">Mở hướng dẫn chi tiết</a>
+      </div>
     </div>
 
-    <div class="article" id="translator-update">
-
-      <h3>b. Update</h3>
-
-      <p>
-        Latest experimental build.
-      </p>
-
+    <div id="view-translator-setup" class="view-section">
+      <h2 class="section-title">Translator > Setup</h2>
+      <div class="article"><h3>Setup</h3><p>Install realtime translator package.</p></div>
+    </div>
+    
+    <div id="view-translator-update" class="view-section">
+      <h2 class="section-title">Translator > Update</h2>
+      <div class="article"><h3>Update</h3><p>Latest experimental build.</p></div>
     </div>
 
-    <!-- MINI DAWN -->
-
-    <h2 class="section-title">
-      Mini Dawn
-    </h2>
-
-    <div class="article" id="minidawn-setup">
-
-      <h3>a. Setup</h3>
-
-      <p>
-        Install Mini Dawn package.
-      </p>
-
+    <div id="view-minidawn-setup" class="view-section">
+      <h2 class="section-title">Mini Dawn > Setup</h2>
+      <div class="article"><h3>Setup</h3><p>Install Mini Dawn package.</p></div>
+    </div>
+    
+    <div id="view-minidawn-update" class="view-section">
+      <h2 class="section-title">Mini Dawn > Update</h2>
+      <div class="article"><h3>Update</h3><p>Latest Mini Dawn update package.</p></div>
     </div>
 
-    <div class="article" id="minidawn-update">
-
-      <h3>b. Update</h3>
-
-      <p>
-        Latest Mini Dawn update package.
-      </p>
-
+    <div id="view-tutorials" class="view-section">
+      <h2 class="section-title">Tutorials & Tips</h2>
+      <div class="article">
+        <h3>Fix IDM Not Detecting Videos</h3>
+        <p>Learn how to capture hidden media streams, troubleshoot browser extensions and detect video requests more effectively.</p>
+      </div>
     </div>
 
-    <!-- TUTORIALS -->
-
-    <h2 class="section-title" id="tutorials">
-      Tutorials & Tips
-    </h2>
-
-    <div class="article">
-
-      <h3>
-        Fix IDM Not Detecting Videos
-      </h3>
-
-      <p>
-
-        Learn how to capture hidden media streams,
-        troubleshoot browser extensions and detect
-        video requests more effectively.
-
-      </p>
-
+    <div id="view-downloads" class="view-section">
+      <h2 class="section-title">Downloads Center</h2>
+      <div class="article">
+        <h3>All Files</h3>
+        <p>T2SPP : <a href="https://drive.google.com/" target="_blank" style="color:#00d9ff;">Google Drive</a></p>
+      </div>
     </div>
 
-    <!-- DOWNLOADS -->
-
-    <h2 class="section-title" id="downloads">
-      Downloads
-    </h2>
-
-    <div class="article">
-
-      <h3>
-        Download Center
-      </h3>
-
-      <p>
-
-        T2SPP :
-        <a href="https://drive.google.com/" target="_blank">
-          Google Drive
-        </a>
-
-      </p>
-
+    <div id="view-about" class="view-section">
+      <h2 class="section-title">About Us</h2>
+      <div class="article">
+        <p>MiniApp4All focuses on lightweight, fast and practical tools for everyday use.</p>
+      </div>
     </div>
-
-    <!-- ABOUT -->
-
-    <h2 class="section-title" id="about">
-      About
-    </h2>
-
-    <div class="article">
-
-      <p>
-
-        MiniApp4All focuses on lightweight,
-        fast and practical tools for everyday use.
-
-      </p>
-
-    </div>
-
-    <!-- FOOTER -->
 
     <footer>
-
       MiniApp4All © 2026
-
     </footer>
 
   </main>
 
-</body>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      
+      // 1. CHỨC NĂNG ẨN/HIỆN SUBMENU KHI CLICK (ACCORDION)
+      const submenuToggles = document.querySelectorAll('.toggle-submenu');
+      
+      submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', function() {
+          const targetMenuId = this.getAttribute('data-menu');
+          const targetMenu = document.getElementById(targetMenuId);
+          
+          // Đóng tất cả các menu khác (Nếu bạn muốn mở nhiều menu cùng lúc thì xoá khối if này đi)
+          document.querySelectorAll('.submenu').forEach(menu => {
+            if (menu.id !== targetMenuId) {
+              menu.classList.remove('open');
+            }
+          });
+          document.querySelectorAll('.toggle-submenu').forEach(btn => {
+            if (btn !== this) {
+              btn.classList.remove('menu-open');
+            }
+          });
 
+          // Bật/tắt menu hiện tại
+          targetMenu.classList.toggle('open');
+          this.classList.toggle('menu-open');
+        });
+      });
+
+
+      // 2. CHỨC NĂNG CHUYỂN TRANG (SINGLE PAGE APPLICATION)
+      const navButtons = document.querySelectorAll('.nav-btn');
+      const viewSections = document.querySelectorAll('.view-section');
+
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          // Xóa class active ở tất cả các nút bấm trên menu
+          navButtons.forEach(b => b.classList.remove('active-link'));
+          
+          // Thêm class active cho nút vừa được bấm
+          this.classList.add('active-link');
+
+          // Ẩn tất cả các view section bên phải
+          viewSections.forEach(section => {
+            section.classList.remove('active-view');
+          });
+
+          // Lấy ID của view cần hiển thị và cho nó hiện lên
+          const targetViewId = this.getAttribute('data-target');
+          if(targetViewId) {
+            document.getElementById(targetViewId).classList.add('active-view');
+            // Cuộn trang lên trên cùng một cách mượt mà
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+      });
+
+    });
+  </script>
+</body>
 </html>
