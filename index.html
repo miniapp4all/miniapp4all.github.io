@@ -45,6 +45,8 @@
 
     .logo img{
       width:120px;
+      height:120px;
+      object-fit:cover;
       border-radius:25px;
       box-shadow:0 0 25px #00d9ff44;
       margin-bottom:15px;
@@ -89,7 +91,7 @@
       background:#20293a;
     }
 
-    /* SUB MENU */
+    /* SUBMENU */
 
     .submenu{
       margin-left:20px;
@@ -222,7 +224,7 @@
       margin-bottom:18px;
     }
 
-    /* LOADED HTML */
+    /* ACTIVE HTML */
 
     #activate-content{
       color:#d0d7e2;
@@ -299,7 +301,12 @@
 
     <div class="logo">
 
-      <img src="images/Logo.jpg" alt="Logo">
+      <!-- LOGO -->
+      <!-- ĐẢM BẢO FILE:
+           images/logo.jpg
+           tồn tại đúng tên -->
+
+      <img src="images/logo.jpg" alt="MiniApp4All Logo">
 
       <h1>MiniApp4All</h1>
 
@@ -350,7 +357,7 @@
         </a>
 
         <a href="#t2spp-activate">
-          d. Hướng dẫn kích hoạt tính năng Pro
+          d. Hướng dẫn kích hoạt Pro
         </a>
 
       </div>
@@ -393,9 +400,7 @@
 
       <!-- LINKS -->
 
-      <div class="menu-title">
-        Links
-      </div>
+      <div class="menu-title">Links</div>
 
       <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">
         ▶ YouTube
@@ -436,7 +441,7 @@
 
     </section>
 
-    <!-- FEATURED TOOLS -->
+    <!-- TOOLS -->
 
     <h2 class="section-title" id="tools">
       Featured Tools
@@ -522,7 +527,7 @@
 
     </div>
 
-    <!-- T2SPP -->
+    <!-- T2SPP DETAIL -->
 
     <h2 class="section-title">
       T2SPP
@@ -532,9 +537,7 @@
 
     <div class="article" id="t2spp-setup">
 
-      <h3>
-        a. Setup
-      </h3>
+      <h3>a. Setup</h3>
 
       <p>
 
@@ -546,8 +549,7 @@
       <p>
 
         Recommended:
-        Máy tính có cài WinRAR để quá trình
-        cài đặt diễn ra thuận lợi.
+        Máy tính có cài WinRAR.
 
       </p>
 
@@ -565,14 +567,11 @@
 
     <div class="article" id="t2spp-update">
 
-      <h3>
-        b. Update
-      </h3>
+      <h3>b. Update</h3>
 
       <p>
 
-        Latest update package for T2SPP -
-        Thêm tính năng nhận SRT để tạo Voices.
+        Latest update package for T2SPP.
 
       </p>
 
@@ -597,25 +596,15 @@
 
     <div class="article" id="t2spp-modules">
 
-      <h3>
-        c. Modules
-      </h3>
+      <h3>c. Modules</h3>
 
       <p>
 
-        Tải models và chép vào:
+        Chép models vào:
 
         <br><br>
 
         C:/Tools/Text To Speech/models
-
-      </p>
-
-      <p>
-
-        Nếu không quen thao tác,
-        có thể liên hệ tác giả để nhận
-        file setup models tự động.
 
       </p>
 
@@ -634,7 +623,7 @@
     <div class="article" id="t2spp-activate">
 
       <h3>
-        d. Hướng dẫn kích hoạt tính năng Pro
+        d. Hướng dẫn kích hoạt Pro
       </h3>
 
       <div id="activate-content">
@@ -645,22 +634,32 @@
 
     </div>
 
+    <!-- LOAD HTML -->
+
     <script>
 
-      fetch('posts/active.html')
+      fetch('./posts/activate.html')
 
-        .then(response => response.text())
+        .then(function(response){
 
-        .then(data => {
+          if(!response.ok){
+            throw new Error('File not found');
+          }
+
+          return response.text();
+
+        })
+
+        .then(function(data){
 
           document.getElementById('activate-content').innerHTML = data;
 
         })
 
-        .catch(error => {
+        .catch(function(error){
 
           document.getElementById('activate-content').innerHTML =
-          'Cannot load activation guide.';
+          '<p>Cannot load activation guide.</p>';
 
           console.error(error);
 
@@ -676,28 +675,20 @@
 
     <div class="article" id="translator-setup">
 
-      <h3>
-        a. Setup
-      </h3>
+      <h3>a. Setup</h3>
 
       <p>
-
         Install realtime translator package.
-
       </p>
 
     </div>
 
     <div class="article" id="translator-update">
 
-      <h3>
-        b. Update
-      </h3>
+      <h3>b. Update</h3>
 
       <p>
-
         Latest experimental build.
-
       </p>
 
     </div>
@@ -710,28 +701,20 @@
 
     <div class="article" id="minidawn-setup">
 
-      <h3>
-        a. Setup
-      </h3>
+      <h3>a. Setup</h3>
 
       <p>
-
         Install Mini Dawn package.
-
       </p>
 
     </div>
 
     <div class="article" id="minidawn-update">
 
-      <h3>
-        b. Update
-      </h3>
+      <h3>b. Update</h3>
 
       <p>
-
         Latest Mini Dawn update package.
-
       </p>
 
     </div>
@@ -758,37 +741,6 @@
 
     </div>
 
-    <div class="article">
-
-      <h3>
-        Build Faster Subtitle Workflows
-      </h3>
-
-      <p>
-
-        Improve subtitle processing performance
-        and optimize realtime synchronization
-        for AI speech pipelines.
-
-      </p>
-
-    </div>
-
-    <div class="article">
-
-      <h3>
-        Optimize Windows For Lightweight AI Tools
-      </h3>
-
-      <p>
-
-        Reduce resource usage and improve responsiveness
-        for realtime AI utilities and desktop applications.
-
-      </p>
-
-    </div>
-
     <!-- DOWNLOADS -->
 
     <h2 class="section-title" id="downloads">
@@ -804,15 +756,6 @@
       <p>
 
         T2SPP :
-        <a href="https://drive.google.com/" target="_blank">
-          Google Drive
-        </a>
-
-      </p>
-
-      <p>
-
-        Realtime Translator :
         <a href="https://drive.google.com/" target="_blank">
           Google Drive
         </a>
