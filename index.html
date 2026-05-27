@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>MiniApp4All</title>
 
   <style>
@@ -20,6 +23,8 @@
       display:flex;
       min-height:100vh;
     }
+
+    /* SIDEBAR */
 
     .sidebar{
       width:280px;
@@ -56,6 +61,8 @@
       font-size:14px;
     }
 
+    /* MENU */
+
     .menu-title{
       color:#00d9ff;
       margin:25px 0 12px;
@@ -82,11 +89,28 @@
       background:#20293a;
     }
 
+    /* SUB MENU */
+
+    .submenu{
+      margin-left:20px;
+      margin-bottom:15px;
+    }
+
+    .submenu a{
+      background:#111722;
+      font-size:14px;
+      padding:10px 14px;
+    }
+
+    /* MAIN */
+
     .main{
       margin-left:280px;
       width:calc(100% - 280px);
       padding:40px;
     }
+
+    /* HERO */
 
     .hero{
       background:linear-gradient(135deg,#171d2b,#10151f);
@@ -109,11 +133,15 @@
       line-height:1.8;
     }
 
+    /* GRID */
+
     .content-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
       gap:25px;
     }
+
+    /* CARD */
 
     .card{
       background:#171d29;
@@ -149,6 +177,8 @@
       margin-bottom:20px;
     }
 
+    /* BUTTON */
+
     .btn{
       display:inline-block;
       background:#00d9ff;
@@ -159,11 +189,19 @@
       font-weight:bold;
     }
 
+    .btn:hover{
+      opacity:0.9;
+    }
+
+    /* SECTION */
+
     .section-title{
       margin:45px 0 25px;
       color:#00d9ff;
       font-size:30px;
     }
+
+    /* ARTICLE */
 
     .article{
       background:#171d29;
@@ -181,7 +219,34 @@
     .article p{
       color:#aab4c0;
       line-height:1.8;
+      margin-bottom:18px;
     }
+
+    /* LOADED HTML */
+
+    #activate-content{
+      color:#d0d7e2;
+      line-height:1.8;
+    }
+
+    #activate-content img{
+      max-width:100%;
+      border-radius:12px;
+      margin:15px 0;
+    }
+
+    #activate-content h1,
+    #activate-content h2,
+    #activate-content h3{
+      margin:20px 0 10px;
+      color:#00d9ff;
+    }
+
+    #activate-content p{
+      margin-bottom:15px;
+    }
+
+    /* FOOTER */
 
     footer{
       margin-top:50px;
@@ -190,6 +255,8 @@
       color:#768192;
       text-align:center;
     }
+
+    /* MOBILE */
 
     @media(max-width:900px){
 
@@ -221,14 +288,18 @@
     }
 
   </style>
+
 </head>
+
 <body>
+
+  <!-- SIDEBAR -->
 
   <aside class="sidebar">
 
     <div class="logo">
 
-      <img src="images/Logo.jpg">
+      <img src="images/Logo.jpg" alt="Logo">
 
       <h1>MiniApp4All</h1>
 
@@ -240,71 +311,173 @@
 
     <div class="menu">
 
+      <!-- NAVIGATION -->
+
       <div class="menu-title">Navigation</div>
 
       <a href="#home">🏠 Home</a>
+
       <a href="#tools">🛠 Tools</a>
+
       <a href="#tutorials">📚 Tutorials</a>
+
       <a href="#downloads">⬇ Downloads</a>
+
       <a href="#about">💡 About</a>
+
+      <!-- FEATURED TOOLS -->
 
       <div class="menu-title">Featured Tools</div>
 
-      <a href="#">🎤 T2SPP</a>
-      <a href="#">🌍 Realtime Translator</a>
-      <a href="#">⚡ Mini Dawn</a>
+      <!-- T2SPP -->
 
-      <div class="menu-title">Links</div>
+      <a href="#t2spp">
+        🎤 T2SPP
+      </a>
 
-      <a href="#">▶ YouTube</a>
-      <a href="#">💬 FaceBook</a>
-      <a href="#">🐙 GitHub</a>
+      <div class="submenu">
+
+        <a href="#t2spp-setup">
+          a. Setup
+        </a>
+
+        <a href="#t2spp-update">
+          b. Update
+        </a>
+
+        <a href="#t2spp-modules">
+          c. Modules
+        </a>
+
+        <a href="#t2spp-activate">
+          d. Hướng dẫn kích hoạt tính năng Pro
+        </a>
+
+      </div>
+
+      <!-- TRANSLATOR -->
+
+      <a href="#translator">
+        🌍 Realtime Translator
+      </a>
+
+      <div class="submenu">
+
+        <a href="#translator-setup">
+          a. Setup
+        </a>
+
+        <a href="#translator-update">
+          b. Update
+        </a>
+
+      </div>
+
+      <!-- MINI DAWN -->
+
+      <a href="#minidawn">
+        ⚡ Mini Dawn
+      </a>
+
+      <div class="submenu">
+
+        <a href="#minidawn-setup">
+          a. Setup
+        </a>
+
+        <a href="#minidawn-update">
+          b. Update
+        </a>
+
+      </div>
+
+      <!-- LINKS -->
+
+      <div class="menu-title">
+        Links
+      </div>
+
+      <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">
+        ▶ YouTube
+      </a>
+
+      <a href="https://facebook.com/" target="_blank">
+        💬 FaceBook
+      </a>
+
+      <a href="https://github.com/lehieutlhp" target="_blank">
+        🐙 GitHub
+      </a>
 
     </div>
 
   </aside>
 
+  <!-- MAIN -->
+
   <main class="main">
+
+    <!-- HERO -->
 
     <section class="hero" id="home">
 
-      <h2>Lightweight Apps For Everyday Use</h2>
+      <h2>
+        Lightweight Apps For Everyday Use
+      </h2>
 
       <p>
-        MiniApp4All is a collection of lightweight utilities, AI tools, subtitle helpers, realtime translation software and practical Windows tools designed for speed, simplicity and real-world usage.
+
+        MiniApp4All is a collection of lightweight utilities,
+        AI tools, subtitle helpers, realtime translation software
+        and practical Windows tools designed for speed,
+        simplicity and real-world usage.
+
       </p>
 
     </section>
 
-    <h2 class="section-title" id="tools">Featured Tools</h2>
+    <!-- FEATURED TOOLS -->
+
+    <h2 class="section-title" id="tools">
+      Featured Tools
+    </h2>
 
     <div class="content-grid">
 
-      <div class="card">
+      <!-- T2SPP -->
 
-        <img src="images/t2spp.png">
+      <div class="card" id="t2spp">
+
+        <img src="images/t2spp.png" alt="T2SPP">
 
         <div class="card-body">
 
           <h3>T2SPP</h3>
 
           <p>
-            Ứng dụng chuyển văn bản sang giọng nói nhanh, nhẹ, tiện dụng, hoàn toàn offline
+
+            Ứng dụng chuyển văn bản sang giọng nói
+            nhanh, nhẹ, tiện dụng, hoàn toàn offline.
+
           </p>
 
           <a class="btn"
-		  href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
-		  target="_blank">
-          Download
+             href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
+             target="_blank">
+
+            Download
+
           </a>
 
         </div>
 
       </div>
 
-      <div class="card">
+      <!-- TRANSLATOR -->
 
-        <img src="https://picsum.photos/600/300?2">
+      <div class="card" id="translator">
+
+        <img src="images/translator.png" alt="Translator">
 
         <div class="card-body">
 
@@ -315,23 +488,28 @@
           </p>
 
           <a class="btn" href="#">
-          Download
+            Download
           </a>
 
         </div>
 
       </div>
 
-      <div class="card">
+      <!-- MINI DAWN -->
 
-        <img src="https://picsum.photos/600/300?3">
+      <div class="card" id="minidawn">
+
+        <img src="images/minidawn.png" alt="Mini Dawn">
 
         <div class="card-body">
 
           <h3>Mini Dawn</h3>
 
           <p>
-            Cắt ghép âm thanh chuyên nghiệp, trực quan
+
+            Cắt ghép âm thanh chuyên nghiệp,
+            trực quan và siêu tốc.
+
           </p>
 
           <a class="btn" href="#">
@@ -344,43 +522,332 @@
 
     </div>
 
-    <h2 class="section-title" id="tutorials">Tutorials & Tips</h2>
+    <!-- T2SPP -->
+
+    <h2 class="section-title">
+      T2SPP
+    </h2>
+
+    <!-- SETUP -->
+
+    <div class="article" id="t2spp-setup">
+
+      <h3>
+        a. Setup
+      </h3>
+
+      <p>
+
+        Download T2SPP.7z,
+        giải nén và chạy trực tiếp file T2SPP.exe
+
+      </p>
+
+      <p>
+
+        Recommended:
+        Máy tính có cài WinRAR để quá trình
+        cài đặt diễn ra thuận lợi.
+
+      </p>
+
+      <a class="btn"
+         href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link"
+         target="_blank">
+
+        Download Setup
+
+      </a>
+
+    </div>
+
+    <!-- UPDATE -->
+
+    <div class="article" id="t2spp-update">
+
+      <h3>
+        b. Update
+      </h3>
+
+      <p>
+
+        Latest update package for T2SPP -
+        Thêm tính năng nhận SRT để tạo Voices.
+
+      </p>
+
+      <p>
+
+        Current Version:
+        v1.2.0
+
+      </p>
+
+      <a class="btn"
+         href="https://drive.google.com/file/d/1vQR8qAD9Kyd-_qk6EcaTjUiICNR37-Uj/view?usp=drive_link"
+         target="_blank">
+
+        Download Update
+
+      </a>
+
+    </div>
+
+    <!-- MODULES -->
+
+    <div class="article" id="t2spp-modules">
+
+      <h3>
+        c. Modules
+      </h3>
+
+      <p>
+
+        Tải models và chép vào:
+
+        <br><br>
+
+        C:/Tools/Text To Speech/models
+
+      </p>
+
+      <p>
+
+        Nếu không quen thao tác,
+        có thể liên hệ tác giả để nhận
+        file setup models tự động.
+
+      </p>
+
+      <a class="btn"
+         href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link"
+         target="_blank">
+
+        Download Modules
+
+      </a>
+
+    </div>
+
+    <!-- ACTIVATION GUIDE -->
+
+    <div class="article" id="t2spp-activate">
+
+      <h3>
+        d. Hướng dẫn kích hoạt tính năng Pro
+      </h3>
+
+      <div id="activate-content">
+
+        Loading guide...
+
+      </div>
+
+    </div>
+
+    <script>
+
+      fetch('posts/active.html')
+
+        .then(response => response.text())
+
+        .then(data => {
+
+          document.getElementById('activate-content').innerHTML = data;
+
+        })
+
+        .catch(error => {
+
+          document.getElementById('activate-content').innerHTML =
+          'Cannot load activation guide.';
+
+          console.error(error);
+
+        });
+
+    </script>
+
+    <!-- TRANSLATOR -->
+
+    <h2 class="section-title">
+      Realtime Translator
+    </h2>
+
+    <div class="article" id="translator-setup">
+
+      <h3>
+        a. Setup
+      </h3>
+
+      <p>
+
+        Install realtime translator package.
+
+      </p>
+
+    </div>
+
+    <div class="article" id="translator-update">
+
+      <h3>
+        b. Update
+      </h3>
+
+      <p>
+
+        Latest experimental build.
+
+      </p>
+
+    </div>
+
+    <!-- MINI DAWN -->
+
+    <h2 class="section-title">
+      Mini Dawn
+    </h2>
+
+    <div class="article" id="minidawn-setup">
+
+      <h3>
+        a. Setup
+      </h3>
+
+      <p>
+
+        Install Mini Dawn package.
+
+      </p>
+
+    </div>
+
+    <div class="article" id="minidawn-update">
+
+      <h3>
+        b. Update
+      </h3>
+
+      <p>
+
+        Latest Mini Dawn update package.
+
+      </p>
+
+    </div>
+
+    <!-- TUTORIALS -->
+
+    <h2 class="section-title" id="tutorials">
+      Tutorials & Tips
+    </h2>
 
     <div class="article">
 
-      <h3>Fix IDM Not Detecting Videos</h3>
+      <h3>
+        Fix IDM Not Detecting Videos
+      </h3>
 
       <p>
-        Learn how to capture hidden media streams, troubleshoot browser extensions and detect video requests more effectively.
+
+        Learn how to capture hidden media streams,
+        troubleshoot browser extensions and detect
+        video requests more effectively.
+
       </p>
 
     </div>
 
     <div class="article">
 
-      <h3>Build Faster Subtitle Workflows</h3>
+      <h3>
+        Build Faster Subtitle Workflows
+      </h3>
 
       <p>
-        Improve subtitle processing performance and optimize realtime synchronization for AI speech pipelines.
+
+        Improve subtitle processing performance
+        and optimize realtime synchronization
+        for AI speech pipelines.
+
       </p>
 
     </div>
 
     <div class="article">
 
-      <h3>Optimize Windows For Lightweight AI Tools</h3>
+      <h3>
+        Optimize Windows For Lightweight AI Tools
+      </h3>
 
       <p>
-        Reduce resource usage and improve responsiveness for realtime AI utilities and desktop applications.
+
+        Reduce resource usage and improve responsiveness
+        for realtime AI utilities and desktop applications.
+
       </p>
 
     </div>
+
+    <!-- DOWNLOADS -->
+
+    <h2 class="section-title" id="downloads">
+      Downloads
+    </h2>
+
+    <div class="article">
+
+      <h3>
+        Download Center
+      </h3>
+
+      <p>
+
+        T2SPP :
+        <a href="https://drive.google.com/" target="_blank">
+          Google Drive
+        </a>
+
+      </p>
+
+      <p>
+
+        Realtime Translator :
+        <a href="https://drive.google.com/" target="_blank">
+          Google Drive
+        </a>
+
+      </p>
+
+    </div>
+
+    <!-- ABOUT -->
+
+    <h2 class="section-title" id="about">
+      About
+    </h2>
+
+    <div class="article">
+
+      <p>
+
+        MiniApp4All focuses on lightweight,
+        fast and practical tools for everyday use.
+
+      </p>
+
+    </div>
+
+    <!-- FOOTER -->
 
     <footer>
+
       MiniApp4All © 2026
+
     </footer>
 
   </main>
 
 </body>
+
 </html>
