@@ -625,48 +625,21 @@
       <h3>
         d. Hướng dẫn kích hoạt Pro
       </h3>
-
-      <div id="activate-content">
-
-        Loading guide...
-
-      </div>
-
-    </div>
-
-    <!-- LOAD HTML -->
-
-    <script>
-
-      fetch('./posts/activate.html')
-
-        .then(function(response){
-
-          if(!response.ok){
-            throw new Error('File not found');
-          }
-
-          return response.text();
-
-        })
-
-        .then(function(data){
-
-          document.getElementById('activate-content').innerHTML = data;
-
-        })
-
-        .catch(function(error){
-
-          document.getElementById('activate-content').innerHTML =
-          '<p>Cannot load activation guide.</p>';
-
-          console.error(error);
-
-        });
-
-    </script>
-
+	  
+	  <p>
+	    Hướng dẫn kích hoạt đầy đủ bằng hình ảnh.
+	  </p>
+	  
+	  <a class="btn"
+	    href="posts/activate.html"
+		target="_blank">
+		
+		Open Guide
+		
+	  </a>
+	  
+	</div>
+	  
     <!-- TRANSLATOR -->
 
     <h2 class="section-title">
