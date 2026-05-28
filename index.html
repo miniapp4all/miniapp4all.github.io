@@ -31,9 +31,9 @@
     ::-webkit-scrollbar-thumb:hover { background: #00d9ff; }
 
     /* =========================================
-       SIDEBAR (MENU BÊN TRÁI)
+       THANH ĐIỀU HƯỚNG (SIDEBAR BÊN TRÁI)
        ========================================= */
-    .sidebar {
+    .thanh-dieu-huong {
       width: 280px;
       background: #151a24;
       border-right: 1px solid #222b3b;
@@ -47,26 +47,26 @@
       box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
     }
 
-    .logo {
+    .vung-logo {
       text-align: center;
       margin-bottom: 35px;
     }
 
-    .logo img {
+    .vung-logo img {
       width: 110px;
       height: 110px;
       object-fit: cover;
       border-radius: 25px;
       box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
       margin-bottom: 15px;
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); /* Tối ưu transition */
+      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .logo img:hover {
+    .vung-logo img:hover {
       transform: scale(1.05);
     }
 
-    .logo h1 {
+    .vung-logo h1 {
       color: #00d9ff;
       font-size: 26px;
       font-weight: 700;
@@ -74,14 +74,15 @@
       letter-spacing: 0.5px;
     }
 
-    .logo p {
+    .vung-logo p {
       color: #8b98a9;
       font-size: 13px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    .menu-title {
+    /* CSS cho các thành phần Menu */
+    .tieu-de-menu {
       color: #00d9ff;
       margin: 25px 10px 12px;
       font-size: 13px;
@@ -91,7 +92,7 @@
       opacity: 0.8;
     }
 
-    .menu a {
+    .danh-sach-menu a {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -104,74 +105,74 @@
       font-weight: 500;
       cursor: pointer;
       border: 1px solid transparent;
-      /* Tối ưu: Chỉ transition các thuộc tính cần thiết, không dùng 'all' */
       transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
     }
 
-    .menu a:hover {
+    .danh-sach-menu a:hover {
       color: white;
       background: #1b2230;
       transform: translateX(4px);
     }
 
-    .menu a.active-link {
+    /* Nút menu đang được chọn */
+    .danh-sach-menu a.menu-dang-chon {
       background: #1b2230;
       color: #00d9ff;
       border-color: rgba(0, 217, 255, 0.3);
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
-    /* SUBMENU (ACCORDION) */
-    .submenu {
+    /* MENU CON (Nút xổ xuống) */
+    .menu-con {
       margin-left: 15px;
       padding-left: 10px;
       border-left: 1px solid #2a3441;
       margin-bottom: 10px;
       display: none;
-      /* Tối ưu: Giảm thời gian animation xuống 0.15s cho cảm giác click nhạy hơn */
       animation: slideDown 0.15s ease-out forwards; 
     }
 
-    .submenu.open { display: block; }
+    .menu-con.mo-ra { display: block; }
 
-    .submenu a {
+    .menu-con a {
       font-size: 13.5px;
       padding: 10px 12px;
       margin-bottom: 4px;
     }
 
-    .arrow {
+    .mui-ten {
       font-size: 10px;
       transition: transform 0.2s ease;
       opacity: 0.6;
     }
     
-    .menu a.menu-open .arrow {
+    .danh-sach-menu a.xo-menu .mui-ten {
       transform: rotate(180deg);
       color: #00d9ff;
       opacity: 1;
     }
 
     /* =========================================
-       MAIN CONTENT (NỘI DUNG CHÍNH)
+       NỘI DUNG CHÍNH (MAIN CONTENT)
        ========================================= */
-    .main {
+    .vung-noi-dung-chinh {
       margin-left: 280px;
       width: calc(100% - 280px);
       padding: 40px 50px;
     }
 
-    /* SPA VIEW LOGIC */
-    .view-section {
-      display: none;
-      /* Tối ưu: Giảm thời gian mờ vào từ 0.5s -> 0.2s để tránh cảm giác chờ đợi */
+    /* Ẩn/Hiện Trang (Logic chuyển trang) */
+    .trang-noi-dung {
+      display: none; /* Mặc định ẩn tất cả các trang */
       animation: fadeIn 0.2s ease-out forwards;
     }
 
-    .view-section.active-view { display: block; }
+    .trang-noi-dung.trang-dang-hien-thi { 
+      display: block; /* Chỉ hiện trang đang được kích hoạt */
+    }
 
-    /* HERO SECTION */
-    .hero {
+    /* Bảng Giới Thiệu (Hero Section) */
+    .bang-gioi-thieu {
       background: linear-gradient(145deg, #1a2130 0%, #111622 100%);
       border: 1px solid #2a3441;
       border-radius: 24px;
@@ -180,21 +181,22 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
-    .hero h2 {
+    .bang-gioi-thieu h2 {
       font-size: 38px;
       margin-bottom: 18px;
       color: #00d9ff;
       line-height: 1.2;
     }
 
-    .hero p {
+    .bang-gioi-thieu p {
       color: #a0aec0;
       font-size: 17px;
       max-width: 750px;
       line-height: 1.8;
     }
 
-    .section-title {
+    /* Tiêu đề các mục lớn */
+    .tieu-de-muc {
       margin: 0 0 25px;
       color: white;
       font-size: 26px;
@@ -203,53 +205,53 @@
       padding-left: 12px;
     }
 
-    /* GRID & CARDS */
-    .content-grid {
+    /* Lưới sắp xếp thẻ ứng dụng */
+    .luoi-noi-dung {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 30px;
       margin-bottom: 40px;
     }
 
-    .card {
+    /* Thẻ Ứng Dụng */
+    .the-ung-dung {
       background: #151a24;
       border: 1px solid #2a3441;
       border-radius: 20px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      /* Tối ưu: Chỉ định rõ thuộc tính thay vì dùng all */
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      will-change: transform; /* Bật tăng tốc phần cứng nhẹ */
+      will-change: transform;
     }
 
-    .card:hover {
-      transform: translateY(-5px); /* Giảm nhẹ độ giật của hình khi hover */
+    .the-ung-dung:hover {
+      transform: translateY(-5px);
       border-color: #00d9ff;
-      box-shadow: 0 8px 20px rgba(0, 217, 255, 0.12); /* Giảm nhẹ bóng để render mượt hơn */
+      box-shadow: 0 8px 20px rgba(0, 217, 255, 0.12);
     }
 
-    .card img {
+    .the-ung-dung img {
       width: 100%;
       height: auto;
       display: block;
       border-bottom: 1px solid #2a3441;
     }
 
-    .card-body {
+    .noi-dung-the {
       padding: 25px;
       flex-grow: 1;
       display: flex;
       flex-direction: column;
     }
 
-    .card-body h3 {
+    .noi-dung-the h3 {
       font-size: 22px;
       margin-bottom: 10px;
       color: white;
     }
 
-    .card-body p {
+    .noi-dung-the p {
       color: #8b98a9;
       font-size: 15px;
       margin-bottom: 25px;
@@ -257,7 +259,7 @@
     }
 
     /* NÚT BẤM (BUTTONS) */
-    .btn {
+    .nut-bam {
       display: inline-block;
       background: #00d9ff;
       color: #0f1117;
@@ -269,30 +271,29 @@
       text-align: center;
       border: none;
       cursor: pointer;
-      /* Tối ưu Transition */
       transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
     }
 
-    .btn:hover {
+    .nut-bam:hover {
       background: white;
       color: #0f1117;
       transform: scale(1.02);
       box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
     }
     
-    .btn-outline {
+    .nut-vien {
       background: transparent;
       color: #00d9ff;
       border: 1px solid #00d9ff;
     }
     
-    .btn-outline:hover {
+    .nut-vien:hover {
       background: #00d9ff;
       color: #0f1117;
     }
 
     /* BÀI VIẾT CHI TIẾT (ARTICLE) */
-    .article {
+    .khung-bai-viet {
       background: #151a24;
       border: 1px solid #2a3441;
       border-radius: 20px;
@@ -300,13 +301,13 @@
       margin-bottom: 25px;
     }
 
-    .article h3 {
+    .khung-bai-viet h3 {
       margin-bottom: 15px;
       font-size: 22px;
       color: #00d9ff;
     }
 
-    .article p {
+    .khung-bai-viet p {
       color: #a0aec0;
       margin-bottom: 20px;
       font-size: 16px;
@@ -332,7 +333,7 @@
       font-size: 14px;
     }
 
-    /* ANIMATIONS (Đã được làm nhanh hơn) */
+    /* ANIMATIONS (Hiệu ứng chuyển động) */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
@@ -342,250 +343,246 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* MOBILE RESPONSIVE */
+    /* ĐIỆN THOẠI RESPONSIVE */
     @media(max-width: 900px){
       body { display: block; }
-      .sidebar { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222b3b; padding: 25px; box-shadow: none; }
-      .main { margin-left: 0; width: 100%; padding: 25px; }
-      .hero { padding: 30px; }
-      .hero h2 { font-size: 28px; }
+      .thanh-dieu-huong { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222b3b; padding: 25px; box-shadow: none; }
+      .vung-noi-dung-chinh { margin-left: 0; width: 100%; padding: 25px; }
+      .bang-gioi-thieu { padding: 30px; }
+      .bang-gioi-thieu h2 { font-size: 28px; }
     }
   </style>
 </head>
 
 <body>
 
-  <aside class="sidebar">
-    <div class="logo">
+  <aside class="thanh-dieu-huong">
+    <div class="vung-logo">
       <img src="images/Logo.jpg" alt="MiniApp4All Logo" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'">
       <h1>MiniApp4All</h1>
       <p>Công cụ nhỏ • Tiện ích lớn</p>
     </div>
 
-    <div class="menu">
-      <div class="menu-title">Điều Hướng</div>
-      <a class="nav-btn active-link" data-target="view-home">🏠 Tổng Quan</a>
-      <a class="nav-btn" data-target="view-tools">🛠 Kho Ứng Dụng</a>
-      <a class="nav-btn" data-target="view-tutorials">📚 Thủ Thuật & Tips</a>
-      <a class="nav-btn" data-target="view-downloads">⬇ Trung Tâm Tải Xuống</a>
-      <a class="nav-btn" data-target="view-about">💡 Về Chúng Tôi</a>
+    <div class="danh-sach-menu">
+      <div class="tieu-de-menu">Điều Hướng</div>
+      <a class="nut-chuyen-trang menu-dang-chon" data-trang="trang-tong-quan">🏠 Tổng Quan</a>
+      <a class="nut-chuyen-trang" data-trang="trang-kho-ung-dung">🛠 Kho Ứng Dụng</a>
+      <a class="nut-chuyen-trang" data-trang="trang-thu-thuat">📚 Thủ Thuật & Tips</a>
+      <a class="nut-chuyen-trang" data-trang="trang-tai-xuong">⬇ Trung Tâm Tải Xuống</a>
+      <a class="nut-chuyen-trang" data-trang="trang-ve-chung-toi">💡 Về Chúng Tôi</a>
 
-      <div class="menu-title">Công Cụ Nổi Bật</div>
+      <div class="tieu-de-menu">Công Cụ Nổi Bật</div>
 
-      <a class="toggle-submenu" data-menu="submenu-t2spp">
-        <span>🎤 T2SPP</span> <span class="arrow">▼</span>
+      <a class="nut-mo-menu-con" data-menu="menu-con-t2spp">
+        <span>🎤 T2SPP</span> <span class="mui-ten">▼</span>
       </a>
-      <div class="submenu" id="submenu-t2spp">
-        <a class="nav-btn" data-target="view-t2spp-setup">a. Cài đặt (Setup)</a>
-        <a class="nav-btn" data-target="view-t2spp-update">b. Cập nhật (Update)</a>
-        <a class="nav-btn" data-target="view-t2spp-modules">c. Thêm Modules</a>
-        <a class="nav-btn" data-target="view-t2spp-activate">d. Kích hoạt Pro</a>
+      <div class="menu-con" id="menu-con-t2spp">
+        <a class="nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">a. Cài đặt (Setup)</a>
+        <a class="nut-chuyen-trang" data-trang="trang-t2spp-cap-nhat">b. Cập nhật (Update)</a>
+        <a class="nut-chuyen-trang" data-trang="trang-t2spp-modules">c. Thêm Modules</a>
+        <a class="nut-chuyen-trang" data-trang="trang-t2spp-kich-hoat">d. Kích hoạt Pro</a>
       </div>
 
-      <a class="toggle-submenu" data-menu="submenu-translator">
-        <span>🌍 Realtime Translator</span> <span class="arrow">▼</span>
+      <a class="nut-mo-menu-con" data-menu="menu-con-translator">
+        <span>🌍 Realtime Translator</span> <span class="mui-ten">▼</span>
       </a>
-      <div class="submenu" id="submenu-translator">
-        <a class="nav-btn" data-target="view-translator-setup">a. Cài đặt</a>
-        <a class="nav-btn" data-target="view-translator-update">b. Cập nhật</a>
+      <div class="menu-con" id="menu-con-translator">
+        <a class="nut-chuyen-trang" data-trang="trang-translator-cai-dat">a. Cài đặt</a>
+        <a class="nut-chuyen-trang" data-trang="trang-translator-cap-nhat">b. Cập nhật</a>
       </div>
 
-      <a class="toggle-submenu" data-menu="submenu-minidawn">
-        <span>⚡ Mini Dawn</span> <span class="arrow">▼</span>
+      <a class="nut-mo-menu-con" data-menu="menu-con-minidawn">
+        <span>⚡ Mini Dawn</span> <span class="mui-ten">▼</span>
       </a>
-      <div class="submenu" id="submenu-minidawn">
-        <a class="nav-btn" data-target="view-minidawn-setup">a. Cài đặt</a>
-        <a class="nav-btn" data-target="view-minidawn-update">b. Cập nhật</a>
+      <div class="menu-con" id="menu-con-minidawn">
+        <a class="nut-chuyen-trang" data-trang="trang-minidawn-cai-dat">a. Cài đặt</a>
+        <a class="nut-chuyen-trang" data-trang="trang-minidawn-cap-nhat">b. Cập nhật</a>
       </div>
-	  
-	  <a class="toggle-submenu" data-menu="submenu-tutorials">
-	    <span>📚 Thủ Thuật & Tips</span> <span class="arrow">▼</span>
-	  </a>
-	  <div class="submenu" id="submenu-tutorials">
-	    <a class="nav-btn" data-target="view-tutorials-cmd">a. Lệnh CMD cần thiết</a>
-	    <a class="nav-btn" data-target="view-tutorials-services">b. Tắt Services an toàn</a>
-	  </div>
-	  
-      <div class="menu-title">Liên Kết Mạng Xã Hội</div>
+      
+      <a class="nut-mo-menu-con" data-menu="menu-con-thu-thuat">
+        <span>📚 Thủ Thuật & Tips</span> <span class="mui-ten">▼</span>
+      </a>
+      <div class="menu-con" id="menu-con-thu-thuat">
+        <a class="nut-chuyen-trang" data-trang="trang-lenh-cmd">a. Lệnh CMD cần thiết</a>
+        <a class="nut-chuyen-trang" data-trang="trang-tat-services">b. Tắt Services an toàn</a>
+        
+        </div>
+      
+      <div class="tieu-de-menu">Liên Kết Mạng Xã Hội</div>
       <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">▶ Kênh YouTube</a>
       <a href="https://facebook.com/" target="_blank">💬 Fanpage Facebook</a>
-      <a href="https://github.com/lehieutlhp" target="_blank">🐙 Kho mã nguồn GitHub</a>
+      <a href="https://github.com/lehieutlhp" target="_blank">🐙 Kho GitHub</a>
     </div>
   </aside>
 
-  <main class="main">
+  <main class="vung-noi-dung-chinh">
 
-    <div id="view-home" class="view-section active-view">
-      <section class="hero">
+    <div id="trang-tong-quan" class="trang-noi-dung trang-dang-hien-thi">
+      <section class="bang-gioi-thieu">
         <h2>Công Cụ Tối Giản,<br>Hiệu Suất Tối Đa</h2>
         <p>MiniApp4All mang đến bộ sưu tập các tiện ích tinh gọn, công cụ AI tiên tiến, hỗ trợ phụ đề và phần mềm dịch thuật thời gian thực. Tất cả được thiết kế với triết lý: <strong>Tốc độ, Trực quan và Đề cao tính ứng dụng thực tế.</strong></p>
       </section>
       
-      <h2 class="section-title">Truy Cập Nhanh</h2>
-      <div class="content-grid">
-        <div class="card">
+      <h2 class="tieu-de-muc">Truy Cập Nhanh</h2>
+      <div class="luoi-noi-dung">
+        <div class="the-ung-dung">
           <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP+Banner'">
-          <div class="card-body">
+          <div class="noi-dung-the">
             <h3>T2SPP AI Voice</h3>
             <p>Ứng dụng chuyển đổi văn bản thành giọng nói siêu tốc, dung lượng cực nhẹ, giao diện thân thiện và hoạt động 100% offline không cần Internet.</p>
-            <a class="btn nav-btn" data-target="view-t2spp-setup">Xem Chi Tiết</a>
+            <a class="nut-bam nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">Xem Chi Tiết</a>
           </div>
         </div>
       </div>
     </div>
-
-    <div id="view-tools" class="view-section">
-      <h2 class="section-title">Kho Ứng Dụng Nổi Bật</h2>
-      <div class="content-grid">
-        <div class="card">
+    <div id="trang-kho-ung-dung" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Kho Ứng Dụng Nổi Bật</h2>
+      <div class="luoi-noi-dung">
+        <div class="the-ung-dung">
           <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'">
-          <div class="card-body">
+          <div class="noi-dung-the">
             <h3>T2SPP</h3>
             <p>Chuyển đổi văn bản sang giọng nói (Text-to-Speech) hoàn toàn offline. Dung lượng nhẹ, hỗ trợ đa dạng giọng đọc với độ trễ cực thấp.</p>
-            <a class="btn btn-outline nav-btn" data-target="view-t2spp-setup">Mở Cài Đặt</a>
+            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">Mở Cài Đặt</a>
           </div>
         </div>
-        <div class="card">
+        <div class="the-ung-dung">
           <img src="images/translator.png" alt="Translator" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Translator'">
-          <div class="card-body">
+          <div class="noi-dung-the">
             <h3>Realtime Translator</h3>
-            <p>Dịch thuật phụ đề và văn bản theo thời gian thực ngay trên màn hình. (Phần mềm đang trong giai đoạn phát triển và thử nghiệm).</p>
-            <a class="btn btn-outline nav-btn" data-target="view-translator-setup">Xem Cập Nhật</a>
+            <p>Dịch thuật phụ đề và văn bản theo thời gian thực ngay trên màn hình. (Đang thử nghiệm).</p>
+            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-translator-cap-nhat">Xem Cập Nhật</a>
           </div>
         </div>
-        <div class="card">
+        <div class="the-ung-dung">
           <img src="images/Mini_Dawn.png" alt="Mini Dawn" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Mini+Dawn'">
-          <div class="card-body">
+          <div class="noi-dung-the">
             <h3>Mini Dawn</h3>
-            <p>Giải pháp cắt ghép và tinh chỉnh âm thanh chuyên nghiệp, trực quan, hỗ trợ xử lý siêu tốc mọi định dạng âm thanh phổ biến.</p>
-            <a class="btn btn-outline nav-btn" data-target="view-minidawn-setup">Tải Trải Nghiệm</a>
+            <p>Giải pháp cắt ghép và tinh chỉnh âm thanh chuyên nghiệp, trực quan, hỗ trợ xử lý siêu tốc mọi định dạng phổ biến.</p>
+            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-minidawn-cai-dat">Tải Trải Nghiệm</a>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="view-t2spp-setup" class="view-section">
-      <h2 class="section-title">T2SPP > Hướng Dẫn Cài Đặt</h2>
-      <div class="article">
+    <div id="trang-t2spp-cai-dat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">T2SPP > Hướng Dẫn Cài Đặt</h2>
+      <div class="khung-bai-viet">
         <h3>Các bước thiết lập ban đầu</h3>
         <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>T2SPP.7z</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>T2SPP.exe</b>. (Mọi thứ sẽ tự động cho bạn, không cần cài đặt rườm rà).</p>
         <p><i>Khuyến nghị: Máy tính của bạn nên được cài đặt sẵn phần mềm giải nén WinRAR phiên bản mới nhất.</i></p>
         <br>
-        <a class="btn" href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
+        <a class="nut-bam" href="https://drive.google.com/file/d/1V3SSCxKcxK7Hs5fyVVCCmpyOfyql3NhC/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
       </div>
     </div>
 
-    <div id="view-t2spp-update" class="view-section">
-      <h2 class="section-title">T2SPP > Phiên Bản Mới Nhất</h2>
-      <div class="article">
+    <div id="trang-t2spp-cap-nhat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">T2SPP > Phiên Bản Mới Nhất</h2>
+      <div class="khung-bai-viet">
         <h3>Bản cập nhật v1.2.0</h3>
         <p>Bản cập nhật này mang đến khả năng tối ưu hóa hiệu suất hơn nữa, tích hợp thêm tính năng nhận SRT và chuyển đổi sang giọng đọc và cải thiện giao diện người dùng.</p>
         <p>Phiên bản hiện tại: <span style="color:#00d9ff; font-weight:bold;">v1.2.0</span></p>
         <br>
-        <a class="btn" href="https://drive.google.com/file/d/1vQR8qAD9Kyd-_qk6EcaTjUiICNR37-Uj/view?usp=drive_link" target="_blank">Tải Xuống Bản Cập Nhật</a>
+        <a class="nut-bam" href="https://drive.google.com/file/d/1vQR8qAD9Kyd-_qk6EcaTjUiICNR37-Uj/view?usp=drive_link" target="_blank">Tải Xuống Bản Cập Nhật</a>
       </div>
     </div>
 
-    <div id="view-t2spp-modules" class="view-section">
-      <h2 class="section-title">T2SPP > Cài Đặt Modules</h2>
-      <div class="article">
+    <div id="trang-t2spp-modules" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">T2SPP > Cài Đặt Modules</h2>
+      <div class="khung-bai-viet">
         <h3>Tích hợp thêm Modules giọng đọc</h3>
         <p>Để thêm các mẫu giọng đọc mới, vui lòng tải thư mục chứa Models và chép (copy) toàn bộ vào đường dẫn cài đặt của phần mềm theo cấu trúc sau:</p>
         <p><code>C:/Tools/Text To Speech/models</code></p>
         <br>
-        <a class="btn btn-outline" href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link" target="_blank">Tải Xuống Kho Modules</a>
+        <a class="nut-bam nut-vien" href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link" target="_blank">Tải Xuống Kho Modules</a>
       </div>
     </div>
 
-    <div id="view-t2spp-activate" class="view-section">
-      <h2 class="section-title">T2SPP > Bản Quyền & Kích Hoạt</h2>
-      <div class="article">
+    <div id="trang-t2spp-kich-hoat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">T2SPP > Bản Quyền & Kích Hoạt</h2>
+      <div class="khung-bai-viet">
         <h3>Hướng dẫn kích hoạt tài khoản Pro</h3>
         <p>Bản Pro mở khóa toàn bộ sức mạnh của T2SPP với các tính năng cao cấp: Multi Voices, SRT-Voices, Ebooks, Mobile_remote. Vui lòng xem hướng dẫn chi tiết bằng hình ảnh bên dưới.</p>
         <br>
-        <a class="btn" href="post/activate.html" target="_blank">Mở Hướng Dẫn Kích Hoạt (Có Hình Ảnh)</a>
+        <a class="nut-bam" href="post/activate.html" target="_blank">Mở Hướng Dẫn Kích Hoạt (Có Hình Ảnh)</a>
       </div>
     </div>
 
-    <div id="view-translator-setup" class="view-section">
-      <h2 class="section-title">Realtime Translator > Cài Đặt</h2>
-      <div class="article">
+    <div id="trang-translator-cai-dat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Realtime Translator > Cài Đặt</h2>
+      <div class="khung-bai-viet">
         <h3>Đang phát triển</h3>
-        <p>Đang phát triển.</p>
+        <p>Phần mềm vẫn đang trong quá trình phát triển.</p>
       </div>
     </div>
     
-    <div id="view-translator-update" class="view-section">
-      <h2 class="section-title">Realtime Translator > Cập Nhật</h2>
-      <div class="article">
+    <div id="trang-translator-cap-nhat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Realtime Translator > Cập Nhật</h2>
+      <div class="khung-bai-viet">
         <h3>Phiên Bản Thử Nghiệm (Experimental Build)</h3>
-        <p>Đang phát triển.</p>
+        <p>Sẽ sớm ra mắt phiên bản mới nhất.</p>
       </div>
     </div>
 
-    <div id="view-minidawn-setup" class="view-section">
-      <h2 class="section-title">Mini Dawn > Cài Đặt</h2>
-      <div class="article">
+    <div id="trang-minidawn-cai-dat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Mini Dawn > Cài Đặt</h2>
+      <div class="khung-bai-viet">
         <h3>Thiết lập Mini Dawn</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>Mini_Dawn_Setup.7z</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>Mini_Dawn.exe</b>. (Mọi thứ sẽ tự động cho bạn, không cần cài đặt rườm rà).</p>
-        <p><i>Khuyến nghị: Máy tính của bạn nên được cài đặt sẵn phần mềm giải nén WinRAR phiên bản mới nhất.</i></p>
+        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>Mini_Dawn_Setup.7z</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>Mini_Dawn.exe</b>.</p>
         <br>
-        <a class="btn" href="https://drive.google.com/file/d/143Zd7lTxvTxhitVPwuajZgX-vfffo0fJ/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
+        <a class="nut-bam" href="https://drive.google.com/file/d/143Zd7lTxvTxhitVPwuajZgX-vfffo0fJ/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
       </div>
     </div>
     
-    <div id="view-minidawn-update" class="view-section">
-      <h2 class="section-title">Mini Dawn > Cập Nhật</h2>
-      <div class="article">
+    <div id="trang-minidawn-cap-nhat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Mini Dawn > Cập Nhật</h2>
+      <div class="khung-bai-viet">
         <h3>Đang phát triển</h3>
         <p>Cập nhật tính năng cao cấp cho việc tích hợp chỉnh sửa âm thanh chuyên sâu.</p>
       </div>
     </div>
 
-    <div id="view-KTV LTH-setup" class="view-section">
-      <h2 class="section-title">Mini Dawn > Cài Đặt</h2>
-      <div class="article">
-        <h3>Thiết lập Mini Dawn</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>Mini_Dawn_Setup.7z</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>Mini_Dawn.exe</b>. (Mọi thứ sẽ tự động cho bạn, không cần cài đặt rườm rà).</p>
-        <p><i>Khuyến nghị: Máy tính của bạn nên được cài đặt sẵn phần mềm giải nén WinRAR phiên bản mới nhất.</i></p>
-        <br>
-        <a class="btn" href="https://drive.google.com/file/d/143Zd7lTxvTxhitVPwuajZgX-vfffo0fJ/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
+    <div id="trang-thu-thuat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Thủ Thuật & Tips</h2>
+      <div class="khung-bai-viet">
+        <h3>Mục lục Thủ Thuật</h3>
+        <p>Vui lòng mở menu con ở thanh điều hướng bên trái để chọn bài viết bạn muốn xem.</p>
       </div>
     </div>
 
-    <div id="view-tutorials-cmd" class="view-section">
-      <h2 class="section-title">Hướng Dẫn & Thủ Thuật</h2>
-      <div class="article">
+    <div id="trang-lenh-cmd" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Thủ Thuật > Lệnh CMD cần thiết</h2>
+      <div class="khung-bai-viet">
         <h3>Những lệnh CMD cần thiết cho mọi máy</h3>
         <p>Bài viết hướng dẫn bạn cách sử dụng CMD với những lệnh cần thiết để tối ưu hóa PC cao nhất.</p>
-		<br>
-        <a class="btn" href="post/thuthuatcmd.html" target="_blank">Đọc bài viết</a>
+        <br>
+        <a class="nut-bam" href="post/thuthuatcmd.html" target="_blank">Đọc bài viết</a>
       </div>
     </div>
 
-    <div id="view-tutorials-services" class="view-section">
-      <h2 class="section-title">Hướng Dẫn & Thủ Thuật</h2>
-      <div class="article">
+    <div id="trang-tat-services" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Thủ Thuật > Tắt Services</h2>
+      <div class="khung-bai-viet">
         <h3>Tổng hợp Services có thể tắt an toàn</h3>
-        <p>Bài viết tổng hợp danh sách services không cần thiết cho máy tính và có thể tắt an toàn để tối ưu hóa tốc độ máy tính mà không lo lỗi</p>
-        <p>Để sử dụng, ấn tổ hợp phím Windows+R gõ Services.msc, sau đó tìm các tên trong danh sách và Disable</p>
+        <p>Bài viết tổng hợp danh sách services không cần thiết cho máy tính và có thể tắt an toàn để tối ưu hóa tốc độ máy tính mà không lo lỗi.</p>
+        <p>Để sử dụng, ấn tổ hợp phím <code>Windows + R</code> gõ <code>services.msc</code>, sau đó tìm các tên trong danh sách và Disable.</p>
         <p><i>Khuyến nghị: Nên tạo backup hoặc ghi nhớ các giá trị ban đầu nếu bạn thấy lo lắng (Hoặc chuyển sang manual thay vì disable)</i></p>
-		<br>
-        <a class="btn" href="post/listservices.html" target="_blank">Đọc bài viết</a>
+        <br>
+        <a class="nut-bam" href="post/listservices.html" target="_blank">Đọc bài viết</a>
       </div>
     </div>
 
-    <div id="view-downloads" class="view-section">
-      <h2 class="section-title">Trung Tâm Tải Xuống</h2>
-      <div class="article">
+    <div id="trang-tai-xuong" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Trung Tâm Tải Xuống</h2>
+      <div class="khung-bai-viet">
         <h3>Tổng hợp các liên kết lưu trữ</h3>
         <p>Kho lưu trữ T2SPP an toàn trên đám mây: <a href="https://drive.google.com/" target="_blank" style="color:#00d9ff; font-weight: bold; text-decoration: none;">Truy cập Google Drive</a></p>
       </div>
     </div>
 
-    <div id="view-about" class="view-section">
-      <h2 class="section-title">Về MiniApp4All</h2>
-      <div class="article">
+    <div id="trang-ve-chung-toi" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Về MiniApp4All</h2>
+      <div class="khung-bai-viet">
         <p>Được thành lập với mục tiêu đơn giản hóa công việc hằng ngày trên máy tính. <strong>MiniApp4All</strong> tập trung phát triển các công cụ nhẹ nhàng, tốc độ cao, không chứa quảng cáo rác và đề cao trải nghiệm thực tế của người dùng cuối.</p>
       </div>
     </div>
@@ -599,70 +596,73 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       
-      const navLinks = document.querySelectorAll('.nav-btn');
-      const viewSections = document.querySelectorAll('.view-section');
-      const submenuToggles = document.querySelectorAll('.toggle-submenu');
+      // Lấy toàn bộ các phần tử cần thao tác
+      const danhSachNutChuyen = document.querySelectorAll('.nut-chuyen-trang');
+      const danhSachTrangNoiDung = document.querySelectorAll('.trang-noi-dung');
+      const danhSachNutXoMenu = document.querySelectorAll('.nut-mo-menu-con');
 
-      // HÀM CHUYỂN TRANG MƯỢT MÀ VÀ ĐỒNG BỘ MENU BÊN TRÁI
-      function navigateTo(targetId) {
-        if(!targetId) return;
+      // HÀM CHUYỂN TRANG MƯỢT MÀ
+      function chuyenTrang(idTrangDich) {
+        if(!idTrangDich) return;
 
-        // 1. Ẩn tất cả các khung nội dung
-        viewSections.forEach(section => section.classList.remove('active-view'));
+        // BƯỚC 1: Xóa lớp 'trang-dang-hien-thi' ở tất cả bài viết để ẨN CHÚNG ĐI
+        danhSachTrangNoiDung.forEach(trang => trang.classList.remove('trang-dang-hien-thi'));
         
-        // 2. Hiện khung nội dung được chọn & Cuộn lên đầu ngay lập tức (Xóa behavior: smooth để cảm giác load cực nhanh)
-        const targetView = document.getElementById(targetId);
-        if (targetView) {
-          targetView.classList.add('active-view');
+        // BƯỚC 2: Tìm bài viết có ID tương ứng và HIỆN NÓ LÊN, sau đó cuộn lên trên cùng
+        const trangCanHienThi = document.getElementById(idTrangDich);
+        if (trangCanHienThi) {
+          trangCanHienThi.classList.add('trang-dang-hien-thi');
           window.scrollTo({ top: 0, behavior: 'instant' }); 
+        } else {
+          console.warn("Không tìm thấy bài viết có id là: " + idTrangDich + ". Vui lòng kiểm tra lại mã HTML.");
         }
 
-        // 3. Xóa bôi sáng của tất cả nút Menu
-        navLinks.forEach(btn => btn.classList.remove('active-link'));
+        // BƯỚC 3: Xóa bôi sáng của tất cả nút trong Menu
+        danhSachNutChuyen.forEach(nut => nut.classList.remove('menu-dang-chon'));
         
-        // 4. Tìm nút trên Menu tương ứng với khung nội dung và bôi sáng nó
-        const sidebarBtn = document.querySelector(`.sidebar .nav-btn[data-target="${targetId}"]`);
-        if (sidebarBtn) {
-          sidebarBtn.classList.add('active-link');
+        // BƯỚC 4: Bôi sáng lại nút vừa được click ở thanh bên trái
+        const nutCanBoiSang = document.querySelector(`.thanh-dieu-huong .nut-chuyen-trang[data-trang="${idTrangDich}"]`);
+        if (nutCanBoiSang) {
+          nutCanBoiSang.classList.add('menu-dang-chon');
           
-          // Tính năng thông minh: Nếu mục đó nằm trong Menu con, tự động mở Menu con đó ra
-          const parentSubmenu = sidebarBtn.closest('.submenu');
-          if (parentSubmenu) {
-            // Đóng các menu con khác
-            document.querySelectorAll('.submenu').forEach(menu => menu.classList.remove('open'));
-            document.querySelectorAll('.toggle-submenu').forEach(toggle => toggle.classList.remove('menu-open'));
+          // Tính năng thông minh: Nếu bài viết nằm trong Menu con, tự động mở Menu con đó ra
+          const menuConChuaNo = nutCanBoiSang.closest('.menu-con');
+          if (menuConChuaNo) {
+            // Đóng các menu con khác trước
+            document.querySelectorAll('.menu-con').forEach(menu => menu.classList.remove('mo-ra'));
+            document.querySelectorAll('.nut-mo-menu-con').forEach(nutXo => nutXo.classList.remove('xo-menu'));
             
-            // Mở menu con chứa nó
-            parentSubmenu.classList.add('open');
-            const toggleBtn = document.querySelector(`[data-menu="${parentSubmenu.id}"]`);
-            if(toggleBtn) toggleBtn.classList.add('menu-open');
+            // Mở menu con chứa nút đang chọn
+            menuConChuaNo.classList.add('mo-ra');
+            const nutXoTuongUng = document.querySelector(`[data-menu="${menuConChuaNo.id}"]`);
+            if(nutXoTuongUng) nutXoTuongUng.classList.add('xo-menu');
           }
         }
       }
 
-      // GẮN SỰ KIỆN CLICK CHO TẤT CẢ CÁC NÚT (Ở menu và ở trong trang)
-      navLinks.forEach(btn => {
-        btn.addEventListener('click', function() {
-          const targetId = this.getAttribute('data-target');
-          navigateTo(targetId);
+      // LẮNG NGHE SỰ KIỆN CLICK CHO TẤT CẢ CÁC NÚT (Trong menu và trong bài viết)
+      danhSachNutChuyen.forEach(nut => {
+        nut.addEventListener('click', function() {
+          const idTrangDich = this.getAttribute('data-trang');
+          chuyenTrang(idTrangDich);
         });
       });
 
-      // XỬ LÝ ĐÓNG/MỞ MENU CON (ACCORDION)
-      submenuToggles.forEach(toggle => {
-        toggle.addEventListener('click', function() {
-          const targetMenuId = this.getAttribute('data-menu');
-          const targetMenu = document.getElementById(targetMenuId);
-          const isOpen = targetMenu.classList.contains('open');
+      // XỬ LÝ ĐÓNG/MỞ MENU CON (Xổ xuống / Thu vào)
+      danhSachNutXoMenu.forEach(nutXo => {
+        nutXo.addEventListener('click', function() {
+          const idMenuCon = this.getAttribute('data-menu');
+          const menuCon = document.getElementById(idMenuCon);
+          const dangMoKhom = menuCon.classList.contains('mo-ra');
           
-          // Đóng tất cả
-          document.querySelectorAll('.submenu').forEach(menu => menu.classList.remove('open'));
-          document.querySelectorAll('.toggle-submenu').forEach(btn => btn.classList.remove('menu-open'));
+          // Đóng tất cả menu con khác cho gọn
+          document.querySelectorAll('.menu-con').forEach(menu => menu.classList.remove('mo-ra'));
+          document.querySelectorAll('.nut-mo-menu-con').forEach(nut => nut.classList.remove('xo-menu'));
 
-          // Nếu nó đang đóng thì mở ra
-          if (!isOpen) {
-            targetMenu.classList.add('open');
-            this.classList.add('menu-open');
+          // Nếu menu đang đóng, thì mở nó ra
+          if (!dangMoKhom) {
+            menuCon.classList.add('mo-ra');
+            this.classList.add('xo-menu');
           }
         });
       });
