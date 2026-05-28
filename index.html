@@ -205,10 +205,12 @@
       padding-left: 12px;
     }
 
-    /* Lưới sắp xếp thẻ ứng dụng */
+    /* LƯỚI SẮP XẾP THẺ ỨNG DỤNG (ĐÃ FIX ĐỂ CHIA CỘT LƯU ĐỘNG) */
     .luoi-noi-dung {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      /* Dùng auto-fill giúp các thẻ không bị phóng to quá đà khi ít số lượng. 
+         Khi màn hình to, sẽ chứa được tối đa số cột có kích thước > 260px */
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 30px;
       margin-bottom: 40px;
     }
@@ -231,10 +233,12 @@
       box-shadow: 0 8px 20px rgba(0, 217, 255, 0.12);
     }
 
+    /* ĐÃ FIX: Ảnh không bị cắt đầu đuôi */
     .the-ung-dung img {
       width: 100%;
-      height: 160px; /* Cố định chiều cao ảnh để các thẻ đều nhau */
-      object-fit: cover;
+      height: 160px; /* Cố định khung */
+      object-fit: contain; /* Thu nhỏ ảnh để vừa khít 100% thay vì cắt xén */
+      background: #0f1117; /* Màu nền lót bù vào phần thiếu hụt của ảnh */
       display: block;
       border-bottom: 1px solid #2a3441;
     }
@@ -244,6 +248,11 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+    }
+
+    /* Tối ưu riêng cho các thẻ chỉ có chữ (Bài thủ thuật) */
+    .the-bai-viet .noi-dung-the {
+      padding-top: 35px; /* Đẩy chữ xuống 1 chút cho cân đối vì không có ảnh */
     }
 
     .noi-dung-the h3 {
@@ -370,14 +379,14 @@
     <div class="danh-sach-menu">
       <div class="tieu-de-menu">Điều Hướng</div>
       <a class="nut-chuyen-trang menu-dang-chon" data-trang="trang-tong-quan">🏠 Tổng Quan</a>
-      <a class="nut-chuyen-trang" data-trang="trang-kho-ung-dung">🛠 Kho Ứng Dụng</a>
       <a class="nut-chuyen-trang" data-trang="trang-thu-thuat">📚 Thủ Thuật & Tips</a>
       <a class="nut-chuyen-trang" data-trang="trang-tai-xuong">⬇ Trung Tâm Tải Xuống</a>
+      <a class="nut-chuyen-trang" data-trang="trang-kich-hoat">🔑 Kích Hoạt Bản Quyền</a>
       <a class="nut-chuyen-trang" data-trang="trang-ve-chung-toi">💡 Về Chúng Tôi</a>
 
       <div class="tieu-de-menu">Công Cụ Nổi Bật</div>
 
-      <!-- MENU CON: T2SPP -->
+      <!-- MENU CON: T2SPP (Đã gỡ mục Kích hoạt) -->
       <a class="nut-mo-menu-con" data-menu="menu-con-t2spp">
         <span>🎤 T2SPP</span> <span class="mui-ten">▼</span>
       </a>
@@ -385,7 +394,6 @@
         <a class="nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">a. Cài đặt (Setup)</a>
         <a class="nut-chuyen-trang" data-trang="trang-t2spp-cap-nhat">b. Cập nhật (Update)</a>
         <a class="nut-chuyen-trang" data-trang="trang-t2spp-modules">c. Thêm Modules</a>
-        <a class="nut-chuyen-trang" data-trang="trang-t2spp-kich-hoat">d. Kích hoạt Pro</a>
       </div>
 
       <!-- MENU CON: Translator -->
@@ -406,14 +414,7 @@
         <a class="nut-chuyen-trang" data-trang="trang-minidawn-cap-nhat">b. Cập nhật</a>
       </div>
       
-      <!-- MENU CON: Thủ Thuật -->
-      <a class="nut-mo-menu-con" data-menu="menu-con-thu-thuat">
-        <span>📚 Thủ Thuật & Tips</span> <span class="mui-ten">▼</span>
-      </a>
-      <div class="menu-con" id="menu-con-thu-thuat">
-        <a class="nut-chuyen-trang" data-trang="trang-lenh-cmd">a. Lệnh CMD cần thiết</a>
-        <a class="nut-chuyen-trang" data-trang="trang-tat-services">b. Tắt Services an toàn</a>
-      </div>
+      <!-- Thủ Thuật đã được dỡ bỏ khỏi khu vực này theo yêu cầu -->
       
       <div class="tieu-de-menu">Liên Kết Mạng Xã Hội</div>
       <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">▶ Kênh YouTube</a>
@@ -427,30 +428,18 @@
        ========================================= -->
   <main class="vung-noi-dung-chinh">
 
-    <!-- TRANG 1: TỔNG QUAN -->
+    <!-- TRANG 1: TỔNG QUAN (Vào luôn Kho Ứng Dụng) -->
     <div id="trang-tong-quan" class="trang-noi-dung trang-dang-hien-thi">
+      
       <section class="bang-gioi-thieu">
         <h2>Công Cụ Tối Giản,<br>Hiệu Suất Tối Đa</h2>
         <p>MiniApp4All mang đến bộ sưu tập các tiện ích tinh gọn, công cụ AI tiên tiến, hỗ trợ phụ đề và phần mềm dịch thuật thời gian thực. Tất cả được thiết kế với triết lý: <strong>Tốc độ, Trực quan và Đề cao tính ứng dụng thực tế.</strong></p>
       </section>
       
-      <h2 class="tieu-de-muc">Truy Cập Nhanh</h2>
-      <div class="luoi-noi-dung">
-        <div class="the-ung-dung">
-          <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP+Banner'">
-          <div class="noi-dung-the">
-            <h3>T2SPP AI Voice</h3>
-            <p>Ứng dụng chuyển đổi văn bản thành giọng nói siêu tốc, dung lượng cực nhẹ, giao diện thân thiện và hoạt động 100% offline không cần Internet.</p>
-            <a class="nut-bam nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">Xem Chi Tiết</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TRANG: KHO ỨNG DỤNG -->
-    <div id="trang-kho-ung-dung" class="trang-noi-dung">
+      <!-- KHO ỨNG DỤNG ĐƯỢC ĐƯA LÊN TRANG CHỦ -->
       <h2 class="tieu-de-muc">Kho Ứng Dụng Nổi Bật</h2>
       <div class="luoi-noi-dung">
+        
         <div class="the-ung-dung">
           <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'">
           <div class="noi-dung-the">
@@ -459,6 +448,7 @@
             <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">Mở Cài Đặt</a>
           </div>
         </div>
+
         <div class="the-ung-dung">
           <img src="images/translator.png" alt="Translator" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Translator'">
           <div class="noi-dung-the">
@@ -467,6 +457,7 @@
             <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-translator-cap-nhat">Xem Cập Nhật</a>
           </div>
         </div>
+
         <div class="the-ung-dung">
           <img src="images/Mini_Dawn.png" alt="Mini Dawn" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Mini+Dawn'">
           <div class="noi-dung-the">
@@ -475,6 +466,7 @@
             <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-minidawn-cai-dat">Tải Trải Nghiệm</a>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -511,16 +503,6 @@
         <p><code>C:/Tools/Text To Speech/models</code></p>
         <br>
         <a class="nut-bam nut-vien" href="https://drive.google.com/drive/folders/1LUPwBoCRiUeXHdOWV9k_uMYmqoAz1nxJ?usp=drive_link" target="_blank">Tải Xuống Kho Modules</a>
-      </div>
-    </div>
-
-    <div id="trang-t2spp-kich-hoat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">T2SPP > Bản Quyền & Kích Hoạt</h2>
-      <div class="khung-bai-viet">
-        <h3>Hướng dẫn kích hoạt tài khoản Pro</h3>
-        <p>Bản Pro mở khóa toàn bộ sức mạnh của T2SPP với các tính năng cao cấp: Multi Voices, SRT-Voices, Ebooks, Mobile_remote. Vui lòng xem hướng dẫn chi tiết bằng hình ảnh bên dưới.</p>
-        <br>
-        <a class="nut-bam" href="post/activate.html" target="_blank">Mở Hướng Dẫn Kích Hoạt (Có Hình Ảnh)</a>
       </div>
     </div>
 
@@ -562,49 +544,30 @@
     </div>
 
     <!-- =====================================
-         CHUYÊN MỤC THỦ THUẬT & TIPS (ĐÃ ĐƯỢC THIẾT KẾ LẠI)
+         CHUYÊN MỤC THỦ THUẬT & TIPS 
+         (CHỈ LÀ THẺ TEXT, KHÔNG ẢNH)
          ===================================== -->
     <div id="trang-thu-thuat" class="trang-noi-dung">
       <h2 class="tieu-de-muc">📚 Kho Thủ Thuật & Tips</h2>
-      
-      <!-- Bố cục dạng lưới giống Kho Ứng Dụng -->
       <div class="luoi-noi-dung">
         
-        <!-- Thẻ Bài Viết 1: CMD -->
-        <div class="the-ung-dung">
-          <img src="https://via.placeholder.com/400x200/151a24/00d9ff?text=CMD+Tips" alt="Lệnh CMD">
+        <!-- Thẻ Bài Viết 1: CMD (Lưu ý class the-bai-viet) -->
+        <div class="the-ung-dung the-bai-viet">
           <div class="noi-dung-the">
             <h3>Lệnh CMD Cần Thiết</h3>
             <p>Tổng hợp các lệnh Command Prompt hữu ích để tối ưu hóa, kiểm tra hệ thống và khắc phục lỗi Windows một cách nhanh chóng nhất.</p>
-            <!-- Sử dụng data-trang để nút này nhảy thẳng vào bài viết chi tiết -->
             <a class="nut-bam nut-chuyen-trang" data-trang="trang-lenh-cmd">Đọc Bài Viết</a>
           </div>
         </div>
 
         <!-- Thẻ Bài Viết 2: Tắt Services -->
-        <div class="the-ung-dung">
-          <img src="https://via.placeholder.com/400x200/151a24/00d9ff?text=Windows+Services" alt="Tắt Services">
+        <div class="the-ung-dung the-bai-viet">
           <div class="noi-dung-the">
             <h3>Tắt Services An Toàn</h3>
             <p>Danh sách các dịch vụ (Services) chạy ngầm không cần thiết trên Windows. Hướng dẫn tắt an toàn để giải phóng RAM và tăng tốc máy tính tối đa.</p>
             <a class="nut-bam nut-chuyen-trang" data-trang="trang-tat-services">Đọc Bài Viết</a>
           </div>
         </div>
-
-        <!-- MẪU THÊM THẺ THỦ THUẬT MỚI: 
-             Khi bạn có bài viết thủ thuật mới, chỉ cần copy khối dưới đây, 
-             đổi tiêu đề, đổi hình ảnh và đổi "data-trang" để trỏ tới bài viết mới của bạn.
-        -->
-        <!--
-        <div class="the-ung-dung">
-          <img src="hinh-anh-cua-ban.jpg" alt="Tiêu đề bài viết">
-          <div class="noi-dung-the">
-            <h3>Tiêu đề bài viết mới</h3>
-            <p>Mô tả ngắn gọn nội dung bài viết để người dùng dễ nắm bắt...</p>
-            <a class="nut-bam nut-chuyen-trang" data-trang="trang-ten-bai-moi">Đọc Bài Viết</a>
-          </div>
-        </div>
-        -->
 
       </div>
     </div>
@@ -633,13 +596,24 @@
     </div>
 
     <!-- =====================================
-         CÁC TRANG KHÁC
+         CÁC TRANG CHÍNH KHÁC
          ===================================== -->
     <div id="trang-tai-xuong" class="trang-noi-dung">
       <h2 class="tieu-de-muc">Trung Tâm Tải Xuống</h2>
       <div class="khung-bai-viet">
         <h3>Tổng hợp các liên kết lưu trữ</h3>
-        <p>Kho lưu trữ T2SPP an toàn trên đám mây: <a href="https://drive.google.com/" target="_blank" style="color:#00d9ff; font-weight: bold; text-decoration: none;">Truy cập Google Drive</a></p>
+        <p>Kho lưu trữ an toàn trên đám mây: <a href="https://drive.google.com/" target="_blank" style="color:#00d9ff; font-weight: bold; text-decoration: none;">Truy cập Google Drive</a></p>
+      </div>
+    </div>
+
+    <!-- TRANG KÍCH HOẠT (ĐÃ GỘP CHUNG 1 KEY CHO TẤT CẢ) -->
+    <div id="trang-kich-hoat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">🔑 Bản Quyền & Kích Hoạt</h2>
+      <div class="khung-bai-viet">
+        <h3>Một Key Duy Nhất - Mở Khóa Tất Cả Công Cụ</h3>
+        <p>Tại MiniApp4All, chúng tôi áp dụng chính sách <strong>1 Key kích hoạt toàn bộ Hệ sinh thái</strong>. Khi nâng cấp lên tài khoản Pro, bạn sẽ được mở khóa toàn bộ sức mạnh và tính năng cao cấp của T2SPP, Realtime Translator, Mini Dawn và các ứng dụng trong tương lai mà không cần phải mua lẻ từng phần mềm.</p>
+        <br>
+        <a class="nut-bam" href="post/activate.html" target="_blank">Mở Hướng Dẫn Kích Hoạt Hệ Sinh Thái</a>
       </div>
     </div>
 
