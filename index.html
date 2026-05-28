@@ -213,7 +213,7 @@
       margin-bottom: 40px;
     }
 
-    /* Thẻ Ứng Dụng */
+    /* Thẻ Ứng Dụng / Thẻ Bài Viết */
     .the-ung-dung {
       background: #151a24;
       border: 1px solid #2a3441;
@@ -233,7 +233,8 @@
 
     .the-ung-dung img {
       width: 100%;
-      height: auto;
+      height: 160px; /* Cố định chiều cao ảnh để các thẻ đều nhau */
+      object-fit: cover;
       display: block;
       border-bottom: 1px solid #2a3441;
     }
@@ -356,6 +357,9 @@
 
 <body>
 
+  <!-- =========================================
+       PHẦN MENU BÊN TRÁI 
+       ========================================= -->
   <aside class="thanh-dieu-huong">
     <div class="vung-logo">
       <img src="images/Logo.jpg" alt="MiniApp4All Logo" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'">
@@ -373,6 +377,7 @@
 
       <div class="tieu-de-menu">Công Cụ Nổi Bật</div>
 
+      <!-- MENU CON: T2SPP -->
       <a class="nut-mo-menu-con" data-menu="menu-con-t2spp">
         <span>🎤 T2SPP</span> <span class="mui-ten">▼</span>
       </a>
@@ -383,6 +388,7 @@
         <a class="nut-chuyen-trang" data-trang="trang-t2spp-kich-hoat">d. Kích hoạt Pro</a>
       </div>
 
+      <!-- MENU CON: Translator -->
       <a class="nut-mo-menu-con" data-menu="menu-con-translator">
         <span>🌍 Realtime Translator</span> <span class="mui-ten">▼</span>
       </a>
@@ -391,6 +397,7 @@
         <a class="nut-chuyen-trang" data-trang="trang-translator-cap-nhat">b. Cập nhật</a>
       </div>
 
+      <!-- MENU CON: Mini Dawn -->
       <a class="nut-mo-menu-con" data-menu="menu-con-minidawn">
         <span>⚡ Mini Dawn</span> <span class="mui-ten">▼</span>
       </a>
@@ -399,14 +406,14 @@
         <a class="nut-chuyen-trang" data-trang="trang-minidawn-cap-nhat">b. Cập nhật</a>
       </div>
       
+      <!-- MENU CON: Thủ Thuật -->
       <a class="nut-mo-menu-con" data-menu="menu-con-thu-thuat">
         <span>📚 Thủ Thuật & Tips</span> <span class="mui-ten">▼</span>
       </a>
       <div class="menu-con" id="menu-con-thu-thuat">
         <a class="nut-chuyen-trang" data-trang="trang-lenh-cmd">a. Lệnh CMD cần thiết</a>
         <a class="nut-chuyen-trang" data-trang="trang-tat-services">b. Tắt Services an toàn</a>
-        
-        </div>
+      </div>
       
       <div class="tieu-de-menu">Liên Kết Mạng Xã Hội</div>
       <a href="https://youtu.be/nT5uX5QPEDg" target="_blank">▶ Kênh YouTube</a>
@@ -415,8 +422,12 @@
     </div>
   </aside>
 
+  <!-- =========================================
+       PHẦN NỘI DUNG BÊN PHẢI 
+       ========================================= -->
   <main class="vung-noi-dung-chinh">
 
+    <!-- TRANG 1: TỔNG QUAN -->
     <div id="trang-tong-quan" class="trang-noi-dung trang-dang-hien-thi">
       <section class="bang-gioi-thieu">
         <h2>Công Cụ Tối Giản,<br>Hiệu Suất Tối Đa</h2>
@@ -435,6 +446,8 @@
         </div>
       </div>
     </div>
+
+    <!-- TRANG: KHO ỨNG DỤNG -->
     <div id="trang-kho-ung-dung" class="trang-noi-dung">
       <h2 class="tieu-de-muc">Kho Ứng Dụng Nổi Bật</h2>
       <div class="luoi-noi-dung">
@@ -465,6 +478,9 @@
       </div>
     </div>
 
+    <!-- =====================================
+         CÁC BÀI VIẾT T2SPP
+         ===================================== -->
     <div id="trang-t2spp-cai-dat" class="trang-noi-dung">
       <h2 class="tieu-de-muc">T2SPP > Hướng Dẫn Cài Đặt</h2>
       <div class="khung-bai-viet">
@@ -508,6 +524,9 @@
       </div>
     </div>
 
+    <!-- =====================================
+         CÁC BÀI VIẾT TRANSLATOR & MINI DAWN
+         ===================================== -->
     <div id="trang-translator-cai-dat" class="trang-noi-dung">
       <h2 class="tieu-de-muc">Realtime Translator > Cài Đặt</h2>
       <div class="khung-bai-viet">
@@ -542,21 +561,62 @@
       </div>
     </div>
 
+    <!-- =====================================
+         CHUYÊN MỤC THỦ THUẬT & TIPS (ĐÃ ĐƯỢC THIẾT KẾ LẠI)
+         ===================================== -->
     <div id="trang-thu-thuat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Thủ Thuật & Tips</h2>
-      <div class="khung-bai-viet">
-        <h3>Mục lục Thủ Thuật</h3>
-        <p>Vui lòng mở menu con ở thanh điều hướng bên trái để chọn bài viết bạn muốn xem.</p>
+      <h2 class="tieu-de-muc">📚 Kho Thủ Thuật & Tips</h2>
+      
+      <!-- Bố cục dạng lưới giống Kho Ứng Dụng -->
+      <div class="luoi-noi-dung">
+        
+        <!-- Thẻ Bài Viết 1: CMD -->
+        <div class="the-ung-dung">
+          <img src="https://via.placeholder.com/400x200/151a24/00d9ff?text=CMD+Tips" alt="Lệnh CMD">
+          <div class="noi-dung-the">
+            <h3>Lệnh CMD Cần Thiết</h3>
+            <p>Tổng hợp các lệnh Command Prompt hữu ích để tối ưu hóa, kiểm tra hệ thống và khắc phục lỗi Windows một cách nhanh chóng nhất.</p>
+            <!-- Sử dụng data-trang để nút này nhảy thẳng vào bài viết chi tiết -->
+            <a class="nut-bam nut-chuyen-trang" data-trang="trang-lenh-cmd">Đọc Bài Viết</a>
+          </div>
+        </div>
+
+        <!-- Thẻ Bài Viết 2: Tắt Services -->
+        <div class="the-ung-dung">
+          <img src="https://via.placeholder.com/400x200/151a24/00d9ff?text=Windows+Services" alt="Tắt Services">
+          <div class="noi-dung-the">
+            <h3>Tắt Services An Toàn</h3>
+            <p>Danh sách các dịch vụ (Services) chạy ngầm không cần thiết trên Windows. Hướng dẫn tắt an toàn để giải phóng RAM và tăng tốc máy tính tối đa.</p>
+            <a class="nut-bam nut-chuyen-trang" data-trang="trang-tat-services">Đọc Bài Viết</a>
+          </div>
+        </div>
+
+        <!-- MẪU THÊM THẺ THỦ THUẬT MỚI: 
+             Khi bạn có bài viết thủ thuật mới, chỉ cần copy khối dưới đây, 
+             đổi tiêu đề, đổi hình ảnh và đổi "data-trang" để trỏ tới bài viết mới của bạn.
+        -->
+        <!--
+        <div class="the-ung-dung">
+          <img src="hinh-anh-cua-ban.jpg" alt="Tiêu đề bài viết">
+          <div class="noi-dung-the">
+            <h3>Tiêu đề bài viết mới</h3>
+            <p>Mô tả ngắn gọn nội dung bài viết để người dùng dễ nắm bắt...</p>
+            <a class="nut-bam nut-chuyen-trang" data-trang="trang-ten-bai-moi">Đọc Bài Viết</a>
+          </div>
+        </div>
+        -->
+
       </div>
     </div>
 
+    <!-- CHI TIẾT BÀI VIẾT THỦ THUẬT -->
     <div id="trang-lenh-cmd" class="trang-noi-dung">
       <h2 class="tieu-de-muc">Thủ Thuật > Lệnh CMD cần thiết</h2>
       <div class="khung-bai-viet">
         <h3>Những lệnh CMD cần thiết cho mọi máy</h3>
         <p>Bài viết hướng dẫn bạn cách sử dụng CMD với những lệnh cần thiết để tối ưu hóa PC cao nhất.</p>
         <br>
-        <a class="nut-bam" href="post/thuthuatcmd.html" target="_blank">Đọc bài viết</a>
+        <a class="nut-bam" href="post/thuthuatcmd.html" target="_blank">Đọc bài viết trên trang mới</a>
       </div>
     </div>
 
@@ -568,10 +628,13 @@
         <p>Để sử dụng, ấn tổ hợp phím <code>Windows + R</code> gõ <code>services.msc</code>, sau đó tìm các tên trong danh sách và Disable.</p>
         <p><i>Khuyến nghị: Nên tạo backup hoặc ghi nhớ các giá trị ban đầu nếu bạn thấy lo lắng (Hoặc chuyển sang manual thay vì disable)</i></p>
         <br>
-        <a class="nut-bam" href="post/listservices.html" target="_blank">Đọc bài viết</a>
+        <a class="nut-bam" href="post/listservices.html" target="_blank">Đọc bài viết trên trang mới</a>
       </div>
     </div>
 
+    <!-- =====================================
+         CÁC TRANG KHÁC
+         ===================================== -->
     <div id="trang-tai-xuong" class="trang-noi-dung">
       <h2 class="tieu-de-muc">Trung Tâm Tải Xuống</h2>
       <div class="khung-bai-viet">
@@ -587,52 +650,45 @@
       </div>
     </div>
 
+    <!-- CHÂN TRANG -->
     <footer>
       <p>MiniApp4All © 2026. Thiết kế với tinh thần tối giản.</p>
     </footer>
 
   </main>
 
+  <!-- =========================================
+       MÃ JAVASCRIPT ĐIỀU KHIỂN
+       ========================================= -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       
-      // Lấy toàn bộ các phần tử cần thao tác
       const danhSachNutChuyen = document.querySelectorAll('.nut-chuyen-trang');
       const danhSachTrangNoiDung = document.querySelectorAll('.trang-noi-dung');
       const danhSachNutXoMenu = document.querySelectorAll('.nut-mo-menu-con');
 
-      // HÀM CHUYỂN TRANG MƯỢT MÀ
       function chuyenTrang(idTrangDich) {
         if(!idTrangDich) return;
 
-        // BƯỚC 1: Xóa lớp 'trang-dang-hien-thi' ở tất cả bài viết để ẨN CHÚNG ĐI
         danhSachTrangNoiDung.forEach(trang => trang.classList.remove('trang-dang-hien-thi'));
         
-        // BƯỚC 2: Tìm bài viết có ID tương ứng và HIỆN NÓ LÊN, sau đó cuộn lên trên cùng
         const trangCanHienThi = document.getElementById(idTrangDich);
         if (trangCanHienThi) {
           trangCanHienThi.classList.add('trang-dang-hien-thi');
           window.scrollTo({ top: 0, behavior: 'instant' }); 
-        } else {
-          console.warn("Không tìm thấy bài viết có id là: " + idTrangDich + ". Vui lòng kiểm tra lại mã HTML.");
         }
 
-        // BƯỚC 3: Xóa bôi sáng của tất cả nút trong Menu
         danhSachNutChuyen.forEach(nut => nut.classList.remove('menu-dang-chon'));
         
-        // BƯỚC 4: Bôi sáng lại nút vừa được click ở thanh bên trái
         const nutCanBoiSang = document.querySelector(`.thanh-dieu-huong .nut-chuyen-trang[data-trang="${idTrangDich}"]`);
         if (nutCanBoiSang) {
           nutCanBoiSang.classList.add('menu-dang-chon');
           
-          // Tính năng thông minh: Nếu bài viết nằm trong Menu con, tự động mở Menu con đó ra
           const menuConChuaNo = nutCanBoiSang.closest('.menu-con');
           if (menuConChuaNo) {
-            // Đóng các menu con khác trước
             document.querySelectorAll('.menu-con').forEach(menu => menu.classList.remove('mo-ra'));
             document.querySelectorAll('.nut-mo-menu-con').forEach(nutXo => nutXo.classList.remove('xo-menu'));
             
-            // Mở menu con chứa nút đang chọn
             menuConChuaNo.classList.add('mo-ra');
             const nutXoTuongUng = document.querySelector(`[data-menu="${menuConChuaNo.id}"]`);
             if(nutXoTuongUng) nutXoTuongUng.classList.add('xo-menu');
@@ -640,7 +696,6 @@
         }
       }
 
-      // LẮNG NGHE SỰ KIỆN CLICK CHO TẤT CẢ CÁC NÚT (Trong menu và trong bài viết)
       danhSachNutChuyen.forEach(nut => {
         nut.addEventListener('click', function() {
           const idTrangDich = this.getAttribute('data-trang');
@@ -648,18 +703,15 @@
         });
       });
 
-      // XỬ LÝ ĐÓNG/MỞ MENU CON (Xổ xuống / Thu vào)
       danhSachNutXoMenu.forEach(nutXo => {
         nutXo.addEventListener('click', function() {
           const idMenuCon = this.getAttribute('data-menu');
           const menuCon = document.getElementById(idMenuCon);
           const dangMoKhom = menuCon.classList.contains('mo-ra');
           
-          // Đóng tất cả menu con khác cho gọn
           document.querySelectorAll('.menu-con').forEach(menu => menu.classList.remove('mo-ra'));
           document.querySelectorAll('.nut-mo-menu-con').forEach(nut => nut.classList.remove('xo-menu'));
 
-          // Nếu menu đang đóng, thì mở nó ra
           if (!dangMoKhom) {
             menuCon.classList.add('mo-ra');
             this.classList.add('xo-menu');
