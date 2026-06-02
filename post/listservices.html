@@ -1,0 +1,924 @@
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<meta content="Microsoft Word 15 (filtered)" name="Generator"/>
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0cm;
+	margin-right:0cm;
+	margin-bottom:8.0pt;
+	margin-left:0cm;
+	line-height:115%;
+	font-size:14.0pt;
+	font-family:"Times New Roman",serif;}
+.MsoChpDefault
+	{font-size:14.0pt;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:115%;}
+@page WordSection1
+	{size:595.45pt 841.7pt;
+	margin:2.0cm 42.55pt 70.9pt 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+<style>
+    body {
+        background-color: #121212 !important;
+        color: #e0e0e0 !important;
+        font-family: 'Inter', 'Segoe UI', Roboto, sans-serif !important;
+        line-height: 1.7;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+    .document-container {
+        background-color: #1e1e1e;
+        padding: 40px 50px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        width: 100%;
+        max-width: 900px; /* Tăng độ rộng lên chút để bảng hiển thị thoải mái */
+        box-sizing: border-box;
+        overflow-x: auto; /* Chống tràn ngang */
+    }
+    .document-container * {
+        max-width: 100%;
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        margin: 20px auto;
+        display: block;
+    }
+    table {
+        border-collapse: collapse !important;
+        width: 100% !important; /* Ép bảng luôn bung toàn bộ khung, xóa triệt để lệch trái */
+        margin: 20px 0 !important;
+    }
+    th, td {
+        padding: 10px;
+        /* Đã gỡ bỏ ép viền (border) để tôn trọng bảng gốc của bạn */
+    }
+    a { color: #bb86fc !important; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+</style></head>
+<body lang="EN-US" style="word-wrap:break-word"><div class="document-container">
+<div class="WordSection1">
+<table border="1" cellpadding="0" cellspacing="0" class="MsoTableGrid" style="border-collapse:collapse;border:none">
+<tr>
+<td style="border:solid #FFC000 1.0pt;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>AarSvc (Agent Activation
+  Runtime)</span></b></p>
+</td>
+<td style="border:solid #FFC000 1.0pt;border-left:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Hỗ trợ các trợ lý ảo
+  như Cortana hay Alexa, tắt nếu không ra lệnh bằng
+  giọng nói.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Adobe Acrobat Update Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Sử dụng để quản
+  lý các bản cập nhật Adobe Acrobat mới nhất.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Alerter</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Dịch vụ giúp thông báo cho
+  các máy tính và người dùng được chọn những
+  sự cảnh báo thông thường từ phần mềm.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>AllJoyn Router Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Giúp các thiết bị thông
+  minh (IoT) kết nối với máy tính, nên tắt nếu
+  không dùng nhà thông minh.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Application Identity</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Xác định danh tính ứng
+  dụng cho AppLocker, tắt nếu không dùng tính năng chặn
+  ứng dụng của Windows.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Application Management</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt cái này đi thì các dịch
+  vụ như TeamViewer điều khiển qua mạng sẽ
+  không hoạt động được.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Automatic Updates</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Chế độ tự
+  động cập nhật Windows.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>AVCTP service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không sử dụng
+  các thiết bị tai nghe không dây Bluetooth. <span style="color:#00B0F0">(Nên để Manual)</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>BitLocker Drive Encryption
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không sử dụng
+  mã hóa thẻ nhớ, USB bằng BitLocker.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Bluetooth Audio Gateway
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Hỗ trợ truyền âm
+  thanh qua Bluetooth, tắt nếu không dùng loa hoặc tai nghe
+  không dây. <span style="color:#00B0F0">(Nên để Manual)</span></span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Bluetooth Support Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Nếu không sử dụng
+  thiết bị Bluetooth nào, bạn có thể tắt service
+  này để tăng tốc máy tính. (Nên để Manual)</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Computer Browser</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Dùng để liệt kê danh
+  sách các máy tính trong mạng nội bộ cũ, tắt nếu
+  máy tính hoạt động độc lập.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Connected Devices Platform
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Đồng bộ hóa dữ
+  liệu giữa máy tính và điện thoại, tắt nếu
+  không dùng tính năng "Continue on PC".</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Connected User Experiences
+  and Telemetry</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt để vô hiệu
+  hóa các tính năng thu thập dữ liệu người
+  dùng trên Windows 10.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Data Sharing Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Cung cấp dữ liệu
+  chia sẻ giữa các ứng dụng, tắt để tối
+  ưu quyền riêng tư.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Diagnostic Policy Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Phát hiện và tự động
+  sửa lỗi cho các thành phần Windows.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Diagnostic Service Host</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Hỗ trợ dịch vụ
+  Policy thực hiện các kịch bản chẩn đoán lỗi.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Diagnostic System Host</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Chạy dưới quyền
+  hệ thống để can thiệp sâu vào việc chẩn
+  đoán sự cố.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Diagnostic Tracking Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt để dừng
+  tính năng tự động thu thập và gửi dữ
+  liệu cá nhân người dùng.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Display Enhancement Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Quản lý độ sáng và chế
+  độ hiển thị nâng cao, có thể tắt trên máy
+  tính để bàn.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Distributed Link Tracking
+  Client</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Duy trì các liên kết giữa
+  các tệp tin trong một mạng nội bộ bạn có
+  thể tắt service này đi.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Downloaded Maps Manager</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Có thể tắt an toàn nếu
+  bạn không sử dụng ứng dụng Bing Maps.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Encrypting File System (EFS)</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Cung cấp công nghệ mã hóa
+  file trên phân vùng NTFS, tắt nếu không mã hóa thư mục.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Enterprise App Management
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Nên tắt service này nếu bạn
+  không phải người dùng doanh nghiệp.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Fax</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Cho phép gửi và nhận Fax,
+  dịch vụ này đã quá lỗi thời, nên tắt ngay.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>File History Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Chỉ tắt nếu bạn
+  không có ý định sử dụng Windows Backup hoặc
+  System Restore.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Function Discovery Provider
+  Host</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tìm kiếm các thiết bị
+  khác như máy in, ổ NAS trong mạng nội bộ.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Function Discovery Resource
+  Publication</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Giúp các máy tính khác nhìn thấy
+  máy của bạn trong mạng LAN.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Geolocation Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Service này có vai trò theo dõi vị
+  trí hệ thống hiện tại.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>GraphicsPerfSvc (Graphics
+  perf monitor service)</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Theo dõi hiệu suất đồ
+  họa, tắt để giảm bớt tiến trình chạy
+  ngầm, để nếu dùng phần mềm cần lấy
+  thông tin như Throtle</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Hyper-V Host Computer
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Cung cấp giao tiếp giữa
+  máy thật và máy ảo Hyper-V.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Hyper-V Time Synchronization
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Đảm bảo giờ giấc
+  trên máy ảo luôn khớp với máy thật.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Hyper-V Virtual Machine
+  Management</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Quản lý việc tạo và
+  chạy các máy ảo trên Windows, tắt nếu không dùng
+  Hyper-V.</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border:solid #FFC000 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:#FFC000'>Với Hyper-V nên tắt
+  toàn bộ nếu bạn không sử dụng Docker để
+  tải linh tinh về từ máy chủ khác.</span></b></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>IKE and AuthIP IPsec Keying
+  Modules</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Sử dụng cho VPN chuyên sâu
+  hoặc bảo mật IPsec, tắt nếu không dùng VPN.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Infrared monitor service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không sử dụng
+  tính năng truyền file qua thiết bị hồng ngoại.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Internet Connection Sharing</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Service chia sẻ kết nối
+  mạng này đã quá cũ, nên tắt sớm.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Internet Explorer ETW
+  Collector Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không sử dụng
+  trình duyệt IE để chơi game tốt hơn.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>IP Helper</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Nên tắt ngay nếu không sử
+  dụng kết nối IPv6.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>IPsec Policy Agent</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Cung cấp các chính sách bảo
+  mật mã hóa dữ liệu mạng, nên tắt nếu
+  không dùng VPN hoặc không gia nhập mạng nội bộ
+  công ty (Domain)</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Link-Layer Topology
+  Discovery Mapper</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tạo sơ đồ các
+  thiết bị kết nối trong mạng, tắt nếu
+  không cần xem bản đồ mạng.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Netlogon</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không sử dụng
+  Domain Controller.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Parental Control</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tính năng kiểm soát con trẻ,
+  tắt nếu không có nhu cầu quản lý.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Payments and NFC/SE Manager</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Quản lý thanh toán và giao tiếp
+  NFC, tắt nếu máy không có NFC.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Phone Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Quản lý trạng thái thiết
+  bị di động trên máy tính.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Program Compatibility
+  Assistant Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Thủ phạm gây ra một
+  số vấn đề hệ thống, do đó bạn
+  nên tắt đi.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Quality Windows Audio Video
+  Experience (qWave)</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Hỗ trợ truyền phát nội
+  dung Audio/Video trong mạng IP, tắt nếu không stream phim
+  sang TV hoặc thiết bị khác</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Remote Registry</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Ngăn không cho người
+  dùng khác truy cập Registry từ xa.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Secondary Logon</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Ngăn người dùng khác
+  đăng nhập tài khoản thường để thực
+  hiện tác vụ Admin</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Skype Updater</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Dịch vụ giúp tải xuống
+  và cài đặt các bản cập nhật Skype mới nhất.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>SysMain (Superfetch)</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Nên tắt nếu sử dụng
+  ổ cứng SSD để giảm việc ghi dữ liệu,
+  tăng tuổi thọ ổ cứng.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>TCP/IP NetBIOS Helper</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Nếu không phải thành viên
+  của Workgroup, nên tắt service này.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Touch Keyboard and
+  Handwriting Panel Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Dành cho các thiết bị cảm
+  ứng, nếu dùng PC thông thường nên tắt service
+  này.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Universal Orchestrator
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Điều phối tác vụ
+  cập nhật của Windows, nên tắt nếu đã tắt
+  Windows Update.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Virtual Disk</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Quản lý ổ đĩa và
+  phân vùng, nên để Manual để dùng khi cần cấu
+  hình ổ cứng.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>WalletService</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Dịch vụ ví điện
+  tử, tắt nếu không sử dụng thanh toán qua
+  Windows.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Biometric Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Chịu trách nhiệm thu thập
+  và lưu trữ dữ liệu sinh trắc học (vân tay,
+  khuôn mặt).</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Error Reporting
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không cần
+  lưu hoặc gửi báo cáo lỗi về Microsoft.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Image Acquisition</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Nên tắt ngay nếu không sử
+  dụng máy Scan.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Insider Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu bạn không
+  tham gia chương trình dùng thử Windows Insider.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Media Player Network
+  Sharing Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không chia sẻ
+  thư viện nhạc từ Windows Media Player sang thiết
+  bị khác.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Mobile Hotspot
+  Service</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Cho phép chia sẻ dữ liệu
+  di động với các thiết bị khác.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Search</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không sử dụng
+  tính năng tìm kiếm mặc định của Windows.</span></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style='font-family:"Arial",sans-serif;color:red'>Windows Update</span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><span style='font-family:"Arial",sans-serif'>Tắt nếu không muốn
+  PC tự động cài đặt các bản cập nhật
+  mới nhất</span></p>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border:solid #FFC000 1.0pt;
+  border-top:none;padding:0cm 5.4pt 0cm 5.4pt">
+<p align="center" class="MsoNormal" style="margin-bottom:0cm;text-align:center;
+  line-height:normal"><b><span style='font-family:"Arial",sans-serif;
+  color:#FFC000'>Tắt toàn bộ các dịch vụ Xbox</span></b></p>
+</td>
+</tr>
+<tr>
+<td style="border:solid #FFC000 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"><b><span style="color:red"> </span></b></p>
+</td>
+<td style="border-top:none;border-left:none;
+  border-bottom:solid #FFC000 1.0pt;border-right:solid #FFC000 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt">
+<p class="MsoNormal" style="margin-bottom:0cm;line-height:normal"> </p>
+</td>
+</tr>
+</table>
+<p class="MsoNormal"> </p>
+</div>
+</div></body>
+</html>
