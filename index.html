@@ -116,11 +116,12 @@
       transform: rotate(-90deg); /* Xoay mũi tên sang ngang khi đóng */
     }
 
-    .khoi-cong-cu-noi-bat {
+    /* Đã đổi tên class dùng chung cho mọi khối có thể thu gọn */
+    .khoi-menu-thu-gon {
       display: block; /* Mặc định hiển thị */
     }
 
-    .khoi-cong-cu-noi-bat.da-thu-gon {
+    .khoi-menu-thu-gon.da-thu-gon {
       display: none; /* Ẩn đi khi có class da-thu-gon */
     }
 
@@ -412,13 +413,11 @@
       <a class="nut-chuyen-trang" data-trang="trang-kich-hoat">🔑 Kích Hoạt Bản Quyền</a>
       <a class="nut-chuyen-trang" data-trang="trang-ve-chung-toi">💡 Về Chúng Tôi</a>
 
-      <!-- ĐÃ THÊM CLASS "da-thu-gon" ĐỂ MẶC ĐỊNH ẨN -->
-      <div class="tieu-de-menu co-the-bam da-thu-gon" id="nut-toggle-cong-cu">
+      <!-- KHỐI 1: CÔNG CỤ NỔI BẬT -->
+      <div class="tieu-de-menu co-the-bam da-thu-gon">
         Công Cụ Nổi Bật <span class="mui-ten-khoi">▼</span>
       </div>
-
-      <!-- ĐÃ THÊM CLASS "da-thu-gon" ĐỂ MẶC ĐỊNH ẨN -->
-      <div class="khoi-cong-cu-noi-bat da-thu-gon" id="khoi-cong-cu">
+      <div class="khoi-menu-thu-gon da-thu-gon">
         <!-- MENU CON: T2SPP -->
         <a class="nut-mo-menu-con" data-menu="menu-con-t2spp">
           <span>🎤 T2SPP</span> <span class="mui-ten">▼</span>
@@ -483,6 +482,20 @@
         </a>
         <div class="menu-con" id="menu-con-FastKara">
           <a class="nut-chuyen-trang" data-trang="trang-FastKara-cai-dat">Cài đặt</a>
+        </div>
+      </div>
+
+      <!-- KHỐI 2: MỚI THÊM - CÔNG CỤ MIỄN PHÍ -->
+      <div class="tieu-de-menu co-the-bam da-thu-gon">
+        Công Cụ Miễn Phí <span class="mui-ten-khoi">▼</span>
+      </div>
+      <div class="khoi-menu-thu-gon da-thu-gon">
+        <!-- MENU CON: App Free Demo -->
+        <a class="nut-mo-menu-con" data-menu="menu-con-app-free-1">
+          <span>🎁 Tên App Free 1</span> <span class="mui-ten">▼</span>
+        </a>
+        <div class="menu-con" id="menu-con-app-free-1">
+          <a class="nut-chuyen-trang" data-trang="trang-app-free-1-cai-dat">Cài đặt</a>
         </div>
       </div>
       
@@ -707,6 +720,20 @@
     </div>
 
     <!-- =====================================
+         NỘI DUNG CÁC APP FREE MỚI THÊM 
+         ===================================== -->
+    <div id="trang-app-free-1-cai-dat" class="trang-noi-dung">
+      <h2 class="tieu-de-muc">Tên App Free 1 > Cài Đặt</h2>
+      <div class="khung-bai-viet">
+        <h3>Giới thiệu ứng dụng (Mã nguồn mở)</h3>
+        <p>Đây là khu vực mẫu dành riêng cho các ứng dụng hoàn toàn miễn phí của bạn. Bạn có thể sửa tên và thêm các nút tải xuống tại đây khi các dự án mới ra lò.</p>
+        <p><i>Chú ý: Đang trong quá trình hoàn thiện.</i></p> 
+        <br>
+        <a class="nut-bam" href="#" target="_blank">Tải Xuống Bản Cài Đặt (Sắp có)</a>
+      </div>
+    </div>
+
+    <!-- =====================================
          CHUYÊN MỤC THỦ THUẬT & TIPS 
          ===================================== -->
     <div id="trang-thu-thuat" class="trang-noi-dung">
@@ -847,12 +874,14 @@
             if(nutXoTuongUng) nutXoTuongUng.classList.add('xo-menu');
           }
 
-          // THÊM TÍNH NĂNG: Nếu nút click nằm trong khối Công Cụ đang bị ẩn thì tự động mở khối đó ra
-          const khoiChua = nutCanBoiSang.closest('#khoi-cong-cu');
+          // THÊM TÍNH NĂNG: Nếu nút click nằm trong bất kỳ khối Menu nào đang bị ẩn thì tự động mở khối đó ra
+          const khoiChua = nutCanBoiSang.closest('.khoi-menu-thu-gon');
           if (khoiChua && khoiChua.classList.contains('da-thu-gon')) {
             khoiChua.classList.remove('da-thu-gon');
-            const nutToggle = document.getElementById('nut-toggle-cong-cu');
-            if(nutToggle) nutToggle.classList.remove('da-thu-gon');
+            const nutToggle = khoiChua.previousElementSibling;
+            if(nutToggle && nutToggle.classList.contains('co-the-bam')) {
+              nutToggle.classList.remove('da-thu-gon');
+            }
           }
         }
       }
@@ -880,16 +909,24 @@
         });
       });
 
-      // XỬ LÝ CLICK ĐÓNG/MỞ KHỐI "CÔNG CỤ NỔI BẬT"
-      const nutToggleCongCu = document.getElementById('nut-toggle-cong-cu');
-      const khoiCongCu = document.getElementById('khoi-cong-cu');
-
-      if (nutToggleCongCu && khoiCongCu) {
-        nutToggleCongCu.addEventListener('click', function() {
+      // =========================================
+      // CODE JS MỚI: XỬ LÝ CLICK ĐÓNG/MỞ CHO MỌI KHỐI DANH MỤC
+      // (Không cần dùng ID cứng nữa, cứ tạo class "co-the-bam" là chạy được)
+      // =========================================
+      const cacNutToggleMenu = document.querySelectorAll('.tieu-de-menu.co-the-bam');
+      
+      cacNutToggleMenu.forEach(nut => {
+        nut.addEventListener('click', function() {
+          // Đảo trạng thái class cho chính nút tiêu đề (để xoay mũi tên)
           this.classList.toggle('da-thu-gon');
-          khoiCongCu.classList.toggle('da-thu-gon');
+          
+          // Lấy cái khối danh sách nằm ngay dưới nó để ẩn/hiện
+          const khoiMenuBenDuoi = this.nextElementSibling;
+          if (khoiMenuBenDuoi && khoiMenuBenDuoi.classList.contains('khoi-menu-thu-gon')) {
+            khoiMenuBenDuoi.classList.toggle('da-thu-gon');
+          }
         });
-      }
+      });
 
     });
   </script>
