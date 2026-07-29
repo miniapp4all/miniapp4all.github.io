@@ -1,7 +1,7 @@
 <html lang="vi">
  <head>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
    MiniApp4All - Cấu Trúc 3 Cấp Chuẩn Xác
   </title>
@@ -136,12 +136,6 @@
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideDown { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: translateY(0); } }
   </style>
-  <style id="miniapp-base-css">
-   * { box-sizing: border-box; }
-        img, video, iframe { max-width: 100%; height: auto; object-fit: contain; }
-        p, h1, h2, h3, h4, h5, h6, span, div, a { max-width: 100%; overflow-wrap: break-word; }
-        html, body { overflow-x: hidden; }
-  </style>
   <style id="magic-hover-effects">
    /* 1. Scale Up & Lift */
             .hover-scale { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important; }
@@ -174,6 +168,22 @@
             /* 8. Expanding Outline Border (Outline Offset) */
             .hover-outline { transition: outline-offset 0.3s ease, outline-color 0.3s ease !important; outline: 2px solid transparent !important; outline-offset: 0px !important; }
             .hover-outline:hover { outline-color: #00d2ff !important; outline-offset: 8px !important; }
+  </style>
+  <style id="miniapp-base-css">
+   /* Tối ưu hóa Web/Mobile - Universal No-Code */
+* { box-sizing: border-box; }
+img, video, iframe { max-width: 100%; height: auto; object-fit: contain; }
+p, h1, h2, h3, h4, h5, h6, span, div, a { max-width: 100%; overflow-wrap: break-word; word-wrap: break-word; }
+html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
+
+/* CHẾ ĐỘ ĐIỆN THOẠI (Dưới 768px) */
+@media screen and (max-width: 768px) {
+    .dashboard-layout, .row-wrap, .grid-wrap, .card-wrap { flex-direction: column !important; display: flex !important; height: auto !important; width: 100% !important; }
+    .col, .card, .sidebar, .main-content, .grid-item-text, .grid-item-img { width: 100% !important; max-width: 100% !important; min-width: 0 !important; flex: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+    .sidebar { border-right: none !important; border-bottom: 1px solid rgba(150,150,150,0.2) !important; padding: 15px !important; }
+    .main-content { padding: 10px !important; }
+    table { display: block !important; overflow-x: auto !important; white-space: nowrap !important; width: 100% !important; }
+}
   </style>
  </head>
  <body class="">
@@ -347,7 +357,7 @@
   <!-- =========================================================================
      CẤU TRÚC NỘI DUNG CHÍNH
      ========================================================================= -->
-  <main class="vung-noi-dung-chinh editor-hover">
+  <main class="vung-noi-dung-chinh">
    <header class="" style="background:inherit;color:inherit;padding:15px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(150,150,150,0.3);width:100%;">
     <div class="" style="font-size:24px;font-weight:bold;color:#007acc;">
      🚀 MiniApp4All
@@ -393,7 +403,7 @@
       <h2 class="tieu-de-muc">
        Danh Sách Ứng Dụng Nổi Bật
       </h2>
-      <div class="luoi-noi-dung">
+      <div class="luoi-noi-dung editor-hover">
        <!-- Cards Tổng Quan -->
        <div class="the-ung-dung">
         <img alt="T2SPP" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'" src="images/t2spp.png"/>
@@ -1167,7 +1177,7 @@
          <h3 class="">
           Fix_Doc
          </h3>
-         <p>
+         <p class="">
           Dọn sạch lỗi trong File Word nhanh chóng.
          </p>
          <a class="cssbuttons-io-button hover-glow" href="https://google.com">
@@ -1177,7 +1187,7 @@
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
            </path>
           </svg>
-          <span>
+          <span class="">
            Download
           </span>
          </a>
@@ -1590,7 +1600,7 @@
          </p>
          <div class="sp">
           <button class="sparkle-button">
-           <span class="spark" onclick="window.open('https://github.com/miniapp4all/F_Remote_Core/releases/download/F_Remote/F_Remote.exe', '_blank');" style="cursor: pointer;">
+           <span class="spark" onclick="window.open('https://github.com/miniapp4all/html_Designer_No-Code/releases/download/html_Designer/html_Designer.exe', '_blank');" style="cursor: pointer;">
            </span>
            <span class="backdrop">
            </span>
@@ -3517,39 +3527,7 @@
             });
   </script>
   <script id="miniapp-nav-script">
-   document.addEventListener('DOMContentLoaded', function() {
-            var pageIds = [];
-            document.querySelectorAll('[data-trang]').forEach(function(btn) {
-                var tId = btn.getAttribute('data-trang');
-                if (tId && pageIds.indexOf(tId) === -1) pageIds.push(tId);
-            });
-            document.body.addEventListener('click', function(e) {
-                var btn = e.target.closest('[data-trang]');
-                if (btn) {
-                    var targetId = btn.getAttribute('data-trang');
-                    var targetPage = document.getElementById(targetId);
-                    if (targetPage) {
-                        e.preventDefault();
-                        pageIds.forEach(function(id) {
-                            var p = document.getElementById(id);
-                            if (p) {
-                                p.classList.remove('trang-dang-hien-thi');
-                                p.style.setProperty('display', 'none', 'important');
-                            }
-                        });
-                        targetPage.classList.add('trang-dang-hien-thi');
-                        targetPage.style.setProperty('display', 'block', 'important');
-                        
-                        document.querySelectorAll('[data-trang]').forEach(function(b) {
-                            b.classList.remove('menu-dang-chon');
-                        });
-                        document.querySelectorAll('[data-trang="' + targetId + '"]').forEach(function(ab){ 
-                            ab.classList.add('menu-dang-chon'); 
-                        });
-                    }
-                }
-            });
-        });
+   document.addEventListener('DOMContentLoaded',function(){var pageIds=[];document.querySelectorAll('[data-trang]').forEach(function(btn){var tId=btn.getAttribute('data-trang');if(tId&&pageIds.indexOf(tId)===-1)pageIds.push(tId);});document.body.addEventListener('click',function(e){var btn=e.target.closest('[data-trang]');if(btn){var targetId=btn.getAttribute('data-trang');var targetPage=document.getElementById(targetId);if(targetPage){e.preventDefault();pageIds.forEach(function(id){var p=document.getElementById(id);if(p){p.classList.remove('trang-dang-hien-thi');p.style.setProperty('display','none','important');}});targetPage.classList.add('trang-dang-hien-thi');targetPage.style.setProperty('display','block','important');document.querySelectorAll('[data-trang]').forEach(function(b){b.classList.remove('menu-dang-chon');});document.querySelectorAll('[data-trang="'+targetId+'"]').forEach(function(ab){ab.classList.add('menu-dang-chon');});}}});});
   </script>
  </body>
 </html>
