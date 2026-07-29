@@ -1,6 +1,6 @@
 <html lang="vi">
  <head>
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" name="viewport"/>
   <meta charset="utf-8"/>
   <title>
    MiniApp4All - Cấu Trúc 3 Cấp Chuẩn Xác
@@ -169,45 +169,147 @@
             .hover-outline { transition: outline-offset 0.3s ease, outline-color 0.3s ease !important; outline: 2px solid transparent !important; outline-offset: 0px !important; }
             .hover-outline:hover { outline-color: #00d2ff !important; outline-offset: 8px !important; }
   </style>
-  <style id="miniapp-base-css">
-   /* Tối ưu hóa Web/Mobile - Universal No-Code */
-* { box-sizing: border-box; }
-img, video, iframe { max-width: 100%; height: auto; object-fit: contain; }
-p, h1, h2, h3, h4, h5, h6, span, div, a { max-width: 100%; overflow-wrap: break-word; word-wrap: break-word; }
-html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
+  <style id="clean-mobile-engine-css">
+   /* ==========================================================================
+   UNIVERSAL MOBILE RESCUE v11.0 (CLEAN-SWEEP ARCHITECTURE)
+   ========================================================================== */
+* { box-sizing: border-box !important; }
+img, video, iframe, embed, object, svg { max-width: 100% !important; height: auto !important; object-fit: contain; }
+html, body { overflow-x: hidden !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
 
-/* CHẾ ĐỘ ĐIỆN THOẠI (Dưới 768px) */
 @media screen and (max-width: 768px) {
-    .dashboard-layout, .row-wrap, .grid-wrap, .card-wrap { flex-direction: column !important; display: flex !important; height: auto !important; width: 100% !important; }
-    .col, .card, .sidebar, .main-content, .grid-item-text, .grid-item-img { width: 100% !important; max-width: 100% !important; min-width: 0 !important; flex: none !important; margin-left: 0 !important; margin-right: 0 !important; }
-    .sidebar { border-right: none !important; border-bottom: 1px solid rgba(150,150,150,0.2) !important; padding: 15px !important; }
-    .main-content { padding: 10px !important; }
-    table { display: block !important; overflow-x: auto !important; white-space: nowrap !important; width: 100% !important; }
+    /* I. PHÁ VỠ BỨC TƯỜNG SIDEBAR CỐ ĐỊNH (FIXED TRAP) & TRẢ LẠI VÙNG MAIN */
+    body {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: auto !important;
+        overflow-y: auto !important;
+    }
+    
+    aside, .thanh-dieu-huong, [class*="dieu-huong"], [class*="sidebar"] {
+        position: relative !important;
+        left: auto !important; top: auto !important; right: auto !important; bottom: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 20px 15px !important;
+        z-index: 10 !important;
+        border-right: none !important;
+        border-bottom: 2px solid #2a3441 !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+
+    main, .vung-noi-dung-chinh, [class*="noi-dung-chinh"], [class*="main-content"] {
+        position: relative !important;
+        left: auto !important; top: auto !important; right: auto !important; bottom: auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 25px 15px !important;
+        z-index: 1 !important;
+        display: block !important;
+        overflow: visible !important;
+    }
+
+    /* II. ĐẢM BẢO NỘI DUNG TRANG ĐANG CHỌN LUÔN HIỂN THỊ CHUẨN XÁC */
+    .trang-noi-dung { display: none !important; }
+    .trang-noi-dung.hien-thi,
+    .trang-noi-dung.trang-dang-hien-thi,
+    .trang-noi-dung[style*="display: block"],
+    .trang-noi-dung[style*="display:block"] {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* III. BẺ DỌC HOÀN TOÀN CÁC HỘP BỐ CỤC LỚN (GRID / FLEX / ROW / BOX) */
+    .dashboard-layout, .row-wrap, .grid-wrap, .card-wrap, .luoi-noi-dung,
+    [class*="header-box"], [class*="content-box"], [class*="app-content"],
+    [class*="khung-app"], [class*="goi-giong"], [class*="chia-"],
+    [style*="display: flex"], [style*="display:flex"],
+    [style*="display: grid"], [style*="display:grid"] {
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        gap: 15px !important;
+    }
+
+    /* IV. CÁC THẺ CON TRONG HỘP BỐ CỤC PHẢI TRÀN VIỀN 100% */
+    .app-media, .app-article, .app-header-text, .app-header-logo,
+    .the-ung-dung, .card, .col, [class*="grid-item"],
+    [class*="header-box"] > *, [class*="content-box"] > *,
+    .luoi-noi-dung > *, .card-wrap > * {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        flex: none !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .app-header-logo, .vung-logo {
+        margin: 10px auto !important;
+        align-self: center !important;
+    }
+
+    /* V. BẢO VỆ THÀNH PHẦN VI MÔ (BUTTON, MENU, LINK, INPUT, PHÂN TRANG) */
+    a:not(.card *), button, li, span, label, input, select, textarea, .menu-con, .mui-ten,
+    .pagination, .pagination *, .nut-phan-trang, .nav-phan-trang, .nut-bam, .nut-menu {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    a.nut-chuyen-trang, a[class*="nut-menu"], .nut-mo-menu-con, .tieu-de-muc-lon {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+
+    /* VI. TRỊ BẢNG BIỂU (TABLE) & CHỮ TRÀN */
+    table {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    p, h1, h2, h3, h4, h5, h6, span, a, li, td, th {
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+    }
 }
   </style>
  </head>
- <body class="">
+ <body class="is-edit-mode u-macro-stack">
   <!-- CẤU TRÚC ĐIỀU HƯỚNG BÊN TRÁI -->
-  <aside class="thanh-dieu-huong">
-   <div class="vung-logo">
+  <aside class="thanh-dieu-huong u-resp-box">
+   <div class="vung-logo u-resp-box">
     <img alt="Logo" class="hover-neon" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'" src="images/Logo.jpg"/>
     <h1 class="">
      MiniApp4All
     </h1>
    </div>
-   <div class="danh-sach-menu">
+   <div class="danh-sach-menu u-resp-box">
     <!-- I. TỔNG QUAN -->
     <a class="nut-menu dang-chon menu-dang-chon" data-trang="tong-quan">
      🏠 Tổng Quan
     </a>
     <!-- II. CÔNG CỤ NỔI BẬT (Đã thiết kế siêu gọn) -->
-    <div class="tieu-de-muc-lon thu-gon">
+    <div class="tieu-de-muc-lon thu-gon u-resp-box">
      Công Cụ Nổi Bật
      <span class="mui-ten-i">
       ▼
      </span>
     </div>
-    <div class="khoi-menu-con thu-gon">
+    <div class="khoi-menu-con thu-gon u-resp-box">
      <a class="nut-menu" data-trang="ccnb-t2spp">
       🎤 T2SPP
      </a>
@@ -237,14 +339,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </a>
     </div>
     <!-- III. CÔNG CỤ MIỄN PHÍ -->
-    <div class="tieu-de-muc-lon">
+    <div class="tieu-de-muc-lon u-resp-box">
      Công Cụ Miễn Phí
      <span class="mui-ten-i">
       ▼
      </span>
     </div>
-    <div class="khoi-menu-con thu-gon">
-     <div class="nut-xo-menu" data-menu="menu-ccmp-free1">
+    <div class="khoi-menu-con thu-gon u-resp-box">
+     <div class="nut-xo-menu u-resp-box" data-menu="menu-ccmp-free1">
       <span class="">
        🎁 App Free 1
       </span>
@@ -252,7 +354,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        ▼
       </span>
      </div>
-     <div class="nut-xo-menu" data-menu="menu-ccmp-free1">
+     <div class="nut-xo-menu u-resp-box" data-menu="menu-ccmp-free1">
       <span class="">
        🎁 App Free 1
       </span>
@@ -260,12 +362,12 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        ▼
       </span>
      </div>
-     <div class="menu-cap-2" id="menu-ccmp-free1">
+     <div class="menu-cap-2 u-resp-box" id="menu-ccmp-free1">
       <a class="nut-menu" data-trang="ccmp-free1-caidat">
        a. Cài đặt
       </a>
      </div>
-     <div class="menu-cap-2" id="menu-ccmp-free1_copy796">
+     <div class="menu-cap-2 u-resp-box" id="menu-ccmp-free1_copy796">
       <a class="nut-menu" data-trang="ccmp-free1-caidat_copy469">
        a. Cài đặt
        (Copy)
@@ -273,13 +375,13 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- IV. THỦ THUẬT -->
-    <div class="tieu-de-muc-lon">
+    <div class="tieu-de-muc-lon u-resp-box">
      Thủ Thuật &amp; Tips
      <span class="mui-ten-i">
       ▼
      </span>
     </div>
-    <div class="khoi-menu-con thu-gon">
+    <div class="khoi-menu-con thu-gon u-resp-box">
      <a class="nut-menu" data-trang="tt-danhsach">
       📚 Danh sách Thủ thuật
      </a>
@@ -294,13 +396,13 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </a>
     </div>
     <!-- V. KHÁC -->
-    <div class="tieu-de-muc-lon">
+    <div class="tieu-de-muc-lon u-resp-box">
      Thông Tin Khác
      <span class="mui-ten-i">
       ▼
      </span>
     </div>
-    <div class="khoi-menu-con thu-gon">
+    <div class="khoi-menu-con thu-gon u-resp-box">
      <a class="nut-menu" data-trang="khac-taixuong">
       ⬇ Trung Tâm Tải Xuống
      </a>
@@ -312,23 +414,23 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </a>
     </div>
    </div>
-   <form action="https://formspree.io/f/mvzedrnl" class="" method="POST" style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; border: 1px solid #444; max-width: 500px; margin: 0 auto; width: 100%; font-family: sans-serif; color: inherit;">
+   <form action="https://formspree.io/f/mvzedrnl" class="u-resp-box" method="POST" style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; border: 1px solid #444; max-width: 500px; margin: 0 auto; width: 100%; font-family: sans-serif; color: inherit;">
     <h3 class="" style="margin-top:0; color:#00d2ff; margin-bottom:20px; font-size: 22px;">
      Liên Hệ
     </h3>
-    <div class="" style="margin-bottom:15px;">
+    <div class="u-resp-box" style="margin-bottom:15px;">
      <label class="" style="display:block; margin-bottom:5px; font-size:14px; opacity:0.8;">
       Họ và Tên
      </label>
      <input class="" name="name" required="" style="width:100%; padding:10px; border-radius:4px; border:1px solid #555; background:rgba(0,0,0,0.2); color:inherit; box-sizing:border-box;" type="text"/>
     </div>
-    <div class="" style="margin-bottom:15px;">
+    <div class="u-resp-box" style="margin-bottom:15px;">
      <label class="" style="display:block; margin-bottom:5px; font-size:14px; opacity:0.8;">
       Email của bạn
      </label>
      <input class="" name="email" required="" style="width:100%; padding:10px; border-radius:4px; border:1px solid #555; background:rgba(0,0,0,0.2); color:inherit; box-sizing:border-box;" type="email"/>
     </div>
-    <div class="" style="margin-bottom:20px;">
+    <div class="u-resp-box" style="margin-bottom:20px;">
      <label class="" style="display:block; margin-bottom:5px; font-size:14px; opacity:0.8;">
       Nội dung tin nhắn
      </label>
@@ -338,9 +440,9 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      Gửi Tin Nhắn 🚀
     </button>
    </form>
-   <div class="pagination-wrapper" style="width:100%; margin:20px 0;">
+   <div class="pagination-wrapper mobile-full-width u-resp-box u-macro-col" style="width:100%; margin:20px 0;">
    </div>
-   <footer class="" style="background:rgba(0,0,0,0.8);color:#fff;padding:30px 20px;text-align:center;margin-top:20px;width:100%;">
+   <footer class="mobile-full-width u-resp-box u-macro-col" style="background:rgba(0,0,0,0.8);color:#fff;padding:30px 20px;text-align:center;margin-top:20px;width:100%;">
     <h3 class="" style="margin-bottom:10px;">
      <font class="" color="#0270ff">
       MiniApp4All
@@ -349,7 +451,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
     <p class="" style="margin-bottom:15px;font-size:14px;">
      SĐT: +84911.933.550
     </p>
-    <div class="" style="border-top:1px solid #444;padding-top:15px;font-size:12px;">
+    <div class="u-resp-box" style="border-top:1px solid #444;padding-top:15px;font-size:12px;">
      © 2026 Bản quyền thuộc về MiniApp4All.
     </div>
    </footer>
@@ -357,29 +459,29 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
   <!-- =========================================================================
      CẤU TRÚC NỘI DUNG CHÍNH
      ========================================================================= -->
-  <main class="vung-noi-dung-chinh">
-   <header class="" style="background:inherit;color:inherit;padding:15px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(150,150,150,0.3);width:100%;">
-    <div class="" style="font-size:24px;font-weight:bold;color:#007acc;">
+  <main class="vung-noi-dung-chinh u-resp-box u-macro-stack">
+   <header class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack" style="background:inherit;color:inherit;padding:15px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(150,150,150,0.3);width:100%;">
+    <div class="mobile-full-width u-resp-box u-resp-col" style="font-size:24px;font-weight:bold;color:#007acc;">
      🚀 MiniApp4All
     </div>
-    <nav class="" style="display:flex;gap:20px;">
-     <a href="https://miniapp4all.github.io/" style="color: inherit; text-decoration: none; font-weight: 500;">
+    <nav class="mobile-stack-col mobile-full-width u-macro-stack" style="display:flex;gap:20px;">
+     <a class="mobile-full-width" href="https://miniapp4all.github.io/" style="color: inherit; text-decoration: none; font-weight: 500;">
      </a>
-     <a href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+     <a class="mobile-full-width" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
       <p class="" onclick="window.open('https://miniapp4all.github.io/', '_blank');" style="cursor: pointer;">
        Trang chủ
       </p>
      </a>
-     <a class="" href="#" style="color:inherit;text-decoration:none;font-weight:500;">
+     <a class="mobile-full-width" href="#" style="color:inherit;text-decoration:none;font-weight:500;">
       Dịch vụ
      </a>
     </nav>
    </header>
    <!-- ================= 1. TỔNG QUAN ================= -->
-   <div class="thung-chua-muc-lon" id="MUC-I-TONG-QUAN">
-    <div class="thung-chua-ung-dung" id="APP-TONG-QUAN">
-     <div class="trang-noi-dung hien-thi trang-dang-hien-thi" id="tong-quan" style="display: block;">
-      <section class="bang-gioi-thieu hover-neon">
+   <div class="thung-chua-muc-lon u-resp-box" id="MUC-I-TONG-QUAN">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-TONG-QUAN">
+     <div class="trang-noi-dung hien-thi trang-dang-hien-thi u-resp-box" id="tong-quan" style="display: block;">
+      <section class="bang-gioi-thieu hover-neon u-resp-box">
        <h2 class="">
         Công Cụ Tối Giản, Hiệu Suất Tối Đa
        </h2>
@@ -393,7 +495,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        </p>
        <p class="" style='line-height: 1.8; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
         Phương châm toàn hệ sinh thái:
-        <strong>
+        <strong class="">
          <font class="" color="#e3e300">
           1 KEY CHO TOÀN BỘ
          </font>
@@ -403,11 +505,11 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
       <h2 class="tieu-de-muc">
        Danh Sách Ứng Dụng Nổi Bật
       </h2>
-      <div class="luoi-noi-dung editor-hover">
+      <div class="luoi-noi-dung u-resp-box">
        <!-- Cards Tổng Quan -->
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="T2SPP" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'" src="images/t2spp.png"/>
-        <div class="noi-dung-the" onclick="window.open('https://drive.google.com/file/d/14l9jTck1aNHr8Z2aGgJVDH1A5wz_UF_A/view?usp=drive_link', '_blank');" style="cursor: pointer;">
+        <div class="noi-dung-the u-resp-box" onclick="window.open('https://drive.google.com/file/d/14l9jTck1aNHr8Z2aGgJVDH1A5wz_UF_A/view?usp=drive_link', '_blank');" style="cursor: pointer;">
          <h3 class="">
           T2SPP
          </h3>
@@ -415,13 +517,13 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Chuyển đổi văn bản sang giọng nói offline.
          </p>
          <a class="cssbuttons-io-button hover-neon" href="https://google.com">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
            </path>
           </svg>
-          <span>
+          <span class="">
            Download
           </span>
          </a>
@@ -733,9 +835,9 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </style>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="T2SPP" class="" onerror="this.src='F_Media/F_Media.png'" src="F_Media/F_Media.png" style="object-fit: contain; max-width: 100%"/>
-        <div class="noi-dung-the hover-neon" onclick="window.open('https://github.com/miniapp4all/F_Media/releases/latest/download/F_Media.exe', '_blank');" style="cursor: pointer;">
+        <div class="noi-dung-the hover-neon u-resp-box" onclick="window.open('https://github.com/miniapp4all/F_Media/releases/latest/download/F_Media.exe', '_blank');" style="cursor: pointer;">
          <h3 class="">
           F_Media
          </h3>
@@ -743,33 +845,33 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Quản lý thư viện, hỗ trợ mọi định dạng, VR SBS
          </p>
          <button class="uiverse">
-          <div class="wrapper">
+          <div class="wrapper u-resp-box">
            <span class="">
             Download
            </span>
-           <div class="circle circle-12">
+           <div class="circle circle-12 u-resp-box">
            </div>
-           <div class="circle circle-11">
+           <div class="circle circle-11 u-resp-box">
            </div>
-           <div class="circle circle-10">
+           <div class="circle circle-10 u-resp-box">
            </div>
-           <div class="circle circle-9">
+           <div class="circle circle-9 u-resp-box">
            </div>
-           <div class="circle circle-8">
+           <div class="circle circle-8 u-resp-box">
            </div>
-           <div class="circle circle-7">
+           <div class="circle circle-7 u-resp-box">
            </div>
-           <div class="circle circle-6">
+           <div class="circle circle-6 u-resp-box">
            </div>
-           <div class="circle circle-5">
+           <div class="circle circle-5 u-resp-box">
            </div>
-           <div class="circle circle-4">
+           <div class="circle circle-4 u-resp-box">
            </div>
-           <div class="circle circle-3">
+           <div class="circle circle-3 u-resp-box">
            </div>
-           <div class="circle circle-2">
+           <div class="circle circle-2 u-resp-box">
            </div>
-           <div class="circle circle-1">
+           <div class="circle circle-1 u-resp-box">
            </div>
           </div>
          </button>
@@ -1079,9 +1181,9 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </style>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="Fpptx" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Fpptx'" src="images/Fpptx.png"/>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <h3 class="">
           Fpptx
          </h3>
@@ -1089,13 +1191,13 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Quản lý thư viện PowerPoint trực quan...
          </p>
          <a class="cssbuttons-io-button hover-neon" href="https://google.com">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
            </path>
           </svg>
-          <span>
+          <span class="">
            Download
           </span>
          </a>
@@ -1149,9 +1251,9 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </style>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="FPics" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FPics'" src="images/FPics.png"/>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <h3 class="">
           FPics
          </h3>
@@ -1159,29 +1261,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Quản lý thư viện ảnh, xem tranh nhanh...
          </p>
          <a class="cssbuttons-io-button hover-glow" href="https://google.com">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-           <path d="M0 0h24v24H0z" fill="none">
-           </path>
-           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
-           </path>
-          </svg>
-          <span>
-           Download
-          </span>
-         </a>
-        </div>
-       </div>
-       <div class="the-ung-dung">
-        <img alt="Fix_Doc" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Fix_Doc'" src="images/Fix_Doc.ico"/>
-        <div class="noi-dung-the">
-         <h3 class="">
-          Fix_Doc
-         </h3>
-         <p class="">
-          Dọn sạch lỗi trong File Word nhanh chóng.
-         </p>
-         <a class="cssbuttons-io-button hover-glow" href="https://google.com">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
@@ -1193,9 +1273,31 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </a>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
+        <img alt="Fix_Doc" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Fix_Doc'" src="images/Fix_Doc.ico"/>
+        <div class="noi-dung-the u-resp-box">
+         <h3 class="">
+          Fix_Doc
+         </h3>
+         <p class="">
+          Dọn sạch lỗi trong File Word nhanh chóng.
+         </p>
+         <a class="cssbuttons-io-button hover-glow" href="https://google.com">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span class="">
+           Download
+          </span>
+         </a>
+        </div>
+       </div>
+       <div class="the-ung-dung u-resp-box">
         <img alt="MaxPDF" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=MaxPDF'" src="images/MaxPDF.ico"/>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <h3 class="">
           MaxPDF
          </h3>
@@ -1203,21 +1305,21 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Quản lý, đọc truyện, xem tranh pdf, cbz, cbr...
          </p>
          <a class="cssbuttons-io-button hover-neon" href="https://google.com">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
            </path>
           </svg>
-          <span>
+          <span class="">
            Download
           </span>
          </a>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="FastKara" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FastKara'" src="images/FastKara.ico"/>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <h3 class="">
           F_Kara
          </h3>
@@ -1225,21 +1327,21 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Hát Karaoke Online, Ofline... Mang rạp hát về gia đình của bạn.
          </p>
          <a class="cssbuttons-io-button hover-neon" href="https://google.com">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
            </path>
           </svg>
-          <span>
+          <span class="">
            Download
           </span>
          </a>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="FastKara" class="" onerror="this.src='F_Remote/F_Remote.png'" src="F_Remote/F_Remote.png" style="object-fit: contain; max-width: 100%"/>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <h3 class="">
          </h3>
          <h3 class="">
@@ -1248,7 +1350,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          <p class="">
           Biến điện thoại thành Remote PC qua mạng Lan,. truyền hình ảnh, âm thanh trực tiếp tới điện thoại qua LAN....
          </p>
-         <div class="sp">
+         <div class="sp u-resp-box">
           <button class="sparkle-button">
            <span class="spark" onclick="window.open('https://github.com/miniapp4all/F_Remote_Core/releases/download/F_Remote/F_Remote.exe', '_blank');" style="cursor: pointer;">
            </span>
@@ -1266,7 +1368,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
             Download for free
            </span>
           </button>
-          <div class="bodydrop">
+          <div class="bodydrop u-resp-box">
           </div>
           <span aria-hidden="true" class="particle-pen">
            <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
@@ -1581,9 +1683,9 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </style>
         </div>
        </div>
-       <div class="the-ung-dung">
+       <div class="the-ung-dung u-resp-box">
         <img alt="FastKara" class="" onerror="this.src='images/html_Designer.png'" src="images/html_Designer.png" style="object-fit: contain; max-width: 100%"/>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <h3 class="">
          </h3>
          <h3 class="">
@@ -1598,7 +1700,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           </font>
           mã nguồn mở hoàn toàn miễn phí...
          </p>
-         <div class="sp">
+         <div class="sp u-resp-box">
           <button class="sparkle-button">
            <span class="spark" onclick="window.open('https://github.com/miniapp4all/html_Designer_No-Code/releases/download/html_Designer/html_Designer.exe', '_blank');" style="cursor: pointer;">
            </span>
@@ -1616,7 +1718,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
             Download for free
            </span>
           </button>
-          <div class="bodydrop">
+          <div class="bodydrop u-resp-box">
           </div>
           <span aria-hidden="true" class="particle-pen">
            <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
@@ -1936,17 +2038,17 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
     </div>
    </div>
    <!-- ================= 2. CÔNG CỤ NỔI BẬT ================= -->
-   <div class="thung-chua-muc-lon" id="MUC-II-CONG-CU-NOI-BAT">
+   <div class="thung-chua-muc-lon u-resp-box" id="MUC-II-CONG-CU-NOI-BAT">
     <!-- [T2SPP] Tất cả nội dung nằm gọn 1 trang -->
-    <div class="thung-chua-ung-dung" id="APP-T2SPP">
-     <div class="trang-noi-dung" id="ccnb-t2spp" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-T2SPP">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-t2spp" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; T2SPP
       </h2>
-      <div class="khung-app-chitiet">
+      <div class="khung-app-chitiet u-resp-box">
        <!-- Khung Header -->
-       <div class="app-header-box dao-nguoc">
-        <div class="app-header-text">
+       <div class="app-header-box dao-nguoc u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           Công Cụ Chuyển Đổi Văn Bản Sang Giọng Nói
          </h3>
@@ -1961,22 +2063,22 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống Bản Cài Đặt
          </a>
         </div>
-        <div class="app-header-logo">
+        <div class="app-header-logo u-resp-box">
          <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
          </a>
          <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
          </a>
-         <a href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+         <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
           <img alt="Logo T2SPP" class="" onerror="this.src='https://via.placeholder.com/150/0984e3/ffffff?text=LOGO+T2SPP'" src="images/t2spp.png"/>
          </a>
         </div>
        </div>
        <!-- KHOANG 1: Hướng dẫn cài đặt -->
-       <div class="app-content-box dao-nguoc">
-        <div class="app-media">
+       <div class="app-content-box dao-nguoc u-resp-box">
+        <div class="app-media u-resp-box">
          <img alt="Ảnh minh họa T2SPP" class="" onerror="this.src='https://via.placeholder.com/600x400/d63031/ffffff?text=ẢNH+MINH+HỌA'" src="T2SPP/001.png"/>
         </div>
-        <div class="app-article">
+        <div class="app-article u-resp-box">
          <h4 class="">
           Cách thiết lập ban đầu
          </h4>
@@ -2044,15 +2146,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
         </div>
        </div>
        <!-- KHOANG 2: Modules (Thiết kế đúng yêu cầu: Ảnh to bên trái - 2 khung giọng bên phải) -->
-       <div class="app-content-box">
-        <div class="app-media" style="min-width: 0;">
+       <div class="app-content-box u-resp-box">
+        <div class="app-media mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Modules T2SPP" class="" onerror="this.src='T2SPP/t2spp.png'" src="T2SPP/t2spp.png" style="max-width: 100%; height: 195px; object-fit: contain; width: 178px"/>
         </div>
         <!-- Cột phải chứa 2 Module, tắt viền background của app-article để nhường chỗ cho khối con -->
-        <div class="app-article" style="background: transparent; border: none; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+        <div class="app-article mobile-stack-col u-resp-box u-macro-stack u-resp-stack" style="background: transparent; border: none; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
          <!-- Khối Giọng Nữ -->
-         <div class="goi-giong-doc">
-          <div class="">
+         <div class="goi-giong-doc mobile-full-width u-resp-box u-resp-col">
+          <div class="u-resp-box">
            <h4 class="" style="width: 262px; height: 32px;">
             👩 Giọng Nữ
            </h4>
@@ -2070,14 +2172,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           </a>
          </div>
          <!-- Khối Giọng Nam -->
-         <div class="goi-giong-doc">
-          <div class="">
+         <div class="goi-giong-doc mobile-full-width u-resp-box u-resp-col">
+          <div class="u-resp-box">
            <h4 class="">
             👨 Giọng Nam
            </h4>
           </div>
           <a class="cssbuttons-io-button hover-glow" href="https://drive.google.com/file/d/1JE4fuyi6IWXsoX1XjDa56EAe9kmFspta/view?usp=drive_link">
-           <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 0h24v24H0z" fill="none">
             </path>
             <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
@@ -2094,14 +2196,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- [Mini Dawn] -->
-    <div class="thung-chua-ung-dung" id="APP-MINIDAWN">
-     <div class="trang-noi-dung" id="ccnb-minidawn" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-MINIDAWN">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-minidawn" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; Mini Dawn
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           Tải phần mềm cắt ghép âm thanh Mini Dawn
          </h3>
@@ -2112,15 +2214,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống
          </a>
         </div>
-        <div class="app-header-logo">
+        <div class="app-header-logo u-resp-box">
          <img alt="Logo Mini Dawn" class="" onerror="this.src='https://via.placeholder.com/150/FFD700/000000?text=LOGO'" src="images/Mini_Dawn.png"/>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-media" style="min-width: 0;">
+       <div class="app-content-box u-resp-box">
+        <div class="app-media mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Ảnh Mini Dawn" class="" onerror="this.src='images/Mini_Dawn.png'" src="images/Mini_Dawn.png" style="height: 206px; object-fit: contain; width: 239px; max-width: none !important; min-width: 10px !important;"/>
         </div>
-        <div class="app-article">
+        <div class="app-article u-resp-box">
          <h4>
           Tính năng nổi bật
          </h4>
@@ -2142,13 +2244,13 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        </div>
       </div>
      </div>
-     <div class="trang-noi-dung" id="ccnb-minidawn_copy773" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-minidawn_copy773" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; F_Remote_Full_Free
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <a href="New_html/0006_27072026_Detail.html" style="text-decoration: none; color: inherit; display: block;">
           <h3 class="">
            Giới thiệu
@@ -2158,32 +2260,32 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Bộ công cụ điều khiển PC từ xa và tiện ích hệ thống nhỏ gọn, đa năng. Cho phép điều khiển máy tính qua điện thoại/web bằng mã QR, quản lý máy chủ Game Streaming Sunshine, khởi chạy nhanh ứng dụng và tùy chỉnh hệ thống chỉ với vài thao tác.
          </p>
         </div>
-        <div class="app-header-logo" style="min-width: 0;">
+        <div class="app-header-logo mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Logo Mini Dawn" class="" onerror="this.src='images/F_Remote.png'" src="images/F_Remote.png" style="max-width: 100%; height: auto; object-fit: contain"/>
         </div>
        </div>
-       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); min-height: 302px; resize: vertical !important; overflow: auto !important; height: 553px;">
-          <img class="" src="F_Remote/mo_ta_01.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+       <div class="card-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); min-height: 302px; resize: vertical !important; overflow: auto !important; height: 553px;">
+          <img class="mobile-full-width" src="F_Remote/mo_ta_01.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
          </div>
         </div>
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150,150,150,0.2); min-height: 537px">
-          <img class="" src="F_Remote/mo_ta_02.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150,150,150,0.2); min-height: 537px">
+          <img class="mobile-full-width" src="F_Remote/mo_ta_02.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
          </div>
         </div>
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="height: 550px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
-          <img class="" src="F_Remote/mo_ta_03.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="height: 550px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="mobile-full-width" src="F_Remote/mo_ta_03.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
          </div>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-media" style="min-width: 0;">
+       <div class="app-content-box u-resp-box">
+        <div class="app-media mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Ảnh Mini Dawn" class="hover-neon" onerror="this.src='images/F_Remote.png'" src="images/F_Remote.png" style="height: 501px; object-fit: contain; width: 489px; max-width: none !important; min-width: 10px !important;"/>
         </div>
-        <div class="app-article">
+        <div class="app-article u-resp-box">
          <h4 class="">
           Tính năng nổi bật
          </h4>
@@ -2225,7 +2327,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           </li>
          </ul>
          <a class="cssbuttons-io-button hover-glow" href="https://github.com/miniapp4all/F_Remote_Core/releases/download/F_Remote/F_Remote.exe">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path class="" d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
@@ -2241,14 +2343,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- [Fast pptx] -->
-    <div class="thung-chua-ung-dung" id="APP-FPPTX">
-     <div class="trang-noi-dung" id="ccnb-fpptx" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-FPPTX">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-fpptx" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; Fast pptx
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           Fast pptx - Quản lý thư viện Slide thần tốc
          </h3>
@@ -2259,43 +2361,43 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống Bản Cài Đặt
          </a>
         </div>
-        <div class="app-header-logo">
+        <div class="app-header-logo u-resp-box">
          <img alt="Logo Fpptx" class="" onerror="this.src='https://via.placeholder.com/150/fdcb6e/000000?text=PPTX'" src="images/Fpptx.png"/>
         </div>
        </div>
-       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="height: 207px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
-          <img class="" src="Fpptx/mo_ta_02.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+       <div class="card-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="height: 207px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="mobile-full-width" src="Fpptx/mo_ta_02.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
          </div>
-         <div class="" style="padding:15px;display:flex;flex-direction:column;flex:1;">
-          <h3 class="" style="margin:0 0 10px 0;font-size:18px;">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-col" style="padding:15px;display:flex;flex-direction:column;flex:1;">
+          <h3 class="mobile-full-width" style="margin:0 0 10px 0;font-size:18px;">
            <span style="color: rgb(255, 255, 0); font-size: 22px; background-color: rgb(21, 26, 36);">
             Thiết thực - chủ động - quản lý hiệu quả
            </span>
           </h3>
-          <p class="" style="font-size:14px;line-height:1.5;opacity:0.8;margin:0 0 15px 0;">
+          <p class="mobile-full-width" style="font-size:14px;line-height:1.5;opacity:0.8;margin:0 0 15px 0;">
            Mô tả nội dung thẻ. Khung ảnh đã được khóa gọn gàng, chữ luôn hiển thị đầy đủ bên dưới.
           </p>
          </div>
         </div>
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150,150,150,0.2); min-height: 318px">
-          <img class="" src="Fpptx/mo_ta_01.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150,150,150,0.2); min-height: 318px">
+          <img class="mobile-full-width" src="Fpptx/mo_ta_01.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
          </div>
         </div>
        </div>
-       <div class="app-content-box dao-nguoc">
+       <div class="app-content-box dao-nguoc u-resp-box">
        </div>
       </div>
      </div>
-     <div class="trang-noi-dung" id="ccnb-fpptx_copy231" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-fpptx_copy231" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; F_Media
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box" style="min-height: 175px">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box" style="min-height: 175px">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           F_Media - Quản lý thư viện Audio, Video thần tốc
          </h3>
@@ -2306,12 +2408,12 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           là trình phát media độc lập, mượt mà và mạnh mẽ dựa trên nhân MPV đỉnh cao. Ứng dụng được tối ưu toàn diện cho trải nghiệm phát media cao cấp: tự động xuất màn hình thứ 2, biến mọi video thành chuẩn VR SBS, quản lý thư viện trực quan và giao diện linh hoạt.
          </p>
         </div>
-        <div class="app-header-logo" style="min-width: 0;">
+        <div class="app-header-logo mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Logo Fpptx" class="" onerror="this.src='F_Media/F_Media.png'" src="F_Media/F_Media.png" style="max-width: 100%; height: 107px; object-fit: contain; width: 117px"/>
         </div>
        </div>
-       <div class="app-content-box dao-nguoc">
-        <div class="app-article" style="overflow: hidden; min-width: 0;">
+       <div class="app-content-box dao-nguoc u-resp-box">
+        <div class="app-article mobile-full-width u-resp-box u-macro-col" style="overflow: hidden; min-width: 0;">
          <img class="hover-wiggle" src="F_Media/F_Media.png" style="width: 227px; height: 236px; object-fit: contain; flex-shrink: 0; float: right; margin: 0px 0px 15px 15px; max-width: none !important; min-width: 10px !important;"/>
          <h4 class="">
           ✨
@@ -2319,38 +2421,38 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
            Key Features / Tính năng nổi bật
           </font>
          </h4>
-         <div class="">
+         <div class="u-resp-box">
           🎬 Powerful MPV Engine / Nhân MPV mạnh mẽ: Effortlessly plays all video and audio formats with maximum quality and low CPU/RAM usage.
          </div>
-         <div class="">
+         <div class="u-resp-box">
           🖥️ Auto Dual-Monitor Playback / Phát độc lập màn hình thứ 2: Automatically detects and controls playback on a second screen independently.
          </div>
-         <div class="">
+         <div class="u-resp-box">
           🥽 Universal VR SBS Mode / Chế độ VR SBS mọi Video: On-the-fly Side-By-Side VR conversion for any video.
          </div>
-         <div class="">
+         <div class="u-resp-box">
           📁 Visual Folder Library / Quản lý thư viện trực quan: Organize and browse your media collections directly by clean folder structures.
          </div>
-         <div class="">
+         <div class="u-resp-box">
           ⚡ Real-Time Smooth Timeline / Timeline mượt nhẹ độc quyền: Exclusive timeline rendering for precise, instantaneous seeking without lag.
          </div>
-         <div class="">
+         <div class="u-resp-box">
           🎛️ Detachable Control Panel / Thanh điều khiển tách rời: Completely detach and position the control panel anywhere on your screen.
          </div>
-         <div class="">
+         <div class="u-resp-box">
           🖱️ System Integration / Tích hợp Windows Context Menu: Supports right-click "Open with" integration as a full standalone media player.
          </div>
         </div>
        </div>
-       <div class="app-content-box dao-nguoc">
-        <div class="app-article">
+       <div class="app-content-box dao-nguoc u-resp-box">
+        <div class="app-article u-resp-box">
          <p class="">
          </p>
          <h4 class="">
           Tải về/ Download
          </h4>
          <a class="cssbuttons-io-button hover-neon" href="https://github.com/miniapp4all/F_Media/releases/latest/download/F_Media.exe">
-          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
            <path d="M0 0h24v24H0z" fill="none">
            </path>
            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
@@ -2361,24 +2463,24 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           </span>
          </a>
         </div>
-        <div class="app-media" style="min-width: 0;">
+        <div class="app-media mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Ảnh PPTX" class="hover-scale" onerror="this.src='F_Media/F_Media.png'" src="F_Media/F_Media.png" style="max-width: none !important; height: 148px; object-fit: contain; width: 160px; min-width: 10px !important;"/>
         </div>
        </div>
-       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="height: 301px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
-          <img src="F_Media/mo_ta_01.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 404px; height: 340px;"/>
+       <div class="card-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="height: 301px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="mobile-full-width" src="F_Media/mo_ta_01.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 404px; height: 340px;"/>
          </div>
         </div>
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="height: 302px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
-          <img class="" src="F_Media/mo_ta_02.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 385px; height: 332px;"/>
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="height: 302px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="mobile-full-width" src="F_Media/mo_ta_02.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 385px; height: 332px;"/>
          </div>
         </div>
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="height: 304px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
-          <img class="" src="F_Media/mo_ta_03.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 386px; height: 406px;"/>
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-resp-col" style="height: 304px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="mobile-full-width" src="F_Media/mo_ta_03.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 386px; height: 406px;"/>
          </div>
         </div>
        </div>
@@ -2386,14 +2488,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- [Fast Pics] -->
-    <div class="thung-chua-ung-dung" id="APP-FPICS">
-     <div class="trang-noi-dung" id="ccnb-fpics" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-FPICS">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-fpics" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; FPics
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box dao-nguoc">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box dao-nguoc u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           Fast Pics - Trình Xem Và Quản Lý Ảnh Kéo Thả
          </h3>
@@ -2404,15 +2506,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống Bản Cài Đặt
          </a>
         </div>
-        <div class="app-header-logo" style="border-radius: 50%;">
+        <div class="app-header-logo u-resp-box" style="border-radius: 50%;">
          <img alt="Logo" class="" onerror="this.src='https://via.placeholder.com/150/00cec9/ffffff?text=PICS'" src="images/FPics.png"/>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-media">
+       <div class="app-content-box u-resp-box">
+        <div class="app-media u-resp-box">
          <img alt="Ảnh Fast Pics" onerror="this.src='FPics/mo_ta_01.png'" src="FPics/mo_ta_01.png" style="width: 491px; height: 300px; object-fit: contain; max-width: none !important; min-width: 10px !important;"/>
         </div>
-        <div class="app-article">
+        <div class="app-article u-resp-box">
          <h4>
           Mở ảnh trong 0.1 giây
          </h4>
@@ -2425,14 +2527,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- [Fix_Doc] -->
-    <div class="thung-chua-ung-dung" id="APP-FIXDOC">
-     <div class="trang-noi-dung" id="ccnb-fixdoc" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-FIXDOC">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-fixdoc" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; Fix_Doc
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3>
           Fix_Doc - Dọn Rác &amp; Sửa Lỗi File Word
          </h3>
@@ -2443,15 +2545,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống Bản Cài Đặt
          </a>
         </div>
-        <div class="app-header-logo">
+        <div class="app-header-logo u-resp-box">
          <img alt="Logo Fix Doc" class="" onerror="this.src='https://via.placeholder.com/150/b2bec3/000000?text=DOC'" src="images/Fix_Doc.ico"/>
         </div>
        </div>
-       <div class="app-content-box dao-nguoc">
-        <div class="app-media">
+       <div class="app-content-box dao-nguoc u-resp-box">
+        <div class="app-media u-resp-box">
          <img alt="Ảnh Fix Doc" class="" onerror="this.src='Fix_Doc/mo_ta_01.png'" src="Fix_Doc/mo_ta_01.png" style="object-fit: contain; max-width: none !important; width: 252px; height: 498px; min-width: 10px !important;"/>
         </div>
-        <div class="app-article" style="overflow: hidden">
+        <div class="app-article u-resp-box" style="overflow: hidden">
          <img src="Fix_Doc/mo_ta_02.png" style="width: 33.33%; max-width: 100%; height: auto; object-fit: contain; flex-shrink: 0; min-width: 0; float: right; margin: 0 0 15px 15px;"/>
          <h4 class="">
           Công cụ cứu hộ dân văn phòng
@@ -2476,14 +2578,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- [MaxPDF] -->
-    <div class="thung-chua-ung-dung" id="APP-MAXPDF">
-     <div class="trang-noi-dung" id="ccnb-maxpdf" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-MAXPDF">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-maxpdf" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; MaxPDF
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           MaxPDF - Đọc Truyện, Đọc PDF Đa Năng
          </h3>
@@ -2494,39 +2596,39 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống Bản Cài Đặt
          </a>
         </div>
-        <div class="app-header-logo">
+        <div class="app-header-logo u-resp-box">
          <img alt="Logo MaxPDF" class="" onerror="this.src='https://via.placeholder.com/150/d63031/ffffff?text=PDF'" src="images/MaxPDF.ico"/>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-media">
+       <div class="app-content-box u-resp-box">
+        <div class="app-media u-resp-box">
          <img alt="Ảnh MaxPDF" class="" onerror="this.src='Max_PDF/mo_ta_01.png'" src="Max_PDF/mo_ta_01.png" style="object-fit: contain; max-width: 100%; width: 572px; height: 304px"/>
         </div>
-        <div class="app-article" style="width: 554px; min-height: 299px; max-width: 100%">
+        <div class="app-article mobile-full-width u-resp-box u-macro-col" style="width: 554px; min-height: 299px; max-width: 100%">
          <h4 class="">
           XEM TRANH, ĐỌC TRUYỆN, XỬ LÝ PDF... Tất Cả Trong Một
          </h4>
-         <div class="grid-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center;">
-          <div class="grid-item-text" style="min-width: 0; width: 100%;">
+         <div class="grid-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center;">
+          <div class="grid-item-text mobile-full-width u-resp-box u-macro-col u-resp-col" style="min-width: 0; width: 100%;">
            <p class="">
             Hỗ trợ đa dạng các loại file: pdf, cbr, cbz.... Hỗ trợ màn hình cảm ứng với phong cách chạm để sang trang, thu phóng bằng 2 ngón tay. Cơ chế quản lý thư viện dễ dàng bằng kéo thả kết hợp với các công cụ đa dạng phục vụ PDF trực quan, dễ làm...
            </p>
           </div>
-          <div class="grid-item-img" style="min-width: 0; width: 100%; display: flex; justify-content: center;">
-           <img class="" src="Max_PDF/mo_ta_02.png" style="max-width: none !important; height: 196px; object-fit: contain; min-width: 10px !important; width: 291px;"/>
+          <div class="grid-item-img mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-col" style="min-width: 0; width: 100%; display: flex; justify-content: center;">
+           <img class="mobile-full-width" src="Max_PDF/mo_ta_02.png" style="max-width: none !important; height: 196px; object-fit: contain; min-width: 10px !important; width: 291px;"/>
           </div>
          </div>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-article">
+       <div class="app-content-box u-resp-box">
+        <div class="app-article u-resp-box">
          <h4 class="">
           Đọc Tài Liệu Tất Cả Trong Một
          </h4>
          <p class="" style="font-size: 17.5px !important;">
           Tích hợp sẵn công cụ OCR để trích xuất chữ từ ảnh. Giao diện cuộn truyện tranh siêu tối ưu.
          </p>
-         <div class="">
+         <div class="u-resp-box">
           <b>
            <font color="#ffff00">
             Một trong số ít ứng dụng đọc, duyệt pdf hỗ trợ cảm ứng.
@@ -2534,7 +2636,7 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           </b>
          </div>
         </div>
-        <div class="app-media">
+        <div class="app-media u-resp-box">
          <img alt="Ảnh MaxPDF" class="" onerror="this.src='Max_PDF/mo_ta_03.png'" src="Max_PDF/mo_ta_03.png" style="object-fit: contain; max-width: none !important; min-width: 10px !important; width: 532px; height: 361px;"/>
         </div>
        </div>
@@ -2542,14 +2644,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
     <!-- [FastKara] -->
-    <div class="thung-chua-ung-dung" id="APP-FASTKARA">
-     <div class="trang-noi-dung" id="ccnb-fastkara" style="display: none;">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-FASTKARA">
+     <div class="trang-noi-dung u-resp-box" id="ccnb-fastkara" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ NỔI BẬT &gt; F_Kara
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box dao-nguoc">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box dao-nguoc u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3 class="">
           FastKara - Hệ thống Karaoke thu nhỏ
          </h3>
@@ -2560,15 +2662,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống Bản Cài Đặt
          </a>
         </div>
-        <div class="app-header-logo">
+        <div class="app-header-logo u-resp-box">
          <img alt="Logo FastKara" class="" onerror="this.src='https://via.placeholder.com/150/a29bfe/ffffff?text=KARA'" src="images/FastKara.ico"/>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-media" style="min-width: 0;">
+       <div class="app-content-box u-resp-box">
+        <div class="app-media mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Ảnh FastKara" class="" onerror="this.src='F_Kara/mota_02.png'" src="F_Kara/mota_02.png" style="height: 188px; object-fit: contain; width: 233px; max-width: none !important; min-width: 10px !important;"/>
         </div>
-        <div class="app-article">
+        <div class="app-article u-resp-box">
          <h4>
           Mang quán Karaoke về nhà
          </h4>
@@ -2577,22 +2679,22 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </p>
         </div>
        </div>
-       <div class="app-content-box">
-        <div class="app-article">
+       <div class="app-content-box u-resp-box">
+        <div class="app-article u-resp-box">
          <h4 class="">
           Tiện dụng - đa năng
          </h4>
          <p class="">
           Điều khiển màn hình thứ 2.
          </p>
-         <div class="">
+         <div class="u-resp-box">
           Chọn bài hát trên điện thoại
          </div>
-         <div>
+         <div class="u-resp-box">
           Local chọn bài.
          </div>
         </div>
-        <div class="app-media" style="min-width: 0;">
+        <div class="app-media mobile-full-width u-resp-box u-macro-col" style="min-width: 0;">
          <img alt="Ảnh FastKara" class="" onerror="this.src='F_Kara/mota_01.png'" src="F_Kara/mota_01.png" style="max-width: none !important; height: 218px; object-fit: contain; width: 323px; min-width: 10px !important;"/>
         </div>
        </div>
@@ -2601,15 +2703,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
     </div>
    </div>
    <!-- ================= 3. CÔNG CỤ MIỄN PHÍ ================= -->
-   <div class="thung-chua-muc-lon" id="MUC-III-CONG-CU-MIEN-PHI">
-    <div class="thung-chua-ung-dung" id="APP-FREE1">
-     <div class="trang-noi-dung" id="ccmp-free1-caidat" style="display: none;">
+   <div class="thung-chua-muc-lon u-resp-box" id="MUC-III-CONG-CU-MIEN-PHI">
+    <div class="thung-chua-ung-dung u-resp-box" id="APP-FREE1">
+     <div class="trang-noi-dung u-resp-box" id="ccmp-free1-caidat" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ MIỄN PHÍ &gt; App Free 1
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3>
           Ứng dụng Miễn Phí Demo
          </h3>
@@ -2620,19 +2722,19 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           Tải Xuống App Free
          </a>
         </div>
-        <div class="app-header-logo">
-         <img alt="Logo Free" onerror="this.src='https://via.placeholder.com/150/dfe6e9/2d3436?text=FREE'"/>
+        <div class="app-header-logo u-resp-box">
+         <img alt="Logo Free" class="" onerror="this.src='https://via.placeholder.com/150/dfe6e9/2d3436?text=FREE'"/>
         </div>
        </div>
       </div>
      </div>
-     <div class="trang-noi-dung" id="ccmp-free1-caidat_copy469" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="ccmp-free1-caidat_copy469" style="display: none;">
       <h2 class="tieu-de-muc">
        CÔNG CỤ MIỄN PHÍ &gt; App Free 1
       </h2>
-      <div class="khung-app-chitiet">
-       <div class="app-header-box">
-        <div class="app-header-text">
+      <div class="khung-app-chitiet u-resp-box">
+       <div class="app-header-box u-resp-box">
+        <div class="app-header-text u-resp-box">
          <h3>
           Ứng dụng Miễn Phí Demo
          </h3>
@@ -2644,8 +2746,8 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
           (Copy)
          </a>
         </div>
-        <div class="app-header-logo">
-         <img alt="Logo Free" onerror="this.src='https://via.placeholder.com/150/dfe6e9/2d3436?text=FREE'"/>
+        <div class="app-header-logo u-resp-box">
+         <img alt="Logo Free" class="" onerror="this.src='https://via.placeholder.com/150/dfe6e9/2d3436?text=FREE'"/>
         </div>
        </div>
       </div>
@@ -2653,15 +2755,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
     </div>
    </div>
    <!-- ================= 4. THỦ THUẬT ================= -->
-   <div class="thung-chua-muc-lon" id="MUC-IV-THU-THUAT">
-    <div class="thung-chua-ung-dung" id="NHOM-THU-THUAT">
-     <div class="trang-noi-dung" id="tt-danhsach" style="display: none;">
+   <div class="thung-chua-muc-lon u-resp-box" id="MUC-IV-THU-THUAT">
+    <div class="thung-chua-ung-dung u-resp-box" id="NHOM-THU-THUAT">
+     <div class="trang-noi-dung u-resp-box" id="tt-danhsach" style="display: none;">
       <h2 class="tieu-de-muc">
        📚 Kho Thủ Thuật &amp; Tips
       </h2>
-      <div class="luoi-noi-dung">
-       <div class="the-ung-dung the-bai-viet">
-        <div class="noi-dung-the" onclick="window.open('post/thuthuatcmd.html', '_blank');" style="cursor: pointer;">
+      <div class="luoi-noi-dung u-resp-box">
+       <div class="the-ung-dung the-bai-viet u-resp-box">
+        <div class="noi-dung-the u-resp-box" onclick="window.open('post/thuthuatcmd.html', '_blank');" style="cursor: pointer;">
          <h3>
           1. Lệnh CMD Cần Thiết
          </h3>
@@ -2770,10 +2872,10 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </style>
         </div>
        </div>
-       <div class="the-ung-dung the-bai-viet">
+       <div class="the-ung-dung the-bai-viet u-resp-box">
         <a href="#" style="text-decoration: none; color: inherit; display: inline-block;">
         </a>
-        <div class="noi-dung-the">
+        <div class="noi-dung-the u-resp-box">
          <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
           <h3>
            2. Tắt Services
@@ -2884,8 +2986,8 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
          </a>
         </div>
        </div>
-       <div class="the-ung-dung the-bai-viet">
-        <div class="noi-dung-the" onclick="window.open('post/ramdisk.html', '_blank');" style="cursor: pointer;">
+       <div class="the-ung-dung the-bai-viet u-resp-box">
+        <div class="noi-dung-the u-resp-box" onclick="window.open('post/ramdisk.html', '_blank');" style="cursor: pointer;">
          <h3>
           3. Sức mạnh Ramdisk
          </h3>
@@ -2996,270 +3098,270 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        </div>
       </div>
      </div>
-     <div class="trang-noi-dung" id="tt-cmd" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="tt-cmd" style="display: none;">
       <h2 class="tieu-de-muc">
        Thủ Thuật &gt; Lệnh CMD
       </h2>
-      <div class="khung-bai-viet">
-       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
-        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-         <div class="" style="padding:20px;display:flex;flex-direction:column;flex:1;">
-          <p class="" style="font-size:14px;line-height:1.6;opacity:0.9;margin:0 0 15px 0;">
+      <div class="khung-bai-viet u-resp-box">
+       <div class="card-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="padding:20px;display:flex;flex-direction:column;flex:1;">
+          <p class="mobile-full-width" style="font-size:14px;line-height:1.6;opacity:0.9;margin:0 0 15px 0;">
           </p>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             <b class="">
              *** Xóa phân vùng Recovery - nếu không cần cứu hộ khi lỗi win, 90% người dùng không động đến: **
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             diskpart
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             list disk
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             select disk X
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             list partition
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             select partition X
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             delete partition override
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <br/>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b class="">
              I. DISM và SFC để sửa lỗi hệ thống
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             DISM /Online /Cleanup-Image /RestoreHealth
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             sfc /scannow
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             powercfg -change -disk-timeout-ac 0
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             powercfg /query
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             powercfg /setactive SCHEME_MIN
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             powercfg -attributes SUB_PROCESSOR CPMINCORES -ATTRIB_HIDE
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <br/>
            </span>
           </div>
-          <div>
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b class="">
              II. 🧮 RAM / Bộ nhớ / Cache
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             rammap.exe
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             EmptyStandbyList.exe standbylist
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             wmic pagefile list /format:list
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <br/>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b class="">
              III. 💽 Ổ cứng / I/O
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             fsutil behavior query DisableDeleteNotify
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             = 0 → TRIM đang bật (TỐT)
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             = 1 → TRIM tắt
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             fsutil behavior set DisableDeleteNotify 0
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             wmic diskdrive get Model,WriteCacheEnabled
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <br/>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b>
              IV. 🕹️ GPU / Game / Độ trễ
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             reg query HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /v HwSchMode
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             2 → Bật
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             1 → Tắt
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             reg add "HKCU\System\GameConfigStore" /v GameDVR_FSEBehaviorMode /t REG_DWORD /d 2 /f
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <br/>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b>
              V. 🌐 Mạng (chuẩn)
             </b>
            </span>
           </div>
-          <div>
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             netsh interface tcp show global
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             netsh int tcp set global autotuninglevel=normal
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             netsh int tcp set global congestionprovider=ctcp
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <br/>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             VI. 🧹 Dọn rác – nhưng KHÔNG phá hệ thống
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             dism /online /cleanup-image /startcomponentcleanup
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span class="" style="font-size: 14px;">
             sfc /scannow
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <br/>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b class="">
              VII. ⚡ Khởi động / Tắt máy
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             powercfg /a
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             powercfg /hibernate off
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <br/>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             <b class="">
              VIII. 🧪 Test nhanh hiệu suất thật
             </b>
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             winsat disk
            </span>
           </div>
-          <div class="">
+          <div class="mobile-full-width u-resp-box u-resp-col">
            <span style="font-size: 14px;">
             tasklist
            </span>
@@ -3269,21 +3371,21 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        </div>
       </div>
      </div>
-     <div class="trang-noi-dung" id="tt-services" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="tt-services" style="display: none;">
       <h2 class="tieu-de-muc">
        Thủ Thuật &gt; Tắt Services
       </h2>
-      <div class="khung-bai-viet">
+      <div class="khung-bai-viet u-resp-box">
        <h3>
         Nội dung Tắt Services...
        </h3>
       </div>
      </div>
-     <div class="trang-noi-dung" id="tt-ramdisk" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="tt-ramdisk" style="display: none;">
       <h2 class="tieu-de-muc">
        Thủ Thuật &gt; Ramdisk
       </h2>
-      <div class="khung-bai-viet">
+      <div class="khung-bai-viet u-resp-box">
        <h3>
         Nội dung Ramdisk...
        </h3>
@@ -3292,13 +3394,13 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
     </div>
    </div>
    <!-- ================= 5. THÔNG TIN KHÁC ================= -->
-   <div class="thung-chua-muc-lon" id="MUC-V-THONG-TIN-KHAC">
-    <div class="thung-chua-ung-dung" id="NHOM-THONG-TIN">
-     <div class="trang-noi-dung" id="khac-taixuong" style="display: none;">
+   <div class="thung-chua-muc-lon u-resp-box" id="MUC-V-THONG-TIN-KHAC">
+    <div class="thung-chua-ung-dung u-resp-box" id="NHOM-THONG-TIN">
+     <div class="trang-noi-dung u-resp-box" id="khac-taixuong" style="display: none;">
       <h2 class="tieu-de-muc">
        ⬇ Trung Tâm Tải Xuống
       </h2>
-      <div class="khung-bai-viet">
+      <div class="khung-bai-viet u-resp-box">
        <p>
         Kho lưu trữ an toàn trên đám mây:
         <a href="https://drive.google.com/drive/folders/1H4BNAWkYtTYMAyl6XOyYOTJp3nQuAwvo?usp=drive_link" style="color:#00d9ff; font-weight: bold; text-decoration: none;" target="_blank">
@@ -3307,14 +3409,14 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        </p>
       </div>
      </div>
-     <div class="trang-noi-dung" id="khac-kichhoat" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="khac-kichhoat" style="display: none;">
       <h2 class="tieu-de-muc">
        🔑 Bản Quyền &amp; Kích Hoạt
       </h2>
-      <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
-       <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <div class="" style="padding:20px;display:flex;flex-direction:column;flex:1;">
-         <p class="" style="font-size:14px;line-height:1.6;opacity:0.9;margin:0 0 15px 0;">
+      <div class="card-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+       <div class="card mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-col" style="padding:20px;display:flex;flex-direction:column;flex:1;">
+         <p class="mobile-full-width" style="font-size:14px;line-height:1.6;opacity:0.9;margin:0 0 15px 0;">
           <span class="" style="color: rgb(160, 174, 192); font-size: 16px; background-color: rgb(21, 26, 36);">
            Tại MiniApp4All, chúng tôi áp dụng chính sách
           </span>
@@ -3328,55 +3430,55 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
         </div>
        </div>
       </div>
-      <div class="" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;border:1px solid #333;background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;width:100%;margin:15px 0;">
-       <div style="flex:0 0 140px;height:120px;display:flex;align-items:center;justify-content:center; min-width: 0;">
-        <img class="" src="images/Logo.jpg" style="max-height:100%;max-width:100%;object-fit:contain;border-radius:10px"/>
+      <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;border:1px solid #333;background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;width:100%;margin:15px 0;">
+       <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-col" style="flex:0 0 140px;height:120px;display:flex;align-items:center;justify-content:center; min-width: 0;">
+        <img class="mobile-full-width" src="images/Logo.jpg" style="max-height:100%;max-width:100%;object-fit:contain;border-radius:10px"/>
        </div>
-       <div class="" style="flex:1 1 0%;min-width:200px;display:flex;flex-direction:column;">
-        <h3 class="" style="margin:0 0 10px 0;font-size:20px;color:#00d2ff;">
+       <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack u-resp-col" style="flex:1 1 0%;min-width:200px;display:flex;flex-direction:column;">
+        <h3 class="mobile-full-width" style="margin:0 0 10px 0;font-size:20px;color:#00d2ff;">
          HƯỚNG DẪN KÍCH HOẠT
         </h3>
-        <p style="font-size: 18px !important; line-height: 1.6; color: rgb(187, 187, 187); margin: 0px 0px 15px;">
+        <p class="mobile-full-width" style="font-size: 18px !important; line-height: 1.6; color: rgb(187, 187, 187); margin: 0px 0px 15px;">
         </p>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
          Chọn KÍCH HOẠT
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
          GỬI MÃ HOẶC CHỤP HÌNH VÀ GỬI TÁC GIẢ
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
          <b>
           <font class="" color="#d8d800">
            CHI PHÍ KÍCH HOẠT LÀ:       250.000 VNĐ
           </font>
          </b>
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
          Vui lòng gửi kèm ảnh chụp biên lai và mã (hoặc ảnh QR) để nhận Key kích hoạt
-         <div class="">
+         <div class="u-resp-box">
           <br/>
          </div>
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
          Thời gian phản hồi và cấp key thông thường từ 10-30 phút trong giờ hành chính.
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
         </div>
-        <div class="">
+        <div class="mobile-full-width u-resp-box u-resp-col">
          (Key có thể dùng cho toàn bộ các ứng dụng tại Miniapp4all.github.io)
         </div>
        </div>
-       <img class="" src="images/MBbank.png" style="width: 216px; max-width: 100%; height: 285px; object-fit: contain; flex-shrink: 0; min-width: 0; display: block; margin: 15px auto 0 auto"/>
-       <img class="" src="images/VPbank.png" style="width: 236px; height: 277px; object-fit: contain; flex-shrink: 0; display: block; margin: 15px auto 0px; max-width: none !important; min-width: 10px !important;"/>
+       <img class="mobile-full-width" src="images/MBbank.png" style="width: 216px; max-width: 100%; height: 285px; object-fit: contain; flex-shrink: 0; min-width: 0; display: block; margin: 15px auto 0 auto"/>
+       <img class="mobile-full-width" src="images/VPbank.png" style="width: 236px; height: 277px; object-fit: contain; flex-shrink: 0; display: block; margin: 15px auto 0px; max-width: none !important; min-width: 10px !important;"/>
       </div>
      </div>
-     <div class="trang-noi-dung" id="khac-vechungtoi" style="display: none;">
+     <div class="trang-noi-dung u-resp-box" id="khac-vechungtoi" style="display: none;">
       <h2 class="tieu-de-muc">
        💡 Về MiniApp4All
       </h2>
-      <div class="khung-bai-viet">
+      <div class="khung-bai-viet u-resp-box">
        <p>
         Thiết kế với tinh thần tối giản, mang lại hiệu suất làm việc tốt nhất.
        </p>
@@ -3384,15 +3486,15 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
      </div>
     </div>
    </div>
-   <div class="grid-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center;">
-    <div class="grid-item-text" style="min-width: 0; width: 100%;">
+   <div class="grid-wrap mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-mobile-stack-parent u-resp-stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center;">
+    <div class="grid-item-text mobile-full-width u-resp-box u-macro-col u-resp-col" style="min-width: 0; width: 100%;">
     </div>
-    <div class="grid-item-img" style="min-width: 0; width: 100%; display: flex; justify-content: center;">
+    <div class="grid-item-img mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-col" style="min-width: 0; width: 100%; display: flex; justify-content: center;">
     </div>
    </div>
-   <footer class="" style="background: rgba(0, 0, 0, 0.85); padding: 40px 20px; font-family: sans-serif; margin-top: 20px; width: 100%; min-height: 255px; max-width: 100%; height: 279px; overflow: auto !important; resize: vertical !important;">
-    <div class="" style="display: flex; flex-wrap: wrap; gap: 30px; max-width: 1000px; margin: 0px auto; justify-content: space-between;">
-     <div class="" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 250px; max-width: 100%;">
+   <footer class="mobile-full-width u-resp-box u-macro-col" style="background: rgba(0, 0, 0, 0.85); padding: 40px 20px; font-family: sans-serif; margin-top: 20px; width: 100%; min-height: 255px; max-width: 100%; height: 279px; overflow: auto !important; resize: vertical !important;">
+    <div class="mobile-stack-col mobile-full-width u-resp-box u-macro-stack u-macro-col u-resp-stack" style="display: flex; flex-wrap: wrap; gap: 30px; max-width: 1000px; margin: 0px auto; justify-content: space-between;">
+     <div class="mobile-full-width u-resp-box u-macro-col u-resp-stack u-resp-col" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 250px; max-width: 100%;">
       <h3 class="" style="color:#007acc;margin-top:0;">
        MiniApp4All
       </h3>
@@ -3402,11 +3504,11 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
       <p class="" style="font-size:14px;color:#bbb;">
        📞 +84.911.933.550
       </p>
-      <div class="">
+      <div class="u-resp-box u-resp-col">
        📧 lehieutlhp@mail.com
       </div>
      </div>
-     <div class="" style="flex: 1 1 0%; min-width: 150px; max-width: 100%;">
+     <div class="mobile-full-width u-resp-box u-macro-col u-resp-col" style="flex: 1 1 0%; min-width: 150px; max-width: 100%;">
       <h4 class="" style="color: rgb(255, 255, 255); margin-top: 0px;">
        Liên Kết
       </h4>
@@ -3419,20 +3521,20 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
        </font>
       </a>
      </div>
-     <div class="" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 150px; max-width: 100%; text-align: center;">
+     <div class="mobile-full-width u-resp-box u-macro-col u-resp-col" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 150px; max-width: 100%; text-align: center;">
       <h4 class="" style="margin-top:0;">
        Messenger
       </h4>
       <img class="" src="images/Messenger.png" style="width: 102px; max-width: 100%; height: 197px; border-radius: 8px; border: 2px solid #fff; object-fit: contain"/>
      </div>
-     <div class="" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 150px; max-width: 100%; text-align: center;">
+     <div class="mobile-full-width u-resp-box u-macro-col u-resp-col" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 150px; max-width: 100%; text-align: center;">
       <h4 class="" style="margin-top:0;">
        Zalo
       </h4>
       <img class="" src="images/Zalo.jpg" style="width: 102px; max-width: 100%; height: 197px; border-radius: 8px; border: 2px solid #fff; object-fit: contain"/>
      </div>
     </div>
-    <div class="" style="color: rgb(119, 119, 119); text-align: center; border-top: 1px solid rgb(51, 51, 51); margin-top: 30px; padding-top: 20px; font-size: 12px;">
+    <div class="u-resp-box" style="color: rgb(119, 119, 119); text-align: center; border-top: 1px solid rgb(51, 51, 51); margin-top: 30px; padding-top: 20px; font-size: 12px;">
      © 2026 Bản quyền thuộc về MiniApp4All.
     </div>
    </footer>
@@ -3525,6 +3627,38 @@ html, body { overflow-x: hidden; width: 100%; margin: 0; padding: 0; }
                     }, 50); // Cho DOM thở 50 mili giây để render xong hình học trước khi nhảy tới
                 }
             });
+  </script>
+  <script id="clean-spa-nav-js">
+   document.addEventListener('DOMContentLoaded', function() {
+    var pageIds = [];
+    document.querySelectorAll('[data-trang]').forEach(function(btn) {
+        var tId = btn.getAttribute('data-trang');
+        if (tId && pageIds.indexOf(tId) === -1) pageIds.push(tId);
+    });
+    document.body.addEventListener('click', function(e) {
+        var btn = e.target.closest('[data-trang]');
+        if (btn) {
+            var targetId = btn.getAttribute('data-trang');
+            var targetPage = document.getElementById(targetId);
+            if (targetPage) {
+                e.preventDefault();
+                document.querySelectorAll('.trang-noi-dung').forEach(function(p) {
+                    p.classList.remove('hien-thi', 'trang-dang-hien-thi');
+                    p.style.setProperty('display', 'none', 'important');
+                });
+                targetPage.classList.add('hien-thi', 'trang-dang-hien-thi');
+                targetPage.style.setProperty('display', 'block', 'important');
+                document.querySelectorAll('[data-trang]').forEach(function(b) {
+                    b.classList.remove('dang-chon', 'menu-dang-chon');
+                });
+                document.querySelectorAll('[data-trang="' + targetId + '"]').forEach(function(ab) {
+                    ab.classList.add('dang-chon', 'menu-dang-chon');
+                });
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }
+        }
+    });
+});
   </script>
   <script id="miniapp-nav-script">
    document.addEventListener('DOMContentLoaded',function(){var pageIds=[];document.querySelectorAll('[data-trang]').forEach(function(btn){var tId=btn.getAttribute('data-trang');if(tId&&pageIds.indexOf(tId)===-1)pageIds.push(tId);});document.body.addEventListener('click',function(e){var btn=e.target.closest('[data-trang]');if(btn){var targetId=btn.getAttribute('data-trang');var targetPage=document.getElementById(targetId);if(targetPage){e.preventDefault();pageIds.forEach(function(id){var p=document.getElementById(id);if(p){p.classList.remove('trang-dang-hien-thi');p.style.setProperty('display','none','important');}});targetPage.classList.add('trang-dang-hien-thi');targetPage.style.setProperty('display','block','important');document.querySelectorAll('[data-trang]').forEach(function(b){b.classList.remove('menu-dang-chon');});document.querySelectorAll('[data-trang="'+targetId+'"]').forEach(function(ab){ab.classList.add('menu-dang-chon');});}}});});
