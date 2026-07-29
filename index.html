@@ -1,906 +1,3555 @@
-<!DOCTYPE html>
 <html lang="vi">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniApp4All - Công Cụ Tối Giản, Hiệu Suất Tối Đa</title>
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   MiniApp4All - Cấu Trúc 3 Cấp Chuẩn Xác
+  </title>
   <style>
-    /* =========================================
-       CSS CƠ BẢN & RESET
+   /* =========================================
+       1. CSS CƠ BẢN & RESET
        ========================================= */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #0f1117;
-      color: #e2e8f0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      min-height: 100vh;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    /* Tùy chỉnh thanh cuộn cho toàn trang */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0f1117; color: #e2e8f0; font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; display: flex; min-height: 100vh; overflow-x: hidden; line-height: 1.6; }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0f1117; }
     ::-webkit-scrollbar-thumb { background: #2a3441; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #00d9ff; }
 
     /* =========================================
-       THANH ĐIỀU HƯỚNG (SIDEBAR BÊN TRÁI)
+       2. THANH ĐIỀU HƯỚNG BÊN TRÁI (MENU)
        ========================================= */
-    .thanh-dieu-huong {
-      width: 280px;
-      background: #151a24;
-      border-right: 1px solid #222b3b;
-      padding: 30px 20px;
-      position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      overflow-y: auto;
-      z-index: 100;
-      box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
-    }
+    .thanh-dieu-huong { width: 280px; background: #151a24; border-right: 1px solid #222b3b; padding: 30px 20px; position: fixed; left: 0; top: 0; bottom: 0; overflow-y: auto; z-index: 100; box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2); }
+    .vung-logo { text-align: center; margin-bottom: 35px; }
+    .vung-logo img { width: 110px; height: 110px; object-fit: cover; border-radius: 25px; box-shadow: 0 0 20px rgba(0, 217, 255, 0.25); margin-bottom: 15px; transition: transform 0.2s; }
+    .vung-logo img:hover { transform: scale(1.05); }
+    .vung-logo h1 { color: #00d9ff; font-size: 26px; font-weight: 700; margin-bottom: 5px; }
+    .vung-logo p { color: #8b98a9; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
 
-    .vung-logo {
-      text-align: center;
-      margin-bottom: 35px;
-    }
-
-    .vung-logo img {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      border-radius: 25px;
-      box-shadow: 0 0 20px rgba(0, 217, 255, 0.25);
-      margin-bottom: 15px;
-      transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .vung-logo img:hover {
-      transform: scale(1.05);
-    }
-
-    .vung-logo h1 {
-      color: #00d9ff;
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      letter-spacing: 0.5px;
-    }
-
-    .vung-logo p {
-      color: #8b98a9;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* CSS cho các thành phần Menu */
-    .tieu-de-menu {
-      color: #00d9ff;
-      margin: 25px 10px 12px;
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-weight: 600;
-      opacity: 0.8;
-    }
-
-    /* Tính năng click thu gọn cho tiêu đề */
-    .tieu-de-menu.co-the-bam {
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-right: 5px;
-      transition: color 0.2s ease, opacity 0.2s ease;
-    }
-
-    .tieu-de-menu.co-the-bam:hover {
-      color: white;
-      opacity: 1;
-    }
-
-    .mui-ten-khoi {
-      font-size: 10px;
-      transition: transform 0.2s ease;
-    }
-
-    .tieu-de-menu.da-thu-gon .mui-ten-khoi {
-      transform: rotate(-90deg); /* Xoay mũi tên sang ngang khi đóng */
-    }
-
-    /* Đã đổi tên class dùng chung cho mọi khối có thể thu gọn */
-    .khoi-menu-thu-gon {
-      display: block; /* Mặc định hiển thị */
-    }
-
-    .khoi-menu-thu-gon.da-thu-gon {
-      display: none; /* Ẩn đi khi có class da-thu-gon */
-    }
-
-    .danh-sach-menu a {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 16px;
-      background: transparent;
-      color: #a0aec0;
-      text-decoration: none;
-      border-radius: 12px;
-      margin-bottom: 8px;
-      font-weight: 500;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .danh-sach-menu a:hover {
-      color: white;
-      background: #1b2230;
-      transform: translateX(4px);
-    }
-
-    /* Nút menu đang được chọn */
-    .danh-sach-menu a.menu-dang-chon {
-      background: #1b2230;
-      color: #00d9ff;
-      border-color: rgba(0, 217, 255, 0.3);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    /* MENU CON (Nút xổ xuống) */
-    .menu-con {
-      margin-left: 15px;
-      padding-left: 10px;
-      border-left: 1px solid #2a3441;
-      margin-bottom: 10px;
-      display: none;
-      animation: slideDown 0.15s ease-out forwards; 
-    }
-
-    .menu-con.mo-ra { display: block; }
-
-    .menu-con a {
-      font-size: 13.5px;
-      padding: 10px 12px;
-      margin-bottom: 4px;
-    }
-
-    .mui-ten {
-      font-size: 10px;
-      transition: transform 0.2s ease;
-      opacity: 0.6;
-    }
+    /* Menu Cấp 1 */
+    .tieu-de-muc-lon { color: #00d9ff; margin: 25px 10px 12px; font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .tieu-de-muc-lon:hover { color: white; }
+    .mui-ten-i { font-size: 10px; transition: transform 0.2s; }
+    .tieu-de-muc-lon.thu-gon .mui-ten-i { transform: rotate(-90deg); }
     
-    .danh-sach-menu a.xo-menu .mui-ten {
-      transform: rotate(180deg);
-      color: #00d9ff;
-      opacity: 1;
-    }
+    .khoi-menu-con { display: block; overflow: hidden; }
+    .khoi-menu-con.thu-gon { display: none; }
+
+    /* Nút bấm (Trang con) */
+    .nut-menu { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background: transparent; color: #a0aec0; text-decoration: none; border-radius: 12px; margin-bottom: 6px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; font-size: 14.5px; border: 1px solid transparent; }
+    .nut-menu:hover { color: white; background: #1b2230; transform: translateX(4px); }
+    .nut-menu.dang-chon { background: #1b2230; color: #00d9ff; border-color: rgba(0, 217, 255, 0.3); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+
+    /* Menu Cấp 2 (Dành cho các mục xổ xuống nếu có) */
+    .menu-cap-2 { margin-left: 15px; padding-left: 10px; border-left: 1px solid #2a3441; margin-bottom: 10px; display: none; }
+    .menu-cap-2.mo-ra { display: block; animation: slideDown 0.15s ease-out forwards; }
+    .menu-cap-2 .nut-menu { font-size: 13.5px; padding: 8px 12px; margin-bottom: 4px; }
+    
+    .nut-xo-menu { display: flex; justify-content: space-between; padding: 10px 16px; color: #a0aec0; cursor: pointer; border-radius: 12px; margin-bottom: 4px; font-weight: 500; transition: background 0.2s; }
+    .nut-xo-menu:hover { background: #1b2230; color: white; }
+    .nut-xo-menu.xo-ra { color: #00d9ff; }
+    .nut-xo-menu .mui-ten-1 { font-size: 10px; transition: 0.2s; opacity: 0.6; }
+    .nut-xo-menu.xo-ra .mui-ten-1 { transform: rotate(180deg); opacity: 1; }
 
     /* =========================================
-       NỘI DUNG CHÍNH (MAIN CONTENT)
+       3. VÙNG NỘI DUNG CHÍNH
        ========================================= */
-    .vung-noi-dung-chinh {
-      margin-left: 280px;
-      width: calc(100% - 280px);
-      padding: 40px 50px;
-    }
+    .vung-noi-dung-chinh { margin-left: 280px; width: calc(100% - 280px); padding: 40px 50px; }
+    .thung-chua-muc-lon { display: block; }
+    .thung-chua-ung-dung { display: block; }
 
-    /* Ẩn/Hiện Trang (Logic chuyển trang) */
-    .trang-noi-dung {
-      display: none; /* Mặc định ẩn tất cả các trang */
-      animation: fadeIn 0.2s ease-out forwards;
-    }
+    /* Vỏ bọc Cấp a (Trang nội dung cuối cùng) - Logic ẩn/hiện */
+    .trang-noi-dung { display: none; animation: fadeIn 0.2s ease-out forwards; }
+    .trang-noi-dung.hien-thi { display: block; }
 
-    .trang-noi-dung.trang-dang-hien-thi { 
-      display: block; /* Chỉ hiện trang đang được kích hoạt */
-    }
+    /* Giao diện chung nội dung */
+    .bang-gioi-thieu { background: linear-gradient(145deg, #1a2130 0%, #111622 100%); border: 1px solid #2a3441; border-radius: 24px; padding: 50px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .bang-gioi-thieu h2 { font-size: 38px; margin-bottom: 18px; color: #00d9ff; line-height: 1.2; }
+    .bang-gioi-thieu p { color: #a0aec0; font-size: 17px; max-width: 750px; }
+    .tieu-de-muc { margin: 0 0 25px; color: white; font-size: 26px; font-weight: 600; border-left: 4px solid #00d9ff; padding-left: 12px; }
 
-    /* Bảng Giới Thiệu (Hero Section) */
-    .bang-gioi-thieu {
-      background: linear-gradient(145deg, #1a2130 0%, #111622 100%);
-      border: 1px solid #2a3441;
-      border-radius: 24px;
-      padding: 50px;
-      margin-bottom: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
-
-    .bang-gioi-thieu h2 {
-      font-size: 38px;
-      margin-bottom: 18px;
-      color: #00d9ff;
-      line-height: 1.2;
-    }
-
-    .bang-gioi-thieu p {
-      color: #a0aec0;
-      font-size: 17px;
-      max-width: 750px;
-      line-height: 1.8;
-    }
-
-    /* Tiêu đề các mục lớn */
-    .tieu-de-muc {
-      margin: 0 0 25px;
-      color: white;
-      font-size: 26px;
-      font-weight: 600;
-      border-left: 4px solid #00d9ff;
-      padding-left: 12px;
-    }
-
-    /* LƯỚI SẮP XẾP THẺ ỨNG DỤNG */
-    .luoi-noi-dung {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 30px;
-      margin-bottom: 40px;
-    }
-
-    /* Thẻ Ứng Dụng / Thẻ Bài Viết */
-    .the-ung-dung {
-      background: #151a24;
-      border: 1px solid #2a3441;
-      border-radius: 20px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-      will-change: transform;
-    }
-
-    .the-ung-dung:hover {
-      transform: translateY(-5px);
-      border-color: #00d9ff;
-      box-shadow: 0 8px 20px rgba(0, 217, 255, 0.12);
-    }
-
-    .the-ung-dung img {
-      width: 100%;
-      height: 160px; /* Cố định khung */
-      object-fit: contain; /* Thu nhỏ ảnh để vừa khít 100% thay vì cắt xén */
-      background: #0f1117; /* Màu nền lót bù vào phần thiếu hụt của ảnh */
-      display: block;
-      border-bottom: 1px solid #2a3441;
-    }
-
-    .noi-dung-the {
-      padding: 25px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .the-bai-viet .noi-dung-the {
-      padding-top: 35px;
-    }
-
-    .noi-dung-the h3 {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: white;
-    }
-
-    .noi-dung-the p {
-      color: #8b98a9;
-      font-size: 15px;
-      margin-bottom: 25px;
-      flex-grow: 1;
-    }
-
-    /* NÚT BẤM (BUTTONS) */
-    .nut-bam {
-      display: inline-block;
-      background: #00d9ff;
-      color: #0f1117;
-      text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 14.5px;
-      text-align: center;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
-    }
-
-    .nut-bam:hover {
-      background: white;
-      color: #0f1117;
-      transform: scale(1.02);
-      box-shadow: 0 0 12px rgba(0, 217, 255, 0.4);
-    }
+    .luoi-noi-dung { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; margin-bottom: 40px; }
+    .the-ung-dung { background: #151a24; border: 1px solid #2a3441; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, border-color 0.2s ease; }
+    .the-ung-dung:hover { transform: translateY(-5px); border-color: #00d9ff; box-shadow: 0 8px 20px rgba(0, 217, 255, 0.12); }
+    .the-ung-dung img { width: 100%; height: 160px; object-fit: contain; background: #0f1117; display: block; border-bottom: 1px solid #2a3441; }
     
-    .nut-vien {
-      background: transparent;
-      color: #00d9ff;
-      border: 1px solid #00d9ff;
-    }
+    .noi-dung-the { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+    .the-bai-viet .noi-dung-the { padding-top: 35px; }
+    .noi-dung-the h3 { font-size: 22px; margin-bottom: 10px; color: white; }
+    .noi-dung-the p { color: #8b98a9; font-size: 15px; margin-bottom: 25px; flex-grow: 1; }
+
+    .nut-bam { display: inline-block; background: #00d9ff; color: #0f1117; text-decoration: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; font-size: 14.5px; text-align: center; border: none; cursor: pointer; transition: 0.15s; }
+    .nut-bam:hover { background: white; transform: scale(1.02); }
+    .nut-vien { background: transparent; color: #00d9ff; border: 1px solid #00d9ff; }
+    .nut-vien:hover { background: #00d9ff; color: #0f1117; }
+
+    .khung-bai-viet { background: #151a24; border: 1px solid #2a3441; border-radius: 20px; padding: 35px; margin-bottom: 25px; }
+    .khung-bai-viet h3 { margin-bottom: 15px; font-size: 22px; color: #00d9ff; }
+    .khung-bai-viet p { color: #a0aec0; margin-bottom: 15px; font-size: 16px; }
+
+    /* =========================================
+       4. CSS TRANG CHI TIẾT APP BỐ CỤC CHUẨN (FLEXBOX)
+       ========================================= */
+    .khung-app-chitiet { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
     
-    .nut-vien:hover {
-      background: #00d9ff;
-      color: #0f1117;
-    }
-
-    /* BÀI VIẾT CHI TIẾT (ARTICLE) */
-    .khung-bai-viet {
-      background: #151a24;
-      border: 1px solid #2a3441;
-      border-radius: 20px;
-      padding: 35px;
-      margin-bottom: 25px;
-    }
-
-    .khung-bai-viet h3 {
-      margin-bottom: 15px;
-      font-size: 22px;
-      color: #00d9ff;
-    }
-
-    .khung-bai-viet p {
-      color: #a0aec0;
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
+    /* Header Box */
+    .app-header-box { background: #151a24; border: 1px solid #2a3441; border-radius: 15px; padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; gap: 30px; }
+    .app-header-box.dao-nguoc { flex-direction: row-reverse; } 
     
-    code {
-      background: #0f1117;
-      padding: 8px 12px;
-      border-radius: 8px;
-      color: #00d9ff;
-      font-family: Consolas, monospace;
-      border: 1px solid #2a3441;
-      display: inline-block;
+    .app-header-text { flex: 1; }
+    .app-header-text h3 { color: #00d9ff; font-size: 24px; margin-bottom: 10px; }
+    .app-header-text p { color: #a0aec0; font-size: 15.5px; margin-bottom: 20px; line-height: 1.6; max-width: 90%; }
+    
+    .app-header-logo { width: 160px; height: 160px; flex-shrink: 0; background: #0f1117; border-radius: 15px; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 1px solid #2a3441; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+    .app-header-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Content Box */
+    .app-content-box { display: flex; gap: 20px; align-items: stretch; }
+    .app-content-box.dao-nguoc { flex-direction: row-reverse; } 
+    .app-content-box.chia-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .app-media { flex: 4.5; background: #151a24; border: 1px solid #2a3441; border-radius: 15px; padding: 15px; display: flex; flex-direction: column; gap: 15px; align-items: center; justify-content: center; overflow: hidden;}
+    .app-media img { width: 100%; height: auto; object-fit: cover; border-radius: 8px; }
+    
+    .app-article { flex: 5.5; background: #151a24; border: 1px solid #2a3441; border-radius: 15px; padding: 35px; }
+    .app-article h4 { color: white; font-size: 22px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #2a3441; display: inline-block; border-bottom-color: #00d9ff; }
+    .app-article p { color: #a0aec0; font-size: 15.5px; margin-bottom: 15px; line-height: 1.7; }
+    .app-article ul { color: #a0aec0; margin-left: 20px; margin-bottom: 20px; }
+    .app-article li { margin-bottom: 10px; font-size: 15px; }
+    .app-article li strong { color: #e2e8f0; }
+
+    /* Khối Module Giọng đọc (Dành riêng cho T2SPP) */
+    .goi-giong-doc { background: #1b2230; border: 1px solid #2a3441; border-radius: 15px; padding: 25px 30px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s ease; }
+    .goi-giong-doc:hover { border-color: #00d9ff; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0, 217, 255, 0.1); }
+    .goi-giong-doc h4 { color: #00d9ff; font-size: 20px; margin: 0 0 5px 0; padding: 0; border: none; }
+    .goi-giong-doc p { color: #a0aec0; font-size: 14.5px; margin: 0; line-height: 1.4; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+        .app-header-box, .app-content-box { flex-direction: column; }
+        .app-header-box.dao-nguoc, .app-content-box.dao-nguoc { flex-direction: column; }
+        .app-content-box.chia-3 { grid-template-columns: 1fr; }
+        .app-header-logo { align-self: flex-start; }
+        .goi-giong-doc { flex-direction: column; text-align: center; gap: 15px; }
     }
 
-    /* FOOTER */
-    footer {
-      margin-top: 60px;
-      padding-top: 30px;
-      border-top: 1px solid #2a3441;
-      color: #64748b;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    /* ANIMATIONS (Hiệu ứng chuyển động) */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-3px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ĐIỆN THOẠI RESPONSIVE */
-    @media(max-width: 900px){
-      body { display: block; }
-      .thanh-dieu-huong { position: relative; width: 100%; height: auto; border-right: none; border-bottom: 1px solid #222b3b; padding: 25px; box-shadow: none; }
-      .vung-noi-dung-chinh { margin-left: 0; width: 100%; padding: 25px; }
-      .bang-gioi-thieu { padding: 30px; }
-      .bang-gioi-thieu h2 { font-size: 28px; }
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: translateY(0); } }
   </style>
-</head>
-
-<body>
-
-  <!-- =========================================
-       PHẦN MENU BÊN TRÁI 
-       ========================================= -->
-  <aside class="thanh-dieu-huong">
-    <div class="vung-logo">
-      <img src="images/Logo.jpg" alt="MiniApp4All Logo" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'">
-      <h1>MiniApp4All</h1>
-      <p>Công cụ nhỏ • Tiện ích lớn</p>
-    </div>
-
-    <div class="danh-sach-menu">
-      <div class="tieu-de-menu">Điều Hướng</div>
-      <a class="nut-chuyen-trang menu-dang-chon" data-trang="trang-tong-quan">🏠 Tổng Quan</a>
-      <a class="nut-chuyen-trang" data-trang="trang-thu-thuat">📚 Thủ Thuật & Tips</a>
-      <a class="nut-chuyen-trang" data-trang="trang-tai-xuong">⬇ Trung Tâm Tải Xuống</a>
-      <a class="nut-chuyen-trang" data-trang="trang-kich-hoat">🔑 Kích Hoạt Bản Quyền</a>
-      <a class="nut-chuyen-trang" data-trang="trang-ve-chung-toi">💡 Về Chúng Tôi</a>
-
-      <!-- KHỐI 1: CÔNG CỤ NỔI BẬT -->
-      <div class="tieu-de-menu co-the-bam da-thu-gon">
-        Công Cụ Nổi Bật <span class="mui-ten-khoi">▼</span>
-      </div>
-      <div class="khoi-menu-thu-gon da-thu-gon">
-        <!-- MENU CON: T2SPP -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-t2spp">
-          <span>🎤 T2SPP</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-t2spp">
-          <a class="nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">a. Cài đặt (Setup)</a>
-          <a class="nut-chuyen-trang" data-trang="trang-t2spp-modules">b. Thêm Modules</a>
-        </div>
-
-        <!-- MENU CON: Mini Dawn -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-minidawn">
-          <span>⚡ Mini Dawn</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-minidawn">
-          <a class="nut-chuyen-trang" data-trang="trang-minidawn-cai-dat">Cài đặt</a>
-        </div>
-        
-        <!-- MENU CON: Fpptx -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-Fpptx">
-          <span>🌟 Fast pptx</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-Fpptx">
-          <a class="nut-chuyen-trang" data-trang="trang-Fpptx-cai-dat">Cài đặt</a>
-        </div>
-        
-        <!-- MENU CON: FPics -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-FPics">
-          <span>🎨 Fast Pics</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-FPics">
-          <a class="nut-chuyen-trang" data-trang="trang-FPics-cai-dat">Cài đặt</a>
-        </div>
-
-        <!-- MENU CON: Fix_Doc -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-Fix_Doc">
-          <span>📝 Fix_Doc</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-Fix_Doc">
-          <a class="nut-chuyen-trang" data-trang="trang-Fix_Doc-cai-dat">Cài đặt</a>
-        </div>
-        
-        <!-- MENU CON: MaxPDF -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-MaxPDF">
-          <span>📑 MaxPDF</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-MaxPDF">
-          <a class="nut-chuyen-trang" data-trang="trang-MaxPDF-cai-dat">Cài đặt</a>
-        </div>
-          
-        <!-- MENU CON: FastKara -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-FastKara">
-          <span>🍻 FastKara</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-FastKara">
-          <a class="nut-chuyen-trang" data-trang="trang-FastKara-cai-dat">Cài đặt</a>
-        </div>
-      </div>
-
-      <!-- KHỐI 2: MỚI THÊM - CÔNG CỤ MIỄN PHÍ -->
-      <div class="tieu-de-menu co-the-bam da-thu-gon">
-        Công Cụ Miễn Phí <span class="mui-ten-khoi">▼</span>
-      </div>
-      <div class="khoi-menu-thu-gon da-thu-gon">
-        <!-- MENU CON: App Free Demo -->
-        <a class="nut-mo-menu-con" data-menu="menu-con-app-free-1">
-          <span>🎁 Tên App Free 1</span> <span class="mui-ten">▼</span>
-        </a>
-        <div class="menu-con" id="menu-con-app-free-1">
-          <a class="nut-chuyen-trang" data-trang="trang-app-free-1-cai-dat">Cài đặt</a>
-        </div>
-      </div>
-      
-      <div class="tieu-de-menu">Liên Kết Mạng Xã Hội</div>
-      <a href="https://www.youtube.com/@thewind3004" target="_blank">🎞️ Kênh YouTube</a>
-    </div>
-  </aside>
-
-  <!-- =========================================
-       PHẦN NỘI DUNG BÊN PHẢI 
-       ========================================= -->
-  <main class="vung-noi-dung-chinh">
-
-    <!-- TRANG 1: TỔNG QUAN -->
-    <div id="trang-tong-quan" class="trang-noi-dung trang-dang-hien-thi">
-      
-      <section class="bang-gioi-thieu">
-        <h2>Công Cụ Tối Giản,<br>Hiệu Suất Tối Đa</h2>
-        <p>MiniApp4All mang đến bộ sưu tập các tiện ích tinh gọn, công cụ tiên tiến, hỗ trợ trải nghiệm máy tính tốt nhất. Tất cả được thiết kế với triết lý: <strong>Tốc độ, Trực quan và Đề cao tính ứng dụng thực tế.</strong></p>
-		<p>Phương châm toàn hệ sinh thái: <strong>1 KEY CHO TOÀN BỘ.</strong></p>
-      </section>
-      
-      <h2 class="tieu-de-muc">Kho Ứng Dụng Nổi Bật</h2>
-      <div class="luoi-noi-dung">
-        
-        <div class="the-ung-dung">
-          <img src="images/t2spp.png" alt="T2SPP" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'">
-          <div class="noi-dung-the">
-            <h3>T2SPP</h3>
-            <p>Chuyển đổi văn bản sang giọng nói (Text-to-Speech) hoàn toàn offline. Dung lượng nhẹ, hỗ trợ đa dạng giọng đọc với độ trễ cực thấp.</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-t2spp-cai-dat">Mở Cài Đặt</a>
-          </div>
-        </div>
-
-        <div class="the-ung-dung">
-          <img src="images/Mini_Dawn.png" alt="Mini Dawn" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Mini+Dawn'">
-          <div class="noi-dung-the">
-            <h3>Mini Dawn</h3>
-            <p>Giải pháp cắt ghép và tinh chỉnh âm thanh chuyên nghiệp, trực quan, hỗ trợ xử lý siêu tốc mọi định dạng phổ biến.</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-minidawn-cai-dat">Tải Về</a>
-          </div>
-        </div>
-    
-        <div class="the-ung-dung">
-          <img src="images/Fpptx.png" alt="Fpptx" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Fpptx'">
-          <div class="noi-dung-the">
-            <h3>Fpptx</h3>
-            <p>Ứng dụng hiếm hoi phục vụ quản lý thư viện PowerPoint trực quan.</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-Fpptx-cai-dat">Tải Về</a>
-          </div>
-        </div>
-    
-        <div class="the-ung-dung">
-          <img src="images/FPics.png" alt="Fpptx" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FPics'">
-          <div class="noi-dung-the">
-            <h3>FPics</h3>
-            <p>Ứng dụng quản lý thư viện ảnh, hỗ trợ tìm kiếm, xem ảnh, coppy, thao tác nhanh với các ứng dụng khác chỉ bằng kéo thả.</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-FPics-cai-dat">Tải Về</a>
-          </div>
-        </div>
-    
-        <div class="the-ung-dung">
-          <img src="images/Fix_Doc.ico" alt="Fix_Doc" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FPics'">
-          <div class="noi-dung-the">
-            <h3>Fix_Doc</h3>
-            <p>Dọn sạch file Word lỗi chỉ trong vài giây</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-Fix_Doc-cai-dat">Tải Về</a>
-          </div>
-        </div>
-    
-        <div class="the-ung-dung">
-          <img src="images/MaxPDF.ico" alt="MaxPDF" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FPics'">
-          <div class="noi-dung-the">
-            <h3>MaxPDF</h3>
-            <p>Xem và thao tác PDF nhanh, mượt, trực tiếp, đa chức năng, thao tác linh hoạt. Đặc biệt Ứng dụng hiếm hoi hỗ trợ màn cảm ứng như NEC, Fujisu, Surface...</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-MaxPDF-cai-dat">Tải Về</a>
-          </div>
-        </div>
-    
-        <div class="the-ung-dung">
-          <img src="images/FastKara.ico" alt="FastKara" loading="lazy" decoding="async" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FPics'">
-          <div class="noi-dung-the">
-            <h3>FastKara</h3>
-            <p>Điện thoại là remote karaoke. TV là sân khấu – không quảng cáo, tìm bài cực nhanh</p>
-            <a class="nut-bam nut-vien nut-chuyen-trang" data-trang="trang-FastKara-cai-dat">Tải Về</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- =====================================
-         CÁC BÀI VIẾT T2SPP
-         ===================================== -->
-    <div id="trang-t2spp-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">T2SPP > Hướng Dẫn Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Các bước thiết lập ban đầu</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>T2SPP.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>T2SPP.exe</b>. (Mọi thứ sẽ tự động cho bạn, không cần cài đặt rườm rà).</p>
-        <p><i>Khuyến nghị: Máy tính của bạn nên được cài đặt sẵn phần mềm giải nén WinRAR phiên bản mới nhất.</i></p>
-    <p><i>Chú ý: MẬT KHẨU GIẢI NÉN: 1234.</i></p> 
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/14l9jTck1aNHr8Z2aGgJVDH1A5wz_UF_A/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>
-
-    <div id="trang-t2spp-modules" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">T2SPP > Cài Đặt Modules</h2>
-      <div class="khung-bai-viet">
-        <h3>Tích hợp thêm Modules giọng đọc</h3>
-        <p>Để thêm các mẫu giọng đọc mới, vui lòng tải thư mục, giải nén và chạy file .exe:</p>
-        <br>
-        <a class="nut-bam nut-vien" href="https://drive.google.com/file/d/1XAwgXOynDb1_9psqLzHeVYDXacufVtpT/view?usp=drive_link" target="_blank">Tải Xuống Giọng nữ Việt Nam</a>
-		<a class="nut-bam nut-vien" href="https://drive.google.com/file/d/1JE4fuyi6IWXsoX1XjDa56EAe9kmFspta/view?usp=drive_link" target="_blank">Tải Xuống Giọng nam Việt Nam</a>
-      </div>
-    </div>
-
-    <!-- =====================================
-         CÁC BÀI VIẾT TRANSLATOR & MINI DAWN
-         ===================================== -->
-	  
-    <div id="trang-minidawn-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Mini Dawn > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Thiết lập Mini Dawn</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>Mini_Dawn_Setup.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>Mini_Dawn.exe</b>.</p>
-    <p><i>Chú ý: MẬT KHẨU GIẢI NÉN: 1234.</i></p> 
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/1I0-GD2rZpIfURJ3jY0PhPnDyyFCpH5Tn/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>
-	
-	<!-- =====================================
-         CÁC BÀI VIẾT Fpptx & FPics
-         ===================================== -->
-  <div id="trang-Fpptx-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Fpptx > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Thiết lập Fpptx</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>Fpptx_Setup.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>Fpptx_Setup.exe</b>.</p>
-    <p><i>Mẹo nhỏ: Có thể coppy trực tiếp trang slide bạn đang xem để đưa vào PowerPoint mới.</i></p>
-    <p><i>Lưu ý: Lần đầu load có thể mất vài giây cho mỗi bài PowerPoint.</i></p>
-    <p><i>Chú ý: MẬT KHẨU GIẢI NÉN: 1234.</i></p> 
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/16XCtHIlSgi8JXYOJaGc147SxBUMLJWJT/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>  
-  
-  <div id="trang-FPics-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">FPics > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Thiết lập FPics</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>FPics_Setup.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>FPics_Setup.exe</b>.</p>
-    <p><i>Mẹo nhỏ: Có thể kéo thả ảnh trực tiếp từ trong Tool sang ứng dụng đang mở khác để thao tác, giúp rút ngắn thời gian vô cùng cho làm việc.</i></p>
-    <p><i>Lưu ý: Lần đầu load có thể mất vài giây cho mỗi thư mục chứa ảnh.</i></p>
-    <p><i>Chú ý: MẬT KHẨU GIẢI NÉN: 1234.</i></p> 
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/1QXHccFafHWD6cDa4eNo34dvkV2cCOfNm/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>
-	
-	<!-- =====================================
-         CÁC BÀI VIẾT Fix_Doc & MaxPDF
-         ===================================== -->
-  <div id="trang-Fix_Doc-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Fix_Doc > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Thiết lập Fix_Doc</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>Fix_Doc_Setup.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>Fix_Doc.exe</b>.</p>
-    <p><i>Fix_Doc là công cụ giúp sửa chữa file word chỉ bằng 1 lần bấm, bạn sẽ không còn lo khung tràn ra ngoài, khung vượt trang hay trang ma trắng bóc nữa, sẽ không còn link ẩn trong word của bạn....</i></p>
-    <p><i>Fix word chỉ bằng 1 nút bấm</i></p>
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/1Wt-g4JPYZHJdjEkwZ8ytil446IkwT-2m/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>
-  
-  <div id="trang-MaxPDF-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">MaxPDF > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Thiết lập MaxPDF</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>MaxPDF.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>MaxPDF.exe</b>.</p>
-    <p><i>MaxPDF hỗ trợ thao tác cảm ứng chạm để next, prev, dùng 2 ngón để zoo..., MaxPDF cũng hỗ chia tách, trích xuất pdf linh hoạt, nối nhiều file pdf tốc độ nhanh, chuyển pdf thành văn bản, chuyển ảnh thành văn bản, convert pdf sang ảnh, convert các định dạng khác thành pdf, điều hướng mượt.</i></p>
-    <p><i>Chú ý: MẬT KHẨU GIẢI NÉN: 1234.</i></p> 
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/1obkKiX8eQudIoCH88gWcRec5b_FvZTco/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>
-	
-	<!-- =====================================
-         CÁC BÀI VIẾT FastKara
-         ===================================== -->
-  <div id="trang-FastKara-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">FastKara > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Thiết lập FastKara</h3>
-        <p>Để sử dụng, bạn vui lòng tải xuống tệp tin nén <strong>FastKara.zip</strong>, sau đó giải nén ra một thư mục bất kỳ và chạy trực tiếp file <b>FastKara.exe</b>.</p>
-    <p><i>FastKara: Ứng dụng hiếm hoi hỗ trợ nhận các bài hát Local, quản lý trực quan, tìm kiếm cực nhanh, lưu bài hát yêu thích, chọn bài, Ưu tiên. Không những vậy, FastKara cho phép xem, và hát trực tiếp trên youtube, kết nối đồng bộ, điều khiển qua điện thoại, và đặc biệt không quảng cáo, tự nhận màn hình thứ 2 để phát video</i></p>
-    <p><i>Lưu ý: Lần đầu mở ứng dụng, hãy tick cả Private Network và Public netword để điều khiển qua điện thoại .</i></p>
-    <p><i>Chú ý: MẬT KHẨU GIẢI NÉN: 1234.</i></p> 
-        <br>
-        <a class="nut-bam" href="https://drive.google.com/file/d/1d77uT8KufrUF63bCq8R4hQlL_GefNEIT/view?usp=drive_link" target="_blank">Tải Xuống Bản Cài Đặt (Setup)</a>
-      </div>
-    </div>
-
-    <!-- =====================================
-         NỘI DUNG CÁC APP FREE MỚI THÊM 
-         ===================================== -->
-    <div id="trang-app-free-1-cai-dat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Tên App Free 1 > Cài Đặt</h2>
-      <div class="khung-bai-viet">
-        <h3>Giới thiệu ứng dụng (Mã nguồn mở)</h3>
-        <p>Đây là khu vực mẫu dành riêng cho các ứng dụng hoàn toàn miễn phí của bạn. Bạn có thể sửa tên và thêm các nút tải xuống tại đây khi các dự án mới ra lò.</p>
-        <p><i>Chú ý: Đang trong quá trình hoàn thiện.</i></p> 
-        <br>
-        <a class="nut-bam" href="#" target="_blank">Tải Xuống Bản Cài Đặt (Sắp có)</a>
-      </div>
-    </div>
-
-    <!-- =====================================
-         CHUYÊN MỤC THỦ THUẬT & TIPS 
-         ===================================== -->
-    <div id="trang-thu-thuat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">📚 Kho Thủ Thuật & Tips</h2>
-      <div class="luoi-noi-dung">
-        
-        <div class="the-ung-dung the-bai-viet">
-          <div class="noi-dung-the">
-            <h3>Lệnh CMD Cần Thiết</h3>
-            <p>Tổng hợp các lệnh Command Prompt hữu ích để tối ưu hóa, kiểm tra hệ thống và khắc phục lỗi Windows một cách nhanh chóng nhất.</p>
-            <a class="nut-bam nut-chuyen-trang" data-trang="trang-lenh-cmd">Đọc Bài Viết</a>
-          </div>
-        </div>
-
-        <div class="the-ung-dung the-bai-viet">
-          <div class="noi-dung-the">
-            <h3>Tắt Services An Toàn</h3>
-            <p>Danh sách các dịch vụ (Services) chạy ngầm không cần thiết trên Windows. Hướng dẫn tắt an toàn để giải phóng RAM và tăng tốc máy tính tối đa.</p>
-            <a class="nut-bam nut-chuyen-trang" data-trang="trang-tat-services">Đọc Bài Viết</a>
-          </div>
-        </div>
-    
-        <div class="the-ung-dung the-bai-viet">
-          <div class="noi-dung-the">
-            <h3>Ramdisk và sức mạnh tối ưu tuyệt đối</h3>
-            <p>RAM-nơi truy xuất dữ liệu với tốc độ chỉ dứng sau VRAM (nếu có), khi biết tận dụng, đó thực sự là 1 cuộc cải cách công nghệ tăng tốc PC</p>
-            <a class="nut-bam nut-chuyen-trang" data-trang="trang-ramdisk">Đọc Bài Viết</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- CHI TIẾT BÀI VIẾT THỦ THUẬT -->
-    <div id="trang-lenh-cmd" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Thủ Thuật > Lệnh CMD cần thiết</h2>
-      <div class="khung-bai-viet">
-        <h3>Những lệnh CMD cần thiết cho mọi máy</h3>
-        <p>Bài viết hướng dẫn bạn cách sử dụng CMD với những lệnh cần thiết để tối ưu hóa PC cao nhất.</p>
-        <br>
-        <a class="nut-bam" href="post/thuthuatcmd.html" target="_blank">Đọc bài viết trên trang mới</a>
-      </div>
-    </div>
-
-    <div id="trang-tat-services" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Thủ Thuật > Tắt Services</h2>
-      <div class="khung-bai-viet">
-        <h3>Tổng hợp Services có thể tắt an toàn</h3>
-        <p>Bài viết tổng hợp danh sách services không cần thiết cho máy tính và có thể tắt an toàn để tối ưu hóa tốc độ máy tính mà không lo lỗi.</p>
-        <p>Để sử dụng, ấn tổ hợp phím <code>Windows + R</code> gõ <code>services.msc</code>, sau đó tìm các tên trong danh sách và Disable.</p>
-        <p><i>Khuyến nghị: Nên tạo backup hoặc ghi nhớ các giá trị ban đầu nếu bạn thấy lo lắng (Hoặc chuyển sang manual thay vì disable)</i></p>
-        <br>
-        <a class="nut-bam" href="post/listservices.html" target="_blank">Đọc bài viết trên trang mới</a>
-      </div>
-    </div>
-  
-    <div id="trang-ramdisk" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Thủ Thuật > Ramdisk</h2>
-      <div class="khung-bai-viet">
-        <h3>Tổng hợp về sức mạnh, cách sử dụng Ramdisk hiệu quả</h3>
-        <p>Bài viết giới thiệu chi tiết về Ramdisk và cách sử dụng hiệu quả nhất về Ramdisk</p>
-        <br>
-        <a class="nut-bam" href="post/ramdisk.html" target="_blank">Đọc bài viết trên trang mới</a>
-      </div>
-    </div>
-
-    <!-- =====================================
-         CÁC TRANG CHÍNH KHÁC
-         ===================================== -->
-    <div id="trang-tai-xuong" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Trung Tâm Tải Xuống</h2>
-      <div class="khung-bai-viet">
-        <h3>Tổng hợp các liên kết lưu trữ</h3>
-        <p>Kho lưu trữ an toàn trên đám mây: <a href="https://drive.google.com/drive/folders/1H4BNAWkYtTYMAyl6XOyYOTJp3nQuAwvo?usp=drive_link" target="_blank" style="color:#00d9ff; font-weight: bold; text-decoration: none;">Truy cập Google Drive</a></p>
-      </div>
-    </div>
-
-    <!-- TRANG KÍCH HOẠT (ĐÃ GỘP CHUNG 1 KEY CHO TẤT CẢ) -->
-    <div id="trang-kich-hoat" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">🔑 Bản Quyền & Kích Hoạt</h2>
-      <div class="khung-bai-viet">
-        <h3>Một Key Duy Nhất - Mở Khóa Tất Cả Công Cụ</h3>
-        <p>Tại MiniApp4All, chúng tôi áp dụng chính sách <strong>1 Key kích hoạt toàn bộ Hệ sinh thái. Toàn bộ ứng dụng chỉ cần 1 key được cấp</strong>.</p>
-        <br>
-        <a class="nut-bam" href="post/activate.html" target="_blank">Mở Hướng Dẫn Kích Hoạt Hệ Sinh Thái</a>
-      </div>
-    </div>
-
-    <div id="trang-ve-chung-toi" class="trang-noi-dung">
-      <h2 class="tieu-de-muc">Về MiniApp4All</h2>
-      <div class="khung-bai-viet">
-        <p>Được thành lập với mục tiêu đơn giản hóa công việc hằng ngày trên máy tính. <strong>MiniApp4All</strong> tập trung phát triển các công cụ nhẹ nhàng, tốc độ cao, không chứa quảng cáo rác và đề cao trải nghiệm thực tế của người dùng cuối.</p>
-      </div>
-    </div>
-
-    <!-- CHÂN TRANG -->
-    <footer>
-      <p>MiniApp4All © 2026. Thiết kế với tinh thần tối giản.</p>
-    </footer>
-
-  </main>
-
-  <!-- =========================================
-       MÃ JAVASCRIPT ĐIỀU KHIỂN
-       ========================================= -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      
-      const danhSachNutChuyen = document.querySelectorAll('.nut-chuyen-trang');
-      const danhSachTrangNoiDung = document.querySelectorAll('.trang-noi-dung');
-      const danhSachNutXoMenu = document.querySelectorAll('.nut-mo-menu-con');
-
-      function chuyenTrang(idTrangDich) {
-        if(!idTrangDich) return;
-
-        danhSachTrangNoiDung.forEach(trang => trang.classList.remove('trang-dang-hien-thi'));
-        
-        const trangCanHienThi = document.getElementById(idTrangDich);
-        if (trangCanHienThi) {
-          trangCanHienThi.classList.add('trang-dang-hien-thi');
-          window.scrollTo({ top: 0, behavior: 'instant' }); 
-        }
-
-        danhSachNutChuyen.forEach(nut => nut.classList.remove('menu-dang-chon'));
-        
-        const nutCanBoiSang = document.querySelector(`.thanh-dieu-huong .nut-chuyen-trang[data-trang="${idTrangDich}"]`);
-        if (nutCanBoiSang) {
-          nutCanBoiSang.classList.add('menu-dang-chon');
-          
-          // Xử lý mở menu con nếu nút nằm trong đó
-          const menuConChuaNo = nutCanBoiSang.closest('.menu-con');
-          if (menuConChuaNo) {
-            document.querySelectorAll('.menu-con').forEach(menu => menu.classList.remove('mo-ra'));
-            document.querySelectorAll('.nut-mo-menu-con').forEach(nutXo => nutXo.classList.remove('xo-menu'));
+  <style id="miniapp-base-css">
+   * { box-sizing: border-box; }
+        img, video, iframe { max-width: 100%; height: auto; object-fit: contain; }
+        p, h1, h2, h3, h4, h5, h6, span, div, a { max-width: 100%; overflow-wrap: break-word; }
+        html, body { overflow-x: hidden; }
+  </style>
+  <style id="magic-hover-effects">
+   /* 1. Scale Up & Lift */
+            .hover-scale { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease !important; }
+            .hover-scale:hover { transform: translateY(-5px) scale(1.03) !important; box-shadow: 0 15px 25px rgba(0,0,0,0.2) !important; z-index: 10; }
             
-            menuConChuaNo.classList.add('mo-ra');
-            const nutXoTuongUng = document.querySelector(`[data-menu="${menuConChuaNo.id}"]`);
-            if(nutXoTuongUng) nutXoTuongUng.classList.add('xo-menu');
-          }
+            /* 2. Glow */
+            .hover-glow { transition: all 0.3s ease !important; }
+            .hover-glow:hover { box-shadow: 0 0 15px #00d2ff, 0 0 30px #00d2ff !important; border-color: #00d2ff !important; z-index: 10; }
+            
+            /* 3. Fade/Opacity */
+            .hover-opacity { transition: opacity 0.3s ease !important; }
+            .hover-opacity:hover { opacity: 0.6 !important; }
+            
+            /* 4. Multicolor Neon Glow */
+            .hover-neon { transition: all 0.3s ease !important; }
+            .hover-neon:hover { box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff, 0 0 30px #00ff00 !important; border-color: #fff !important; z-index: 10; }
+            
+            /* 5. 3D Tilt */
+            .hover-tilt { transition: transform 0.4s ease, box-shadow 0.4s ease !important; }
+            .hover-tilt:hover { transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) scale(1.02) !important; box-shadow: -10px 10px 20px rgba(0,0,0,0.3) !important; z-index: 10; }
+            
+            /* 6. Attention Wiggle */
+            @keyframes hoverWiggle { 0% {transform: rotate(0deg);} 25% {transform: rotate(-3deg);} 50% {transform: rotate(3deg);} 75% {transform: rotate(-3deg);} 100% {transform: rotate(0deg);} }
+            .hover-wiggle:hover { animation: hoverWiggle 0.4s ease-in-out infinite !important; z-index: 10; }
+            
+            /* 7. Grayscale -> Color (For images) */
+            .hover-color { filter: grayscale(100%) !important; transition: filter 0.5s ease, transform 0.3s ease !important; }
+            .hover-color:hover { filter: grayscale(0%) !important; transform: scale(1.02) !important; }
+            
+            /* 8. Expanding Outline Border (Outline Offset) */
+            .hover-outline { transition: outline-offset 0.3s ease, outline-color 0.3s ease !important; outline: 2px solid transparent !important; outline-offset: 0px !important; }
+            .hover-outline:hover { outline-color: #00d2ff !important; outline-offset: 8px !important; }
+  </style>
+ </head>
+ <body class="">
+  <!-- CẤU TRÚC ĐIỀU HƯỚNG BÊN TRÁI -->
+  <aside class="thanh-dieu-huong">
+   <div class="vung-logo">
+    <img alt="Logo" class="hover-neon" onerror="this.src='https://via.placeholder.com/120/151a24/00d9ff?text=Logo'" src="images/Logo.jpg"/>
+    <h1 class="">
+     MiniApp4All
+    </h1>
+   </div>
+   <div class="danh-sach-menu">
+    <!-- I. TỔNG QUAN -->
+    <a class="nut-menu" data-trang="tong-quan">
+     🏠 Tổng Quan
+    </a>
+    <!-- II. CÔNG CỤ NỔI BẬT (Đã thiết kế siêu gọn) -->
+    <div class="tieu-de-muc-lon">
+     Công Cụ Nổi Bật
+     <span class="mui-ten-i">
+      ▼
+     </span>
+    </div>
+    <div class="khoi-menu-con">
+     <a class="nut-menu" data-trang="ccnb-t2spp">
+      🎤 T2SPP
+     </a>
+     <a class="nut-menu" data-trang="ccnb-minidawn">
+      ⚡ Mini Dawn
+     </a>
+     <a class="nut-menu" data-trang="ccnb-minidawn_copy773">
+      ⚡ F_Remote
+     </a>
+     <a class="nut-menu dang-chon menu-dang-chon" data-trang="ccnb-fpptx">
+      🌟 F_pptx
+     </a>
+     <a class="nut-menu" data-trang="ccnb-fpptx_copy231">
+      🌟 F_Media
+     </a>
+     <a class="nut-menu" data-trang="ccnb-fpics">
+      🎨 F_Pics
+     </a>
+     <a class="nut-menu" data-trang="ccnb-fixdoc">
+      📝 Fix_Doc
+     </a>
+     <a class="nut-menu" data-trang="ccnb-maxpdf">
+      📑 MaxPDF
+     </a>
+     <a class="nut-menu menu-dang-chon" data-trang="ccnb-fastkara">
+      🍻 F_Kara
+     </a>
+    </div>
+    <!-- III. CÔNG CỤ MIỄN PHÍ -->
+    <div class="tieu-de-muc-lon thu-gon">
+     Công Cụ Miễn Phí
+     <span class="mui-ten-i">
+      ▼
+     </span>
+    </div>
+    <div class="khoi-menu-con">
+     <div class="nut-xo-menu" data-menu="menu-ccmp-free1">
+      <span class="">
+       🎁 App Free 1
+      </span>
+      <span class="mui-ten-1">
+       ▼
+      </span>
+     </div>
+     <div class="nut-xo-menu" data-menu="menu-ccmp-free1">
+      <span class="">
+       🎁 App Free 1
+      </span>
+      <span class="mui-ten-1">
+       ▼
+      </span>
+     </div>
+     <div class="menu-cap-2" id="menu-ccmp-free1">
+      <a class="nut-menu" data-trang="ccmp-free1-caidat">
+       a. Cài đặt
+      </a>
+     </div>
+     <div class="menu-cap-2" id="menu-ccmp-free1_copy796">
+      <a class="nut-menu" data-trang="ccmp-free1-caidat_copy469">
+       a. Cài đặt
+       (Copy)
+      </a>
+     </div>
+    </div>
+    <!-- IV. THỦ THUẬT -->
+    <div class="tieu-de-muc-lon">
+     Thủ Thuật &amp; Tips
+     <span class="mui-ten-i">
+      ▼
+     </span>
+    </div>
+    <div class="khoi-menu-con thu-gon">
+     <a class="nut-menu" data-trang="tt-danhsach">
+      📚 Danh sách Thủ thuật
+     </a>
+     <a class="nut-menu" data-trang="tt-cmd">
+      1. Lệnh CMD
+     </a>
+     <a class="nut-menu" data-trang="tt-services">
+      2. Tắt Services
+     </a>
+     <a class="nut-menu" data-trang="tt-ramdisk">
+      3. Ramdisk
+     </a>
+    </div>
+    <!-- V. KHÁC -->
+    <div class="tieu-de-muc-lon thu-gon">
+     Thông Tin Khác
+     <span class="mui-ten-i">
+      ▼
+     </span>
+    </div>
+    <div class="khoi-menu-con">
+     <a class="nut-menu" data-trang="khac-taixuong">
+      ⬇ Trung Tâm Tải Xuống
+     </a>
+     <a class="nut-menu" data-trang="khac-kichhoat">
+      🔑 Kích Hoạt Bản Quyền
+     </a>
+     <a class="nut-menu" data-trang="khac-vechungtoi">
+      💡 Về Chúng Tôi
+     </a>
+    </div>
+   </div>
+   <form action="https://formspree.io/f/mvzedrnl" class="" method="POST" style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; border: 1px solid #444; max-width: 500px; margin: 0 auto; width: 100%; font-family: sans-serif; color: inherit;">
+    <h3 class="" style="margin-top:0; color:#00d2ff; margin-bottom:20px; font-size: 22px;">
+     Liên Hệ
+    </h3>
+    <div class="" style="margin-bottom:15px;">
+     <label class="" style="display:block; margin-bottom:5px; font-size:14px; opacity:0.8;">
+      Họ và Tên
+     </label>
+     <input class="" name="name" required="" style="width:100%; padding:10px; border-radius:4px; border:1px solid #555; background:rgba(0,0,0,0.2); color:inherit; box-sizing:border-box;" type="text"/>
+    </div>
+    <div class="" style="margin-bottom:15px;">
+     <label class="" style="display:block; margin-bottom:5px; font-size:14px; opacity:0.8;">
+      Email của bạn
+     </label>
+     <input class="" name="email" required="" style="width:100%; padding:10px; border-radius:4px; border:1px solid #555; background:rgba(0,0,0,0.2); color:inherit; box-sizing:border-box;" type="email"/>
+    </div>
+    <div class="" style="margin-bottom:20px;">
+     <label class="" style="display:block; margin-bottom:5px; font-size:14px; opacity:0.8;">
+      Nội dung tin nhắn
+     </label>
+     <textarea class="" name="message" required="" rows="4" style="width:100%; padding:10px; border-radius:4px; border:1px solid #555; background:rgba(0,0,0,0.2); color:inherit; box-sizing:border-box; resize:vertical;"></textarea>
+    </div>
+    <button class="" style="background:#00d2ff; color:#000; font-weight:bold; padding:12px 25px; border:none; border-radius:4px; cursor:pointer; width:100%; font-size:15px; transition:0.3s;" type="submit">
+     Gửi Tin Nhắn 🚀
+    </button>
+   </form>
+   <div class="pagination-wrapper" style="width:100%; margin:20px 0;">
+   </div>
+   <footer class="" style="background:rgba(0,0,0,0.8);color:#fff;padding:30px 20px;text-align:center;margin-top:20px;width:100%;">
+    <h3 class="" style="margin-bottom:10px;">
+     <font class="" color="#0270ff">
+      MiniApp4All
+     </font>
+    </h3>
+    <p class="" style="margin-bottom:15px;font-size:14px;">
+     SĐT: +84911.933.550
+    </p>
+    <div class="" style="border-top:1px solid #444;padding-top:15px;font-size:12px;">
+     © 2026 Bản quyền thuộc về MiniApp4All.
+    </div>
+   </footer>
+  </aside>
+  <!-- =========================================================================
+     CẤU TRÚC NỘI DUNG CHÍNH
+     ========================================================================= -->
+  <main class="vung-noi-dung-chinh editor-hover">
+   <header class="" style="background:inherit;color:inherit;padding:15px 30px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(150,150,150,0.3);width:100%;">
+    <div class="" style="font-size:24px;font-weight:bold;color:#007acc;">
+     🚀 MiniApp4All
+    </div>
+    <nav class="" style="display:flex;gap:20px;">
+     <a href="https://miniapp4all.github.io/" style="color: inherit; text-decoration: none; font-weight: 500;">
+     </a>
+     <a href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+      <p class="" onclick="window.open('https://miniapp4all.github.io/', '_blank');" style="cursor: pointer;">
+       Trang chủ
+      </p>
+     </a>
+     <a class="" href="#" style="color:inherit;text-decoration:none;font-weight:500;">
+      Dịch vụ
+     </a>
+    </nav>
+   </header>
+   <!-- ================= 1. TỔNG QUAN ================= -->
+   <div class="thung-chua-muc-lon" id="MUC-I-TONG-QUAN">
+    <div class="thung-chua-ung-dung" id="APP-TONG-QUAN">
+     <div class="trang-noi-dung" id="tong-quan" style="display: none;">
+      <section class="bang-gioi-thieu hover-neon">
+       <h2 class="">
+        Công Cụ Tối Giản, Hiệu Suất Tối Đa
+       </h2>
+       <p class="" style='line-height: 1.8; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+        Tất cả được thiết kế với triết lý:
+        <strong>
+         <font class="" color="#d3d300">
+          TỐC ĐỘ - TRỰC QUAN - THỰC TẾ
+         </font>
+        </strong>
+       </p>
+       <p class="" style='line-height: 1.8; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;'>
+        Phương châm toàn hệ sinh thái:
+        <strong>
+         <font class="" color="#e3e300">
+          1 KEY CHO TOÀN BỘ
+         </font>
+        </strong>
+       </p>
+      </section>
+      <h2 class="tieu-de-muc">
+       Danh Sách Ứng Dụng Nổi Bật
+      </h2>
+      <div class="luoi-noi-dung">
+       <!-- Cards Tổng Quan -->
+       <div class="the-ung-dung">
+        <img alt="T2SPP" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=T2SPP'" src="images/t2spp.png"/>
+        <div class="noi-dung-the" onclick="window.open('https://drive.google.com/file/d/14l9jTck1aNHr8Z2aGgJVDH1A5wz_UF_A/view?usp=drive_link', '_blank');" style="cursor: pointer;">
+         <h3 class="">
+          T2SPP
+         </h3>
+         <p class="">
+          Chuyển đổi văn bản sang giọng nói offline.
+         </p>
+         <a class="cssbuttons-io-button hover-neon" href="https://google.com">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span>
+           Download
+          </span>
+         </a>
+         <button class="uiverse">
+         </button>
+         <style>
+          .uiverse {
+  --duration: 7s;
+  --easing: linear;
+  --c-color-1: rgba(255, 163, 26, 0.7);
+  --c-color-2: #1a23ff;
+  --c-color-3: #e21bda;
+  --c-color-4: rgba(255, 232, 26, 0.7);
+  --c-shadow: rgba(255, 223, 87, 0.5);
+  --c-shadow-inset-top: rgba(255, 223, 52, 0.9);
+  --c-shadow-inset-bottom: rgba(255, 250, 215, 0.8);
+  --c-radial-inner: #ffd215;
+  --c-radial-outer: #fff172;
+  --c-color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  display: table;
+  border-radius: 24px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--c-color);
+  background: radial-gradient(
+    circle,
+    var(--c-radial-inner),
+    var(--c-radial-outer) 80%
+  );
+  box-shadow: 0 0 14px var(--c-shadow);
+}
 
-          // THÊM TÍNH NĂNG: Nếu nút click nằm trong bất kỳ khối Menu nào đang bị ẩn thì tự động mở khối đó ra
-          const khoiChua = nutCanBoiSang.closest('.khoi-menu-thu-gon');
-          if (khoiChua && khoiChua.classList.contains('da-thu-gon')) {
-            khoiChua.classList.remove('da-thu-gon');
-            const nutToggle = khoiChua.previousElementSibling;
-            if(nutToggle && nutToggle.classList.contains('co-the-bam')) {
-              nutToggle.classList.remove('da-thu-gon');
+.uiverse:before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  box-shadow:
+    inset 0 3px 12px var(--c-shadow-inset-top),
+    inset 0 -3px 4px var(--c-shadow-inset-bottom);
+}
+
+.uiverse .wrapper {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  overflow: hidden;
+  border-radius: 24px;
+  min-width: 132px;
+  padding: 12px 0;
+}
+
+.uiverse .wrapper span {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.uiverse:hover {
+  --duration: 1400ms;
+}
+
+.uiverse .wrapper .circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  filter: blur(var(--blur, 8px));
+  background: var(--background, transparent);
+  transform: translate(var(--x, 0), var(--y, 0)) translateZ(0);
+  animation: var(--animation, none) var(--duration) var(--easing) infinite;
+}
+
+.uiverse .wrapper .circle.circle-1,
+.uiverse .wrapper .circle.circle-9,
+.uiverse .wrapper .circle.circle-10 {
+  --background: var(--c-color-4);
+}
+
+.uiverse .wrapper .circle.circle-3,
+.uiverse .wrapper .circle.circle-4 {
+  --background: var(--c-color-2);
+  --blur: 14px;
+}
+
+.uiverse .wrapper .circle.circle-5,
+.uiverse .wrapper .circle.circle-6 {
+  --background: var(--c-color-3);
+  --blur: 16px;
+}
+
+.uiverse .wrapper .circle.circle-2,
+.uiverse .wrapper .circle.circle-7,
+.uiverse .wrapper .circle.circle-8,
+.uiverse .wrapper .circle.circle-11,
+.uiverse .wrapper .circle.circle-12 {
+  --background: var(--c-color-1);
+  --blur: 12px;
+}
+
+.uiverse .wrapper .circle.circle-1 {
+  --x: 0;
+  --y: -40px;
+  --animation: circle-1;
+}
+
+.uiverse .wrapper .circle.circle-2 {
+  --x: 92px;
+  --y: 8px;
+  --animation: circle-2;
+}
+
+.uiverse .wrapper .circle.circle-3 {
+  --x: -12px;
+  --y: -12px;
+  --animation: circle-3;
+}
+
+.uiverse .wrapper .circle.circle-4 {
+  --x: 80px;
+  --y: -12px;
+  --animation: circle-4;
+}
+
+.uiverse .wrapper .circle.circle-5 {
+  --x: 12px;
+  --y: -4px;
+  --animation: circle-5;
+}
+
+.uiverse .wrapper .circle.circle-6 {
+  --x: 56px;
+  --y: 16px;
+  --animation: circle-6;
+}
+
+.uiverse .wrapper .circle.circle-7 {
+  --x: 8px;
+  --y: 28px;
+  --animation: circle-7;
+}
+
+.uiverse .wrapper .circle.circle-8 {
+  --x: 28px;
+  --y: -4px;
+  --animation: circle-8;
+}
+
+.uiverse .wrapper .circle.circle-9 {
+  --x: 20px;
+  --y: -12px;
+  --animation: circle-9;
+}
+
+.uiverse .wrapper .circle.circle-10 {
+  --x: 64px;
+  --y: 16px;
+  --animation: circle-10;
+}
+
+.uiverse .wrapper .circle.circle-11 {
+  --x: 4px;
+  --y: 4px;
+  --animation: circle-11;
+}
+
+.uiverse .wrapper .circle.circle-12 {
+  --blur: 14px;
+  --x: 52px;
+  --y: 4px;
+  --animation: circle-12;
+}
+
+@keyframes circle-1 {
+  33% {
+    transform: translate(0px, 16px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(12px, 64px) translateZ(0);
+  }
+}
+
+@keyframes circle-2 {
+  33% {
+    transform: translate(80px, -10px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(72px, -48px) translateZ(0);
+  }
+}
+
+@keyframes circle-3 {
+  33% {
+    transform: translate(20px, 12px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(12px, 4px) translateZ(0);
+  }
+}
+
+@keyframes circle-4 {
+  33% {
+    transform: translate(76px, -12px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(112px, -8px) translateZ(0);
+  }
+}
+
+@keyframes circle-5 {
+  33% {
+    transform: translate(84px, 28px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(40px, -32px) translateZ(0);
+  }
+}
+
+@keyframes circle-6 {
+  33% {
+    transform: translate(28px, -16px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(76px, -56px) translateZ(0);
+  }
+}
+
+@keyframes circle-7 {
+  33% {
+    transform: translate(8px, 28px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(20px, -60px) translateZ(0);
+  }
+}
+
+@keyframes circle-8 {
+  33% {
+    transform: translate(32px, -4px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(56px, -20px) translateZ(0);
+  }
+}
+
+@keyframes circle-9 {
+  33% {
+    transform: translate(20px, -12px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(80px, -8px) translateZ(0);
+  }
+}
+
+@keyframes circle-10 {
+  33% {
+    transform: translate(68px, 20px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(100px, 28px) translateZ(0);
+  }
+}
+
+@keyframes circle-11 {
+  33% {
+    transform: translate(4px, 4px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(68px, 20px) translateZ(0);
+  }
+}
+
+@keyframes circle-12 {
+  33% {
+    transform: translate(56px, 0px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(60px, -32px) translateZ(0);
+  }
+}
+         </style>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="T2SPP" class="" onerror="this.src='F_Media/F_Media.png'" src="F_Media/F_Media.png" style="object-fit: contain; max-width: 100%"/>
+        <div class="noi-dung-the hover-neon" onclick="window.open('https://github.com/miniapp4all/F_Media/releases/latest/download/F_Media.exe', '_blank');" style="cursor: pointer;">
+         <h3 class="">
+          F_Media
+         </h3>
+         <p class="">
+          Quản lý thư viện, hỗ trợ mọi định dạng, VR SBS
+         </p>
+         <button class="uiverse">
+          <div class="wrapper">
+           <span class="">
+            Download
+           </span>
+           <div class="circle circle-12">
+           </div>
+           <div class="circle circle-11">
+           </div>
+           <div class="circle circle-10">
+           </div>
+           <div class="circle circle-9">
+           </div>
+           <div class="circle circle-8">
+           </div>
+           <div class="circle circle-7">
+           </div>
+           <div class="circle circle-6">
+           </div>
+           <div class="circle circle-5">
+           </div>
+           <div class="circle circle-4">
+           </div>
+           <div class="circle circle-3">
+           </div>
+           <div class="circle circle-2">
+           </div>
+           <div class="circle circle-1">
+           </div>
+          </div>
+         </button>
+         <style>
+          .uiverse {
+  --duration: 7s;
+  --easing: linear;
+  --c-color-1: rgba(255, 163, 26, 0.7);
+  --c-color-2: #1a23ff;
+  --c-color-3: #e21bda;
+  --c-color-4: rgba(255, 232, 26, 0.7);
+  --c-shadow: rgba(255, 223, 87, 0.5);
+  --c-shadow-inset-top: rgba(255, 223, 52, 0.9);
+  --c-shadow-inset-bottom: rgba(255, 250, 215, 0.8);
+  --c-radial-inner: #ffd215;
+  --c-radial-outer: #fff172;
+  --c-color: #fff;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  outline: none;
+  position: relative;
+  cursor: pointer;
+  border: none;
+  display: table;
+  border-radius: 24px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--c-color);
+  background: radial-gradient(
+    circle,
+    var(--c-radial-inner),
+    var(--c-radial-outer) 80%
+  );
+  box-shadow: 0 0 14px var(--c-shadow);
+}
+
+.uiverse:before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  box-shadow:
+    inset 0 3px 12px var(--c-shadow-inset-top),
+    inset 0 -3px 4px var(--c-shadow-inset-bottom);
+}
+
+.uiverse .wrapper {
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  overflow: hidden;
+  border-radius: 24px;
+  min-width: 132px;
+  padding: 12px 0;
+}
+
+.uiverse .wrapper span {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+
+.uiverse:hover {
+  --duration: 1400ms;
+}
+
+.uiverse .wrapper .circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  filter: blur(var(--blur, 8px));
+  background: var(--background, transparent);
+  transform: translate(var(--x, 0), var(--y, 0)) translateZ(0);
+  animation: var(--animation, none) var(--duration) var(--easing) infinite;
+}
+
+.uiverse .wrapper .circle.circle-1,
+.uiverse .wrapper .circle.circle-9,
+.uiverse .wrapper .circle.circle-10 {
+  --background: var(--c-color-4);
+}
+
+.uiverse .wrapper .circle.circle-3,
+.uiverse .wrapper .circle.circle-4 {
+  --background: var(--c-color-2);
+  --blur: 14px;
+}
+
+.uiverse .wrapper .circle.circle-5,
+.uiverse .wrapper .circle.circle-6 {
+  --background: var(--c-color-3);
+  --blur: 16px;
+}
+
+.uiverse .wrapper .circle.circle-2,
+.uiverse .wrapper .circle.circle-7,
+.uiverse .wrapper .circle.circle-8,
+.uiverse .wrapper .circle.circle-11,
+.uiverse .wrapper .circle.circle-12 {
+  --background: var(--c-color-1);
+  --blur: 12px;
+}
+
+.uiverse .wrapper .circle.circle-1 {
+  --x: 0;
+  --y: -40px;
+  --animation: circle-1;
+}
+
+.uiverse .wrapper .circle.circle-2 {
+  --x: 92px;
+  --y: 8px;
+  --animation: circle-2;
+}
+
+.uiverse .wrapper .circle.circle-3 {
+  --x: -12px;
+  --y: -12px;
+  --animation: circle-3;
+}
+
+.uiverse .wrapper .circle.circle-4 {
+  --x: 80px;
+  --y: -12px;
+  --animation: circle-4;
+}
+
+.uiverse .wrapper .circle.circle-5 {
+  --x: 12px;
+  --y: -4px;
+  --animation: circle-5;
+}
+
+.uiverse .wrapper .circle.circle-6 {
+  --x: 56px;
+  --y: 16px;
+  --animation: circle-6;
+}
+
+.uiverse .wrapper .circle.circle-7 {
+  --x: 8px;
+  --y: 28px;
+  --animation: circle-7;
+}
+
+.uiverse .wrapper .circle.circle-8 {
+  --x: 28px;
+  --y: -4px;
+  --animation: circle-8;
+}
+
+.uiverse .wrapper .circle.circle-9 {
+  --x: 20px;
+  --y: -12px;
+  --animation: circle-9;
+}
+
+.uiverse .wrapper .circle.circle-10 {
+  --x: 64px;
+  --y: 16px;
+  --animation: circle-10;
+}
+
+.uiverse .wrapper .circle.circle-11 {
+  --x: 4px;
+  --y: 4px;
+  --animation: circle-11;
+}
+
+.uiverse .wrapper .circle.circle-12 {
+  --blur: 14px;
+  --x: 52px;
+  --y: 4px;
+  --animation: circle-12;
+}
+
+@keyframes circle-1 {
+  33% {
+    transform: translate(0px, 16px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(12px, 64px) translateZ(0);
+  }
+}
+
+@keyframes circle-2 {
+  33% {
+    transform: translate(80px, -10px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(72px, -48px) translateZ(0);
+  }
+}
+
+@keyframes circle-3 {
+  33% {
+    transform: translate(20px, 12px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(12px, 4px) translateZ(0);
+  }
+}
+
+@keyframes circle-4 {
+  33% {
+    transform: translate(76px, -12px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(112px, -8px) translateZ(0);
+  }
+}
+
+@keyframes circle-5 {
+  33% {
+    transform: translate(84px, 28px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(40px, -32px) translateZ(0);
+  }
+}
+
+@keyframes circle-6 {
+  33% {
+    transform: translate(28px, -16px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(76px, -56px) translateZ(0);
+  }
+}
+
+@keyframes circle-7 {
+  33% {
+    transform: translate(8px, 28px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(20px, -60px) translateZ(0);
+  }
+}
+
+@keyframes circle-8 {
+  33% {
+    transform: translate(32px, -4px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(56px, -20px) translateZ(0);
+  }
+}
+
+@keyframes circle-9 {
+  33% {
+    transform: translate(20px, -12px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(80px, -8px) translateZ(0);
+  }
+}
+
+@keyframes circle-10 {
+  33% {
+    transform: translate(68px, 20px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(100px, 28px) translateZ(0);
+  }
+}
+
+@keyframes circle-11 {
+  33% {
+    transform: translate(4px, 4px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(68px, 20px) translateZ(0);
+  }
+}
+
+@keyframes circle-12 {
+  33% {
+    transform: translate(56px, 0px) translateZ(0);
+  }
+
+  66% {
+    transform: translate(60px, -32px) translateZ(0);
+  }
+}
+         </style>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="Fpptx" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Fpptx'" src="images/Fpptx.png"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+          Fpptx
+         </h3>
+         <p class="">
+          Quản lý thư viện PowerPoint trực quan...
+         </p>
+         <a class="cssbuttons-io-button hover-neon" href="https://google.com">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span>
+           Download
+          </span>
+         </a>
+         <style>
+          .btn {
+  --color1: #1a8516;
+  --color2: #236b19;
+  perspective: 1000px;
+  padding: 1em 1em;
+  background: linear-gradient(var(--color1), var(--color2));
+  border: none;
+  outline: none;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #fff;
+  text-shadow: 0 10px 10px #000;
+  cursor: pointer;
+  transform: rotateX(70deg) rotateZ(30deg);
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.btn::before {
+  content: "";
+  width: 100%;
+  height: 15px;
+  background-color: var(--color2);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+}
+
+.btn::after {
+  content: "";
+  width: 15px;
+  height: 100%;
+  background-color: var(--color1);
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: rotateY(-90deg);
+  transform-origin: right;
+}
+
+.btn:hover {
+  transform: rotateX(30deg) rotateZ(0);
+}
+         </style>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="FPics" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FPics'" src="images/FPics.png"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+          FPics
+         </h3>
+         <p class="">
+          Quản lý thư viện ảnh, xem tranh nhanh...
+         </p>
+         <a class="cssbuttons-io-button hover-glow" href="https://google.com">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span>
+           Download
+          </span>
+         </a>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="Fix_Doc" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=Fix_Doc'" src="images/Fix_Doc.ico"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+          Fix_Doc
+         </h3>
+         <p>
+          Dọn sạch lỗi trong File Word nhanh chóng.
+         </p>
+         <a class="cssbuttons-io-button hover-glow" href="https://google.com">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span>
+           Download
+          </span>
+         </a>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="MaxPDF" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=MaxPDF'" src="images/MaxPDF.ico"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+          MaxPDF
+         </h3>
+         <p class="">
+          Quản lý, đọc truyện, xem tranh pdf, cbz, cbr...
+         </p>
+         <a class="cssbuttons-io-button hover-neon" href="https://google.com">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span>
+           Download
+          </span>
+         </a>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="FastKara" class="" onerror="this.src='https://via.placeholder.com/400x200/151a24/00d9ff?text=FastKara'" src="images/FastKara.ico"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+          F_Kara
+         </h3>
+         <p class="">
+          Hát Karaoke Online, Ofline... Mang rạp hát về gia đình của bạn.
+         </p>
+         <a class="cssbuttons-io-button hover-neon" href="https://google.com">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span>
+           Download
+          </span>
+         </a>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="FastKara" class="" onerror="this.src='F_Remote/F_Remote.png'" src="F_Remote/F_Remote.png" style="object-fit: contain; max-width: 100%"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+         </h3>
+         <h3 class="">
+          F_Remote
+         </h3>
+         <p class="">
+          Biến điện thoại thành Remote PC qua mạng Lan,. truyền hình ảnh, âm thanh trực tiếp tới điện thoại qua LAN....
+         </p>
+         <div class="sp">
+          <button class="sparkle-button">
+           <span class="spark" onclick="window.open('https://github.com/miniapp4all/F_Remote_Core/releases/download/F_Remote/F_Remote.exe', '_blank');" style="cursor: pointer;">
+           </span>
+           <span class="backdrop">
+           </span>
+           <svg class="sparkle" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.187 8.096L15 5.25L15.813 8.096C16.0231 8.83114 16.4171 9.50062 16.9577 10.0413C17.4984 10.5819 18.1679 10.9759 18.903 11.186L21.75 12L18.904 12.813C18.1689 13.0231 17.4994 13.4171 16.9587 13.9577C16.4181 14.4984 16.0241 15.1679 15.814 15.903L15 18.75L14.187 15.904C13.9769 15.1689 13.5829 14.4994 13.0423 13.9587C12.5016 13.4181 11.8321 13.0241 11.097 12.814L8.25 12L11.096 11.187C11.8311 10.9769 12.5006 10.5829 13.0413 10.0423C13.5819 9.50162 13.9759 8.83214 14.186 8.097L14.187 8.096Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+            <path d="M6 14.25L5.741 15.285C5.59267 15.8785 5.28579 16.4206 4.85319 16.8532C4.42059 17.2858 3.87853 17.5927 3.285 17.741L2.25 18L3.285 18.259C3.87853 18.4073 4.42059 18.7142 4.85319 19.1468C5.28579 19.5794 5.59267 20.1215 5.741 20.715L6 21.75L6.259 20.715C6.40725 20.1216 6.71398 19.5796 7.14639 19.147C7.5788 18.7144 8.12065 18.4075 8.714 18.259L9.75 18L8.714 17.741C8.12065 17.5925 7.5788 17.2856 7.14639 16.853C6.71398 16.4204 6.40725 15.8784 6.259 15.285L6 14.25Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+            <path d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <span class="text">
+            Download for free
+           </span>
+          </button>
+          <div class="bodydrop">
+          </div>
+          <span aria-hidden="true" class="particle-pen">
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+          </span>
+         </div>
+         <style>
+          .sparkle-button {
+  --active: 0;
+  --bg: radial-gradient(
+			40% 50% at center 100%,
+			hsl(270 calc(var(--active) * 97%) 72% / var(--active)),
+			transparent
+		),
+		radial-gradient(
+			80% 100% at center 120%,
+			hsl(260 calc(var(--active) * 97%) 70% / var(--active)),
+			transparent
+		),
+		hsl(260 calc(var(--active) * 97%) calc((var(--active) * 44%) + 12%));
+  background: var(--bg);
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: 0;
+  cursor: pointer;
+  padding: 1em 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  white-space: nowrap;
+  border-radius: 100px;
+  position: relative;
+  box-shadow: 0 0 calc(var(--active) * 3em) calc(var(--active) * 1em) hsl(260 97% 61% / 0.75),
+		0 0em 0 0 hsl(260 calc(var(--active) * 97%) calc((var(--active) * 50%) + 30%)) inset,
+		0 -0.05em 0 0 hsl(260 calc(var(--active) * 97%) calc(var(--active) * 60%)) inset;
+  transition: box-shadow var(--transition), scale var(--transition), background var(--transition);
+  scale: calc(1 + (var(--active) * 0.1));
+  transition: .3s;
+}
+
+.sparkle-button:active {
+  scale: 1;
+  transition: .3s;
+}
+
+.sparkle path {
+  color: hsl(0 0% calc((var(--active, 0) * 70%) + var(--base)));
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: currentColor;
+  stroke: currentColor;
+  animation-delay: calc((var(--transition) * 1.5) + (var(--delay) * 1s));
+  animation-duration: 0.6s;
+  transition: color var(--transition);
+}
+
+.sparkle-button:is(:hover, :focus-visible) path {
+  animation-name: bounce;
+}
+
+@keyframes bounce {
+  35%, 65% {
+    scale: var(--scale);
+  }
+}
+
+.sparkle path:nth-of-type(1) {
+  --scale: 0.5;
+  --delay: 0.1;
+  --base: 40%;
+}
+
+.sparkle path:nth-of-type(2) {
+  --scale: 1.5;
+  --delay: 0.2;
+  --base: 20%;
+}
+
+.sparkle path:nth-of-type(3) {
+  --scale: 2.5;
+  --delay: 0.35;
+  --base: 30%;
+}
+
+.sparkle-button:before {
+  content: "";
+  position: absolute;
+  inset: -0.2em;
+  z-index: -1;
+  border: 0.25em solid hsl(260 97% 50% / 0.5);
+  border-radius: 100px;
+  opacity: var(--active, 0);
+  transition: opacity var(--transition);
+}
+
+.spark {
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  rotate: 0deg;
+  overflow: hidden;
+  mask: linear-gradient(white, transparent 50%);
+  animation: flip calc(var(--spark) * 2) infinite steps(2, end);
+}
+
+@keyframes flip {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.spark:before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  aspect-ratio: 1;
+  top: 0%;
+  left: 50%;
+  z-index: -1;
+  translate: -50% -15%;
+  rotate: 0;
+  transform: rotate(-90deg);
+  opacity: calc((var(--active)) + 0.4);
+  background: conic-gradient(
+		from 0deg,
+		transparent 0 340deg,
+		white 360deg
+	);
+  transition: opacity var(--transition);
+  animation: rotate var(--spark) linear infinite both;
+}
+
+.spark:after {
+  content: "";
+  position: absolute;
+  inset: var(--cut);
+  border-radius: 100px;
+}
+
+.backdrop {
+  position: absolute;
+  inset: var(--cut);
+  background: var(--bg);
+  border-radius: 100px;
+  transition: background var(--transition);
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+@supports(selector(:has(:is(+ *)))) {
+  body:has(button:is(:hover, :focus-visible)) {
+    --active: 1;
+    --play-state: running;
+  }
+
+  .bodydrop {
+    display: none;
+  }
+}
+
+.sparkle-button:is(:hover, :focus-visible) ~ :is(.bodydrop, .particle-pen) {
+  --active: 1;
+  --play-state: runnin;
+}
+
+.sparkle-button:is(:hover, :focus-visible) {
+  --active: 1;
+  --play-state: running;
+}
+
+.sp {
+  position: relative;
+}
+
+.particle-pen {
+  position: absolute;
+  width: 200%;
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  -webkit-mask: radial-gradient(white, transparent 65%);
+  z-index: -1;
+  opacity: var(--active, 0);
+  transition: opacity var(--transition);
+}
+
+.particle {
+  fill: white;
+  width: calc(var(--size, 0.25) * 1rem);
+  aspect-ratio: 1;
+  position: absolute;
+  top: calc(var(--y) * 1%);
+  left: calc(var(--x) * 1%);
+  opacity: var(--alpha, 1);
+  animation: float-out calc(var(--duration, 1) * 1s) calc(var(--delay) * -1s) infinite linear;
+  transform-origin: var(--origin-x, 1000%) var(--origin-y, 1000%);
+  z-index: -1;
+  animation-play-state: var(--play-state, paused);
+}
+
+.particle path {
+  fill: hsl(0 0% 90%);
+  stroke: none;
+}
+
+.particle:nth-of-type(even) {
+  animation-direction: reverse;
+}
+
+@keyframes float-out {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.text {
+  translate: 2% -6%;
+  letter-spacing: 0.01ch;
+  background: linear-gradient(90deg, hsl(0 0% calc((var(--active) * 100%) + 65%)), hsl(0 0% calc((var(--active) * 100%) + 26%)));
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: background var(--transition);
+}
+
+.sparkle-button svg {
+  inline-size: 1.25em;
+  translate: -25% -5%;
+}
+         </style>
+        </div>
+       </div>
+       <div class="the-ung-dung">
+        <img alt="FastKara" class="" onerror="this.src='images/html_Designer.png'" src="images/html_Designer.png" style="object-fit: contain; max-width: 100%"/>
+        <div class="noi-dung-the">
+         <h3 class="">
+         </h3>
+         <h3 class="">
+          html_Designer
+         </h3>
+         <p class="">
+          Web Designer
+          <font class="" color="#ffff00" style="font-size: 19px !important;">
+           <b>
+            No code
+           </b>
+          </font>
+          mã nguồn mở hoàn toàn miễn phí...
+         </p>
+         <div class="sp">
+          <button class="sparkle-button">
+           <span class="spark" onclick="window.open('https://github.com/miniapp4all/F_Remote_Core/releases/download/F_Remote/F_Remote.exe', '_blank');" style="cursor: pointer;">
+           </span>
+           <span class="backdrop">
+           </span>
+           <svg class="sparkle" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.187 8.096L15 5.25L15.813 8.096C16.0231 8.83114 16.4171 9.50062 16.9577 10.0413C17.4984 10.5819 18.1679 10.9759 18.903 11.186L21.75 12L18.904 12.813C18.1689 13.0231 17.4994 13.4171 16.9587 13.9577C16.4181 14.4984 16.0241 15.1679 15.814 15.903L15 18.75L14.187 15.904C13.9769 15.1689 13.5829 14.4994 13.0423 13.9587C12.5016 13.4181 11.8321 13.0241 11.097 12.814L8.25 12L11.096 11.187C11.8311 10.9769 12.5006 10.5829 13.0413 10.0423C13.5819 9.50162 13.9759 8.83214 14.186 8.097L14.187 8.096Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+            <path d="M6 14.25L5.741 15.285C5.59267 15.8785 5.28579 16.4206 4.85319 16.8532C4.42059 17.2858 3.87853 17.5927 3.285 17.741L2.25 18L3.285 18.259C3.87853 18.4073 4.42059 18.7142 4.85319 19.1468C5.28579 19.5794 5.59267 20.1215 5.741 20.715L6 21.75L6.259 20.715C6.40725 20.1216 6.71398 19.5796 7.14639 19.147C7.5788 18.7144 8.12065 18.4075 8.714 18.259L9.75 18L8.714 17.741C8.12065 17.5925 7.5788 17.2856 7.14639 16.853C6.71398 16.4204 6.40725 15.8784 6.259 15.285L6 14.25Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+            <path d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <span class="text">
+            Download for free
+           </span>
+          </button>
+          <div class="bodydrop">
+          </div>
+          <span aria-hidden="true" class="particle-pen">
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+           <svg class="particle" fill="none" viewbox="0 0 15 15" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.937 3.846L7.75 1L8.563 3.846C8.77313 4.58114 9.1671 5.25062 9.70774 5.79126C10.2484 6.3319 10.9179 6.72587 11.653 6.936L14.5 7.75L11.654 8.563C10.9189 8.77313 10.2494 9.1671 9.70874 9.70774C9.1681 10.2484 8.77413 10.9179 8.564 11.653L7.75 14.5L6.937 11.654C6.72687 10.9189 6.3329 10.2494 5.79226 9.70874C5.25162 9.1681 4.58214 8.77413 3.847 8.564L1 7.75L3.846 6.937C4.58114 6.72687 5.25062 6.3329 5.79126 5.79226C6.3319 5.25162 6.72587 4.58214 6.936 3.847L6.937 3.846Z" fill="black" stroke="black" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+           </svg>
+          </span>
+         </div>
+         <style>
+          .sparkle-button {
+  --active: 0;
+  --bg: radial-gradient(
+			40% 50% at center 100%,
+			hsl(270 calc(var(--active) * 97%) 72% / var(--active)),
+			transparent
+		),
+		radial-gradient(
+			80% 100% at center 120%,
+			hsl(260 calc(var(--active) * 97%) 70% / var(--active)),
+			transparent
+		),
+		hsl(260 calc(var(--active) * 97%) calc((var(--active) * 44%) + 12%));
+  background: var(--bg);
+  font-size: 1.2rem;
+  font-weight: 500;
+  border: 0;
+  cursor: pointer;
+  padding: 1em 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  white-space: nowrap;
+  border-radius: 100px;
+  position: relative;
+  box-shadow: 0 0 calc(var(--active) * 3em) calc(var(--active) * 1em) hsl(260 97% 61% / 0.75),
+		0 0em 0 0 hsl(260 calc(var(--active) * 97%) calc((var(--active) * 50%) + 30%)) inset,
+		0 -0.05em 0 0 hsl(260 calc(var(--active) * 97%) calc(var(--active) * 60%)) inset;
+  transition: box-shadow var(--transition), scale var(--transition), background var(--transition);
+  scale: calc(1 + (var(--active) * 0.1));
+  transition: .3s;
+}
+
+.sparkle-button:active {
+  scale: 1;
+  transition: .3s;
+}
+
+.sparkle path {
+  color: hsl(0 0% calc((var(--active, 0) * 70%) + var(--base)));
+  transform-box: fill-box;
+  transform-origin: center;
+  fill: currentColor;
+  stroke: currentColor;
+  animation-delay: calc((var(--transition) * 1.5) + (var(--delay) * 1s));
+  animation-duration: 0.6s;
+  transition: color var(--transition);
+}
+
+.sparkle-button:is(:hover, :focus-visible) path {
+  animation-name: bounce;
+}
+
+@keyframes bounce {
+  35%, 65% {
+    scale: var(--scale);
+  }
+}
+
+.sparkle path:nth-of-type(1) {
+  --scale: 0.5;
+  --delay: 0.1;
+  --base: 40%;
+}
+
+.sparkle path:nth-of-type(2) {
+  --scale: 1.5;
+  --delay: 0.2;
+  --base: 20%;
+}
+
+.sparkle path:nth-of-type(3) {
+  --scale: 2.5;
+  --delay: 0.35;
+  --base: 30%;
+}
+
+.sparkle-button:before {
+  content: "";
+  position: absolute;
+  inset: -0.2em;
+  z-index: -1;
+  border: 0.25em solid hsl(260 97% 50% / 0.5);
+  border-radius: 100px;
+  opacity: var(--active, 0);
+  transition: opacity var(--transition);
+}
+
+.spark {
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  rotate: 0deg;
+  overflow: hidden;
+  mask: linear-gradient(white, transparent 50%);
+  animation: flip calc(var(--spark) * 2) infinite steps(2, end);
+}
+
+@keyframes flip {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.spark:before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  aspect-ratio: 1;
+  top: 0%;
+  left: 50%;
+  z-index: -1;
+  translate: -50% -15%;
+  rotate: 0;
+  transform: rotate(-90deg);
+  opacity: calc((var(--active)) + 0.4);
+  background: conic-gradient(
+		from 0deg,
+		transparent 0 340deg,
+		white 360deg
+	);
+  transition: opacity var(--transition);
+  animation: rotate var(--spark) linear infinite both;
+}
+
+.spark:after {
+  content: "";
+  position: absolute;
+  inset: var(--cut);
+  border-radius: 100px;
+}
+
+.backdrop {
+  position: absolute;
+  inset: var(--cut);
+  background: var(--bg);
+  border-radius: 100px;
+  transition: background var(--transition);
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(90deg);
+  }
+}
+
+@supports(selector(:has(:is(+ *)))) {
+  body:has(button:is(:hover, :focus-visible)) {
+    --active: 1;
+    --play-state: running;
+  }
+
+  .bodydrop {
+    display: none;
+  }
+}
+
+.sparkle-button:is(:hover, :focus-visible) ~ :is(.bodydrop, .particle-pen) {
+  --active: 1;
+  --play-state: runnin;
+}
+
+.sparkle-button:is(:hover, :focus-visible) {
+  --active: 1;
+  --play-state: running;
+}
+
+.sp {
+  position: relative;
+}
+
+.particle-pen {
+  position: absolute;
+  width: 200%;
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  -webkit-mask: radial-gradient(white, transparent 65%);
+  z-index: -1;
+  opacity: var(--active, 0);
+  transition: opacity var(--transition);
+}
+
+.particle {
+  fill: white;
+  width: calc(var(--size, 0.25) * 1rem);
+  aspect-ratio: 1;
+  position: absolute;
+  top: calc(var(--y) * 1%);
+  left: calc(var(--x) * 1%);
+  opacity: var(--alpha, 1);
+  animation: float-out calc(var(--duration, 1) * 1s) calc(var(--delay) * -1s) infinite linear;
+  transform-origin: var(--origin-x, 1000%) var(--origin-y, 1000%);
+  z-index: -1;
+  animation-play-state: var(--play-state, paused);
+}
+
+.particle path {
+  fill: hsl(0 0% 90%);
+  stroke: none;
+}
+
+.particle:nth-of-type(even) {
+  animation-direction: reverse;
+}
+
+@keyframes float-out {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.text {
+  translate: 2% -6%;
+  letter-spacing: 0.01ch;
+  background: linear-gradient(90deg, hsl(0 0% calc((var(--active) * 100%) + 65%)), hsl(0 0% calc((var(--active) * 100%) + 26%)));
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: background var(--transition);
+}
+
+.sparkle-button svg {
+  inline-size: 1.25em;
+  translate: -25% -5%;
+}
+         </style>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- ================= 2. CÔNG CỤ NỔI BẬT ================= -->
+   <div class="thung-chua-muc-lon" id="MUC-II-CONG-CU-NOI-BAT">
+    <!-- [T2SPP] Tất cả nội dung nằm gọn 1 trang -->
+    <div class="thung-chua-ung-dung" id="APP-T2SPP">
+     <div class="trang-noi-dung" id="ccnb-t2spp" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; T2SPP
+      </h2>
+      <div class="khung-app-chitiet">
+       <!-- Khung Header -->
+       <div class="app-header-box dao-nguoc">
+        <div class="app-header-text">
+         <h3 class="">
+          Công Cụ Chuyển Đổi Văn Bản Sang Giọng Nói
+         </h3>
+         <p>
+          T2SPP cho phép bạn tạo ra các đoạn audio chất lượng cao hoàn toàn offline. Mật khẩu giải nén khi tải về là
+          <strong>
+           1234
+          </strong>
+          .
+         </p>
+         <a class="nut-bam hover-neon" href="https://drive.google.com/file/d/14l9jTck1aNHr8Z2aGgJVDH1A5wz_UF_A/view?usp=drive_link" target="_blank">
+          Tải Xuống Bản Cài Đặt
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+         </a>
+         <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+         </a>
+         <a href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+          <img alt="Logo T2SPP" class="" onerror="this.src='https://via.placeholder.com/150/0984e3/ffffff?text=LOGO+T2SPP'" src="images/t2spp.png"/>
+         </a>
+        </div>
+       </div>
+       <!-- KHOANG 1: Hướng dẫn cài đặt -->
+       <div class="app-content-box dao-nguoc">
+        <div class="app-media">
+         <img alt="Ảnh minh họa T2SPP" class="" onerror="this.src='https://via.placeholder.com/600x400/d63031/ffffff?text=ẢNH+MINH+HỌA'" src="T2SPP/001.png"/>
+        </div>
+        <div class="app-article">
+         <h4 class="">
+          Cách thiết lập ban đầu
+         </h4>
+         <p class="">
+          T2SPP là một công cụ cực kỳ mạnh mẽ cho anh em làm Youtube, Tiktok cần đọc văn bản tự động mà không cần kết nối mạng internet liên tục.
+         </p>
+         <p class="">
+          <strong>
+           Các bước sử dụng:
+          </strong>
+         </p>
+         <ul class="">
+          <li class="">
+           Tải tệp ZIP theo đường dẫn bên trên.
+          </li>
+          <li class="">
+           Sử dụng mật khẩu
+           <strong class="">
+            1234
+           </strong>
+           để giải nén.
+          </li>
+          <li class="">
+           Chạy quyền Quản trị viên (Run as Administrator) tệp
+           <code class="">
+            T2SPP.exe
+           </code>
+           ở lần đầu tiên.
+          </li>
+         </ul>
+         <style>
+          .cssbuttons-io-button {
+  display: flex;
+  align-items: center;
+  font-family: inherit;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 17px;
+  padding: 0.8em 1.5em 0.8em 1.2em;
+  color: white;
+  background: #ad5389;
+  background: linear-gradient(
+    0deg,
+    rgba(77, 54, 208, 1) 0%,
+    rgba(132, 116, 254, 1) 100%
+  );
+  border: none;
+  box-shadow: 0 0.7em 1.5em -0.5em #4d36d0be;
+  letter-spacing: 0.05em;
+  border-radius: 20em;
+}
+
+.cssbuttons-io-button svg {
+  margin-right: 8px;
+}
+
+.cssbuttons-io-button:hover {
+  box-shadow: 0 0.5em 1.5em -0.5em #4d36d0be;
+}
+
+.cssbuttons-io-button:active {
+  box-shadow: 0 0.3em 1em -0.5em #4d36d0be;
+}
+         </style>
+        </div>
+       </div>
+       <!-- KHOANG 2: Modules (Thiết kế đúng yêu cầu: Ảnh to bên trái - 2 khung giọng bên phải) -->
+       <div class="app-content-box">
+        <div class="app-media" style="min-width: 0;">
+         <img alt="Modules T2SPP" class="" onerror="this.src='T2SPP/t2spp.png'" src="T2SPP/t2spp.png" style="max-width: 100%; height: 195px; object-fit: contain; width: 178px"/>
+        </div>
+        <!-- Cột phải chứa 2 Module, tắt viền background của app-article để nhường chỗ cho khối con -->
+        <div class="app-article" style="background: transparent; border: none; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+         <!-- Khối Giọng Nữ -->
+         <div class="goi-giong-doc">
+          <div class="">
+           <h4 class="" style="width: 262px; height: 32px;">
+            👩 Giọng Nữ
+           </h4>
+          </div>
+          <a class="cssbuttons-io-button hover-neon" href="https://drive.google.com/file/d/1XAwgXOynDb1_9psqLzHeVYDXacufVtpT/view?usp=drive_link">
+           <svg class="" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none">
+            </path>
+            <path class="" d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+            </path>
+           </svg>
+           <span class="">
+            Download
+           </span>
+          </a>
+         </div>
+         <!-- Khối Giọng Nam -->
+         <div class="goi-giong-doc">
+          <div class="">
+           <h4 class="">
+            👨 Giọng Nam
+           </h4>
+          </div>
+          <a class="cssbuttons-io-button hover-glow" href="https://drive.google.com/file/d/1JE4fuyi6IWXsoX1XjDa56EAe9kmFspta/view?usp=drive_link">
+           <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none">
+            </path>
+            <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+            </path>
+           </svg>
+           <span class="">
+            Download
+           </span>
+          </a>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- [Mini Dawn] -->
+    <div class="thung-chua-ung-dung" id="APP-MINIDAWN">
+     <div class="trang-noi-dung" id="ccnb-minidawn" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; Mini Dawn
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <h3 class="">
+          Tải phần mềm cắt ghép âm thanh Mini Dawn
+         </h3>
+         <p class="">
+          Công cụ xử lý âm thanh siêu tốc, cắt ghép dễ dàng và tối ưu hóa file audio của bạn chỉ trong nháy mắt.
+         </p>
+         <a class="nut-bam" href="https://drive.google.com/file/d/1I0-GD2rZpIfURJ3jY0PhPnDyyFCpH5Tn/view?usp=drive_link" target="_blank">
+          Tải Xuống
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo Mini Dawn" class="" onerror="this.src='https://via.placeholder.com/150/FFD700/000000?text=LOGO'" src="images/Mini_Dawn.png"/>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-media" style="min-width: 0;">
+         <img alt="Ảnh Mini Dawn" class="" onerror="this.src='images/Mini_Dawn.png'" src="images/Mini_Dawn.png" style="height: 206px; object-fit: contain; width: 239px; max-width: none !important; min-width: 10px !important;"/>
+        </div>
+        <div class="app-article">
+         <h4>
+          Tính năng nổi bật
+         </h4>
+         <ul>
+          <li>
+           <strong>
+            Cắt ghép siêu tốc:
+           </strong>
+           Hỗ trợ thao tác kéo thả timeline trực quan.
+          </li>
+          <li>
+           <strong>
+            Nhẹ &amp; Mượt:
+           </strong>
+           Chiếm dụng dung lượng RAM cực ít.
+          </li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="ccnb-minidawn_copy773" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; F_Remote_Full_Free
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <a href="New_html/0006_27072026_Detail.html" style="text-decoration: none; color: inherit; display: block;">
+          <h3 class="">
+           Giới thiệu
+          </h3>
+         </a>
+         <p class="">
+          Bộ công cụ điều khiển PC từ xa và tiện ích hệ thống nhỏ gọn, đa năng. Cho phép điều khiển máy tính qua điện thoại/web bằng mã QR, quản lý máy chủ Game Streaming Sunshine, khởi chạy nhanh ứng dụng và tùy chỉnh hệ thống chỉ với vài thao tác.
+         </p>
+        </div>
+        <div class="app-header-logo" style="min-width: 0;">
+         <img alt="Logo Mini Dawn" class="" onerror="this.src='images/F_Remote.png'" src="images/F_Remote.png" style="max-width: 100%; height: auto; object-fit: contain"/>
+        </div>
+       </div>
+       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); min-height: 302px; resize: vertical !important; overflow: auto !important; height: 553px;">
+          <img class="" src="F_Remote/mo_ta_01.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+         </div>
+        </div>
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150,150,150,0.2); min-height: 537px">
+          <img class="" src="F_Remote/mo_ta_02.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+         </div>
+        </div>
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="height: 550px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="" src="F_Remote/mo_ta_03.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+         </div>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-media" style="min-width: 0;">
+         <img alt="Ảnh Mini Dawn" class="hover-neon" onerror="this.src='images/F_Remote.png'" src="images/F_Remote.png" style="height: 501px; object-fit: contain; width: 489px; max-width: none !important; min-width: 10px !important;"/>
+        </div>
+        <div class="app-article">
+         <h4 class="">
+          Tính năng nổi bật
+         </h4>
+         <ul class="">
+          <li class="">
+           <font class="" color="#e2e8f0">
+            <b class="">
+             📱 **QR Remote Control / Điều khiển qua Mobile:** Scan QR code to remotely control your PC via web browser over LAN or VPN (Tailscale).
+            </b>
+           </font>
+          </li>
+          <li class="">
+           <font class="" color="#e2e8f0">
+            <b class="">
+             🎛️ **Full System Panel / Điều khiển hệ thống toàn diện:** Instant Shutdown, Restart, Sleep Timer, Screen Off, Lock PC, with live Volume dial and Brightness slider.
+            </b>
+           </font>
+          </li>
+          <li class="">
+           <font color="#e2e8f0">
+            <b class="">
+             🎮 **Sunshine Server Manager / Quản lý Server Game Streaming:** Start/stop Sunshine server, auto-fill credentials, send PINs, and manage LAN/VPN (5G) IP profiles for Moonlight remote gaming.
+            </b>
+           </font>
+          </li>
+          <li class="">
+           <font color="#e2e8f0">
+            <b class="">
+             🗂️ **Custom App Launcher / Trình khởi chạy nhanh ứng dụng:** Grid layout for app shortcuts with right-click context menu to quickly add files, pin folders, or open locations.
+            </b>
+           </font>
+          </li>
+          <li class="">
+           <font class="" color="#e2e8f0">
+            <b class="">
+             🟢 **Floating Quick Widget / Nút nổi thông minh:** Minimalist floating widget overlay for instant interface access without disrupting your workflow or gaming.
+            </b>
+           </font>
+          </li>
+         </ul>
+         <a class="cssbuttons-io-button hover-glow" href="https://github.com/miniapp4all/F_Remote_Core/releases/download/F_Remote/F_Remote.exe">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path class="" d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span class="">
+           Download
+          </span>
+         </a>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- [Fast pptx] -->
+    <div class="thung-chua-ung-dung" id="APP-FPPTX">
+     <div class="trang-noi-dung hien-thi" id="ccnb-fpptx" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; Fast pptx
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <h3 class="">
+          Fast pptx - Quản lý thư viện Slide thần tốc
+         </h3>
+         <p class="" style="min-height: 49px">
+          Đặc biệt hỗ trợ bắn trực tiếp trang Slide bạn đang xem vào file PowerPoint đang mở một cách nhanh chóng.
+         </p>
+         <a class="nut-bam" href="https://drive.google.com/file/d/16XCtHIlSgi8JXYOJaGc147SxBUMLJWJT/view?usp=drive_link" target="_blank">
+          Tải Xuống Bản Cài Đặt
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo Fpptx" class="" onerror="this.src='https://via.placeholder.com/150/fdcb6e/000000?text=PPTX'" src="images/Fpptx.png"/>
+        </div>
+       </div>
+       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="height: 207px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="" src="Fpptx/mo_ta_02.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+         </div>
+         <div class="" style="padding:15px;display:flex;flex-direction:column;flex:1;">
+          <h3 class="" style="margin:0 0 10px 0;font-size:18px;">
+           <span style="color: rgb(255, 255, 0); font-size: 22px; background-color: rgb(21, 26, 36);">
+            Thiết thực - chủ động - quản lý hiệu quả
+           </span>
+          </h3>
+          <p class="" style="font-size:14px;line-height:1.5;opacity:0.8;margin:0 0 15px 0;">
+           Mô tả nội dung thẻ. Khung ảnh đã được khóa gọn gàng, chữ luôn hiển thị đầy đủ bên dưới.
+          </p>
+         </div>
+        </div>
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150,150,150,0.2); min-height: 318px">
+          <img class="" src="Fpptx/mo_ta_01.png" style="max-height:100%;max-width:100%;object-fit:contain"/>
+         </div>
+        </div>
+       </div>
+       <div class="app-content-box dao-nguoc">
+       </div>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="ccnb-fpptx_copy231" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; F_Media
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box" style="min-height: 175px">
+        <div class="app-header-text">
+         <h3 class="">
+          F_Media - Quản lý thư viện Audio, Video thần tốc
+         </h3>
+         <p class="" style="min-height: 49px; font-size: 15.5px !important">
+          <b class="">
+           F_Media
+          </b>
+          là trình phát media độc lập, mượt mà và mạnh mẽ dựa trên nhân MPV đỉnh cao. Ứng dụng được tối ưu toàn diện cho trải nghiệm phát media cao cấp: tự động xuất màn hình thứ 2, biến mọi video thành chuẩn VR SBS, quản lý thư viện trực quan và giao diện linh hoạt.
+         </p>
+        </div>
+        <div class="app-header-logo" style="min-width: 0;">
+         <img alt="Logo Fpptx" class="" onerror="this.src='F_Media/F_Media.png'" src="F_Media/F_Media.png" style="max-width: 100%; height: 107px; object-fit: contain; width: 117px"/>
+        </div>
+       </div>
+       <div class="app-content-box dao-nguoc">
+        <div class="app-article" style="overflow: hidden; min-width: 0;">
+         <img class="hover-wiggle" src="F_Media/F_Media.png" style="width: 227px; height: 236px; object-fit: contain; flex-shrink: 0; float: right; margin: 0px 0px 15px 15px; max-width: none !important; min-width: 10px !important;"/>
+         <h4 class="">
+          ✨
+          <font class="" color="#dada00">
+           Key Features / Tính năng nổi bật
+          </font>
+         </h4>
+         <div class="">
+          🎬 Powerful MPV Engine / Nhân MPV mạnh mẽ: Effortlessly plays all video and audio formats with maximum quality and low CPU/RAM usage.
+         </div>
+         <div class="">
+          🖥️ Auto Dual-Monitor Playback / Phát độc lập màn hình thứ 2: Automatically detects and controls playback on a second screen independently.
+         </div>
+         <div class="">
+          🥽 Universal VR SBS Mode / Chế độ VR SBS mọi Video: On-the-fly Side-By-Side VR conversion for any video.
+         </div>
+         <div class="">
+          📁 Visual Folder Library / Quản lý thư viện trực quan: Organize and browse your media collections directly by clean folder structures.
+         </div>
+         <div class="">
+          ⚡ Real-Time Smooth Timeline / Timeline mượt nhẹ độc quyền: Exclusive timeline rendering for precise, instantaneous seeking without lag.
+         </div>
+         <div class="">
+          🎛️ Detachable Control Panel / Thanh điều khiển tách rời: Completely detach and position the control panel anywhere on your screen.
+         </div>
+         <div class="">
+          🖱️ System Integration / Tích hợp Windows Context Menu: Supports right-click "Open with" integration as a full standalone media player.
+         </div>
+        </div>
+       </div>
+       <div class="app-content-box dao-nguoc">
+        <div class="app-article">
+         <p class="">
+         </p>
+         <h4 class="">
+          Tải về/ Download
+         </h4>
+         <a class="cssbuttons-io-button hover-neon" href="https://github.com/miniapp4all/F_Media/releases/latest/download/F_Media.exe">
+          <svg height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M0 0h24v24H0z" fill="none">
+           </path>
+           <path d="M1 14.5a6.496 6.496 0 0 1 3.064-5.519 8.001 8.001 0 0 1 15.872 0 6.5 6.5 0 0 1-2.936 12L7 21c-3.356-.274-6-3.078-6-6.5zm15.848 4.487a4.5 4.5 0 0 0 2.03-8.309l-.807-.503-.12-.942a6.001 6.001 0 0 0-11.903 0l-.12.942-.805.503a4.5 4.5 0 0 0 2.029 8.309l.173.013h9.35l.173-.013zM13 12h3l-4 5-4-5h3V8h2v4z" fill="currentColor">
+           </path>
+          </svg>
+          <span class="">
+           Download
+          </span>
+         </a>
+        </div>
+        <div class="app-media" style="min-width: 0;">
+         <img alt="Ảnh PPTX" class="hover-scale" onerror="this.src='F_Media/F_Media.png'" src="F_Media/F_Media.png" style="max-width: none !important; height: 148px; object-fit: contain; width: 160px; min-width: 10px !important;"/>
+        </div>
+       </div>
+       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="height: 301px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img src="F_Media/mo_ta_01.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 404px; height: 340px;"/>
+         </div>
+        </div>
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="height: 302px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="" src="F_Media/mo_ta_02.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 385px; height: 332px;"/>
+         </div>
+        </div>
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="height: 304px; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: center; padding: 10px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); resize: vertical !important; overflow: auto !important;">
+          <img class="" src="F_Media/mo_ta_03.png" style="max-height: 100%; max-width: none !important; object-fit: contain; min-width: 10px !important; width: 386px; height: 406px;"/>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- [Fast Pics] -->
+    <div class="thung-chua-ung-dung" id="APP-FPICS">
+     <div class="trang-noi-dung" id="ccnb-fpics" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; FPics
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box dao-nguoc">
+        <div class="app-header-text">
+         <h3 class="">
+          Fast Pics - Trình Xem Và Quản Lý Ảnh Kéo Thả
+         </h3>
+         <p class="">
+          Tốc độ load ảnh thần tốc và khả năng kéo thả trực tiếp sang ứng dụng làm việc.
+         </p>
+         <a class="nut-bam" href="https://drive.google.com/file/d/1QXHccFafHWD6cDa4eNo34dvkV2cCOfNm/view?usp=drive_link" target="_blank">
+          Tải Xuống Bản Cài Đặt
+         </a>
+        </div>
+        <div class="app-header-logo" style="border-radius: 50%;">
+         <img alt="Logo" class="" onerror="this.src='https://via.placeholder.com/150/00cec9/ffffff?text=PICS'" src="images/FPics.png"/>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-media">
+         <img alt="Ảnh Fast Pics" onerror="this.src='FPics/mo_ta_01.png'" src="FPics/mo_ta_01.png" style="width: 491px; height: 300px; object-fit: contain; max-width: none !important; min-width: 10px !important;"/>
+        </div>
+        <div class="app-article">
+         <h4>
+          Mở ảnh trong 0.1 giây
+         </h4>
+         <p class="">
+          Tối ưu hóa bộ đệm (cache), giúp hiển thị các thư mục hàng ngàn bức ảnh mà không bị treo máy.
+         </p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- [Fix_Doc] -->
+    <div class="thung-chua-ung-dung" id="APP-FIXDOC">
+     <div class="trang-noi-dung" id="ccnb-fixdoc" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; Fix_Doc
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <h3>
+          Fix_Doc - Dọn Rác &amp; Sửa Lỗi File Word
+         </h3>
+         <p>
+          Dọn dẹp và chuẩn hóa cấu trúc file Word chỉ trong vài giây.
+         </p>
+         <a class="nut-bam" href="https://drive.google.com/file/d/1Wt-g4JPYZHJdjEkwZ8ytil446IkwT-2m/view?usp=drive_link" target="_blank">
+          Tải Xuống Bản Cài Đặt
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo Fix Doc" class="" onerror="this.src='https://via.placeholder.com/150/b2bec3/000000?text=DOC'" src="images/Fix_Doc.ico"/>
+        </div>
+       </div>
+       <div class="app-content-box dao-nguoc">
+        <div class="app-media">
+         <img alt="Ảnh Fix Doc" class="" onerror="this.src='Fix_Doc/mo_ta_01.png'" src="Fix_Doc/mo_ta_01.png" style="object-fit: contain; max-width: none !important; width: 252px; height: 498px; min-width: 10px !important;"/>
+        </div>
+        <div class="app-article" style="overflow: hidden">
+         <img src="Fix_Doc/mo_ta_02.png" style="width: 33.33%; max-width: 100%; height: auto; object-fit: contain; flex-shrink: 0; min-width: 0; float: right; margin: 0 0 15px 15px;"/>
+         <h4 class="">
+          Công cụ cứu hộ dân văn phòng
+         </h4>
+         <ul>
+          <li>
+           <strong>
+            Xóa định dạng ẩn:
+           </strong>
+           Quét và xóa rác từ các nguồn web.
+          </li>
+          <li>
+           <strong>
+            An toàn:
+           </strong>
+           Tự động backup file gốc.
+          </li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- [MaxPDF] -->
+    <div class="thung-chua-ung-dung" id="APP-MAXPDF">
+     <div class="trang-noi-dung" id="ccnb-maxpdf" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; MaxPDF
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <h3 class="">
+          MaxPDF - Đọc Truyện, Đọc PDF Đa Năng
+         </h3>
+         <p class="">
+          Thao tác nhanh chóng, hỗ trợ màn hình cảm ứng mượt mà. Chuyển đổi PDF linh hoạt.
+         </p>
+         <a class="nut-bam" href="https://drive.google.com/file/d/1obkKiX8eQudIoCH88gWcRec5b_FvZTco/view?usp=drive_link" target="_blank">
+          Tải Xuống Bản Cài Đặt
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo MaxPDF" class="" onerror="this.src='https://via.placeholder.com/150/d63031/ffffff?text=PDF'" src="images/MaxPDF.ico"/>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-media">
+         <img alt="Ảnh MaxPDF" class="" onerror="this.src='Max_PDF/mo_ta_01.png'" src="Max_PDF/mo_ta_01.png" style="object-fit: contain; max-width: 100%; width: 572px; height: 304px"/>
+        </div>
+        <div class="app-article" style="width: 554px; min-height: 299px; max-width: 100%">
+         <h4 class="">
+          XEM TRANH, ĐỌC TRUYỆN, XỬ LÝ PDF... Tất Cả Trong Một
+         </h4>
+         <div class="grid-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center;">
+          <div class="grid-item-text" style="min-width: 0; width: 100%;">
+           <p class="">
+            Hỗ trợ đa dạng các loại file: pdf, cbr, cbz.... Hỗ trợ màn hình cảm ứng với phong cách chạm để sang trang, thu phóng bằng 2 ngón tay. Cơ chế quản lý thư viện dễ dàng bằng kéo thả kết hợp với các công cụ đa dạng phục vụ PDF trực quan, dễ làm...
+           </p>
+          </div>
+          <div class="grid-item-img" style="min-width: 0; width: 100%; display: flex; justify-content: center;">
+           <img class="" src="Max_PDF/mo_ta_02.png" style="max-width: none !important; height: 196px; object-fit: contain; min-width: 10px !important; width: 291px;"/>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-article">
+         <h4 class="">
+          Đọc Tài Liệu Tất Cả Trong Một
+         </h4>
+         <p class="" style="font-size: 17.5px !important;">
+          Tích hợp sẵn công cụ OCR để trích xuất chữ từ ảnh. Giao diện cuộn truyện tranh siêu tối ưu.
+         </p>
+         <div class="">
+          <b>
+           <font color="#ffff00">
+            Một trong số ít ứng dụng đọc, duyệt pdf hỗ trợ cảm ứng.
+           </font>
+          </b>
+         </div>
+        </div>
+        <div class="app-media">
+         <img alt="Ảnh MaxPDF" class="" onerror="this.src='Max_PDF/mo_ta_03.png'" src="Max_PDF/mo_ta_03.png" style="object-fit: contain; max-width: none !important; min-width: 10px !important; width: 532px; height: 361px;"/>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- [FastKara] -->
+    <div class="thung-chua-ung-dung" id="APP-FASTKARA">
+     <div class="trang-noi-dung trang-dang-hien-thi" id="ccnb-fastkara" style="display: block;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ NỔI BẬT &gt; F_Kara
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box dao-nguoc">
+        <div class="app-header-text">
+         <h3 class="">
+          FastKara - Hệ thống Karaoke thu nhỏ
+         </h3>
+         <p class="">
+          Điều khiển chọn bài trực tiếp bằng Điện thoại di động. Quản lý 2 màn hình.
+         </p>
+         <a class="nut-bam" href="https://drive.google.com/file/d/1d77uT8KufrUF63bCq8R4hQlL_GefNEIT/view?usp=drive_link" target="_blank">
+          Tải Xuống Bản Cài Đặt
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo FastKara" class="" onerror="this.src='https://via.placeholder.com/150/a29bfe/ffffff?text=KARA'" src="images/FastKara.ico"/>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-media" style="min-width: 0;">
+         <img alt="Ảnh FastKara" class="" onerror="this.src='F_Kara/mota_02.png'" src="F_Kara/mota_02.png" style="height: 188px; object-fit: contain; width: 233px; max-width: none !important; min-width: 10px !important;"/>
+        </div>
+        <div class="app-article">
+         <h4>
+          Mang quán Karaoke về nhà
+         </h4>
+         <p class="">
+          Quét mã QR bằng điện thoại để điều khiển. Tìm kiếm bằng AI theo tên, lời bài hát.
+         </p>
+        </div>
+       </div>
+       <div class="app-content-box">
+        <div class="app-article">
+         <h4 class="">
+          Tiện dụng - đa năng
+         </h4>
+         <p class="">
+          Điều khiển màn hình thứ 2.
+         </p>
+         <div class="">
+          Chọn bài hát trên điện thoại
+         </div>
+         <div>
+          Local chọn bài.
+         </div>
+        </div>
+        <div class="app-media" style="min-width: 0;">
+         <img alt="Ảnh FastKara" class="" onerror="this.src='F_Kara/mota_01.png'" src="F_Kara/mota_01.png" style="max-width: none !important; height: 218px; object-fit: contain; width: 323px; min-width: 10px !important;"/>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- ================= 3. CÔNG CỤ MIỄN PHÍ ================= -->
+   <div class="thung-chua-muc-lon" id="MUC-III-CONG-CU-MIEN-PHI">
+    <div class="thung-chua-ung-dung" id="APP-FREE1">
+     <div class="trang-noi-dung" id="ccmp-free1-caidat" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ MIỄN PHÍ &gt; App Free 1
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <h3>
+          Ứng dụng Miễn Phí Demo
+         </h3>
+         <p>
+          Đây là mẫu trình bày dành cho các công cụ miễn phí được đưa lên trong tương lai.
+         </p>
+         <a class="nut-bam" href="#" target="_blank">
+          Tải Xuống App Free
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo Free" onerror="this.src='https://via.placeholder.com/150/dfe6e9/2d3436?text=FREE'"/>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="ccmp-free1-caidat_copy469" style="display: none;">
+      <h2 class="tieu-de-muc">
+       CÔNG CỤ MIỄN PHÍ &gt; App Free 1
+      </h2>
+      <div class="khung-app-chitiet">
+       <div class="app-header-box">
+        <div class="app-header-text">
+         <h3>
+          Ứng dụng Miễn Phí Demo
+         </h3>
+         <p>
+          Đây là mẫu trình bày dành cho các công cụ miễn phí được đưa lên trong tương lai.
+         </p>
+         <a class="nut-bam" href="#" target="_blank">
+          Tải Xuống App Free
+          (Copy)
+         </a>
+        </div>
+        <div class="app-header-logo">
+         <img alt="Logo Free" onerror="this.src='https://via.placeholder.com/150/dfe6e9/2d3436?text=FREE'"/>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- ================= 4. THỦ THUẬT ================= -->
+   <div class="thung-chua-muc-lon" id="MUC-IV-THU-THUAT">
+    <div class="thung-chua-ung-dung" id="NHOM-THU-THUAT">
+     <div class="trang-noi-dung" id="tt-danhsach" style="display: none;">
+      <h2 class="tieu-de-muc">
+       📚 Kho Thủ Thuật &amp; Tips
+      </h2>
+      <div class="luoi-noi-dung">
+       <div class="the-ung-dung the-bai-viet">
+        <div class="noi-dung-the" onclick="window.open('post/thuthuatcmd.html', '_blank');" style="cursor: pointer;">
+         <h3>
+          1. Lệnh CMD Cần Thiết
+         </h3>
+         <p class="">
+          Các lệnh tối ưu hệ thống.
+         </p>
+         <button class="cta">
+          <span class="span">
+           NEXT
+          </span>
+          <span class="second">
+           <svg height="20px" version="1.1" viewbox="0 0 66 43" width="50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g fill="none" fill-rule="evenodd" id="arrow" stroke="none" stroke-width="1">
+             <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF">
+             </path>
+             <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF">
+             </path>
+             <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF">
+             </path>
+            </g>
+           </svg>
+          </span>
+         </button>
+         <style>
+          .cta {
+  display: flex;
+  padding: 11px 33px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  background: #6225e6;
+  transition: 1s;
+  box-shadow: 6px 6px 0 black;
+  transform: skewX(-15deg);
+  border: none;
+  cursor: pointer;
+}
+
+.cta:focus {
+  outline: none;
+}
+
+.cta:hover {
+  transition: 0.5s;
+  box-shadow: 10px 10px 0 #fbc638;
+}
+
+.cta .second {
+  transition: 0.5s;
+  margin-right: 0px;
+}
+
+.cta:hover .second {
+  transition: 0.5s;
+  margin-right: 45px;
+}
+
+.span {
+  transform: skewX(15deg);
+}
+
+.second {
+  width: 20px;
+  margin-left: 30px;
+  position: relative;
+  top: 12%;
+}
+
+.one {
+  transition: 0.4s;
+  transform: translateX(-60%);
+}
+
+.two {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.cta:hover .three {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover .one {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover .two {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+@keyframes color_anim {
+  0% {
+    fill: white;
+  }
+
+  50% {
+    fill: #fbc638;
+  }
+
+  100% {
+    fill: white;
+  }
+}
+         </style>
+        </div>
+       </div>
+       <div class="the-ung-dung the-bai-viet">
+        <a href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+        </a>
+        <div class="noi-dung-the">
+         <a class="" href="#" style="text-decoration: none; color: inherit; display: inline-block;">
+          <h3>
+           2. Tắt Services
+          </h3>
+          <p class="">
+           Danh sách services có thể tắt an toàn.
+          </p>
+          <button class="cta" onclick="window.open('post/listservices.html', '_blank');" style="cursor: pointer;">
+           <span class="span">
+            NEXT
+           </span>
+           <span class="second">
+            <svg class="" height="20px" version="1.1" viewbox="0 0 66 43" width="50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+             <g fill="none" fill-rule="evenodd" id="arrow" stroke="none" stroke-width="1">
+              <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF">
+              </path>
+              <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF">
+              </path>
+              <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF">
+              </path>
+             </g>
+            </svg>
+           </span>
+          </button>
+          <style>
+           .cta {
+  display: flex;
+  padding: 11px 33px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  background: #6225e6;
+  transition: 1s;
+  box-shadow: 6px 6px 0 black;
+  transform: skewX(-15deg);
+  border: none;
+  cursor: pointer;
+}
+
+.cta:focus {
+  outline: none;
+}
+
+.cta:hover {
+  transition: 0.5s;
+  box-shadow: 10px 10px 0 #fbc638;
+}
+
+.cta .second {
+  transition: 0.5s;
+  margin-right: 0px;
+}
+
+.cta:hover .second {
+  transition: 0.5s;
+  margin-right: 45px;
+}
+
+.span {
+  transform: skewX(15deg);
+}
+
+.second {
+  width: 20px;
+  margin-left: 30px;
+  position: relative;
+  top: 12%;
+}
+
+.one {
+  transition: 0.4s;
+  transform: translateX(-60%);
+}
+
+.two {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.cta:hover .three {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover .one {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover .two {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+@keyframes color_anim {
+  0% {
+    fill: white;
+  }
+
+  50% {
+    fill: #fbc638;
+  }
+
+  100% {
+    fill: white;
+  }
+}
+          </style>
+         </a>
+        </div>
+       </div>
+       <div class="the-ung-dung the-bai-viet">
+        <div class="noi-dung-the" onclick="window.open('post/ramdisk.html', '_blank');" style="cursor: pointer;">
+         <h3>
+          3. Sức mạnh Ramdisk
+         </h3>
+         <p class="">
+          Tối ưu PC bằng Ramdisk siêu tốc độ.
+         </p>
+         <button class="cta">
+          <span class="span">
+           NEXT
+          </span>
+          <span class="second">
+           <svg height="20px" version="1.1" viewbox="0 0 66 43" width="50px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g fill="none" fill-rule="evenodd" id="arrow" stroke="none" stroke-width="1">
+             <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF">
+             </path>
+             <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF">
+             </path>
+             <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF">
+             </path>
+            </g>
+           </svg>
+          </span>
+         </button>
+         <style>
+          .cta {
+  display: flex;
+  padding: 11px 33px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  background: #6225e6;
+  transition: 1s;
+  box-shadow: 6px 6px 0 black;
+  transform: skewX(-15deg);
+  border: none;
+  cursor: pointer;
+}
+
+.cta:focus {
+  outline: none;
+}
+
+.cta:hover {
+  transition: 0.5s;
+  box-shadow: 10px 10px 0 #fbc638;
+}
+
+.cta .second {
+  transition: 0.5s;
+  margin-right: 0px;
+}
+
+.cta:hover .second {
+  transition: 0.5s;
+  margin-right: 45px;
+}
+
+.span {
+  transform: skewX(15deg);
+}
+
+.second {
+  width: 20px;
+  margin-left: 30px;
+  position: relative;
+  top: 12%;
+}
+
+.one {
+  transition: 0.4s;
+  transform: translateX(-60%);
+}
+
+.two {
+  transition: 0.5s;
+  transform: translateX(-30%);
+}
+
+.cta:hover .three {
+  animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover .one {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover .two {
+  transform: translateX(0%);
+  animation: color_anim 1s infinite 0.4s;
+}
+
+@keyframes color_anim {
+  0% {
+    fill: white;
+  }
+
+  50% {
+    fill: #fbc638;
+  }
+
+  100% {
+    fill: white;
+  }
+}
+         </style>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="tt-cmd" style="display: none;">
+      <h2 class="tieu-de-muc">
+       Thủ Thuật &gt; Lệnh CMD
+      </h2>
+      <div class="khung-bai-viet">
+       <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+        <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         <div class="" style="padding:20px;display:flex;flex-direction:column;flex:1;">
+          <p class="" style="font-size:14px;line-height:1.6;opacity:0.9;margin:0 0 15px 0;">
+          </p>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            <b class="">
+             *** Xóa phân vùng Recovery - nếu không cần cứu hộ khi lỗi win, 90% người dùng không động đến: **
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            diskpart
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            list disk
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            select disk X
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            list partition
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            select partition X
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            delete partition override
+           </span>
+          </div>
+          <div class="">
+           <br/>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <b class="">
+             I. DISM và SFC để sửa lỗi hệ thống
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            DISM /Online /Cleanup-Image /RestoreHealth
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            sfc /scannow
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            powercfg -change -disk-timeout-ac 0
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            powercfg /query
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            powercfg /setactive SCHEME_MIN
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            powercfg -attributes SUB_PROCESSOR CPMINCORES -ATTRIB_HIDE
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <br/>
+           </span>
+          </div>
+          <div>
+           <span style="font-size: 14px;">
+            <b class="">
+             II. 🧮 RAM / Bộ nhớ / Cache
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            rammap.exe
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            EmptyStandbyList.exe standbylist
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            wmic pagefile list /format:list
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <br/>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <b class="">
+             III. 💽 Ổ cứng / I/O
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            fsutil behavior query DisableDeleteNotify
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            = 0 → TRIM đang bật (TỐT)
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            = 1 → TRIM tắt
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            fsutil behavior set DisableDeleteNotify 0
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            wmic diskdrive get Model,WriteCacheEnabled
+           </span>
+          </div>
+          <div class="">
+           <br/>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <b>
+             IV. 🕹️ GPU / Game / Độ trễ
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            reg query HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers /v HwSchMode
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            2 → Bật
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            1 → Tắt
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            reg add "HKCU\System\GameConfigStore" /v GameDVR_FSEBehaviorMode /t REG_DWORD /d 2 /f
+           </span>
+          </div>
+          <div class="">
+           <br/>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <b>
+             V. 🌐 Mạng (chuẩn)
+            </b>
+           </span>
+          </div>
+          <div>
+           <span class="" style="font-size: 14px;">
+            netsh interface tcp show global
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            netsh int tcp set global autotuninglevel=normal
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            netsh int tcp set global congestionprovider=ctcp
+           </span>
+          </div>
+          <div class="">
+           <br/>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            VI. 🧹 Dọn rác – nhưng KHÔNG phá hệ thống
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            dism /online /cleanup-image /startcomponentcleanup
+           </span>
+          </div>
+          <div class="">
+           <span class="" style="font-size: 14px;">
+            sfc /scannow
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <br/>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <b class="">
+             VII. ⚡ Khởi động / Tắt máy
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            powercfg /a
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            powercfg /hibernate off
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <br/>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            <b class="">
+             VIII. 🧪 Test nhanh hiệu suất thật
+            </b>
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            winsat disk
+           </span>
+          </div>
+          <div class="">
+           <span style="font-size: 14px;">
+            tasklist
+           </span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="tt-services" style="display: none;">
+      <h2 class="tieu-de-muc">
+       Thủ Thuật &gt; Tắt Services
+      </h2>
+      <div class="khung-bai-viet">
+       <h3>
+        Nội dung Tắt Services...
+       </h3>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="tt-ramdisk" style="display: none;">
+      <h2 class="tieu-de-muc">
+       Thủ Thuật &gt; Ramdisk
+      </h2>
+      <div class="khung-bai-viet">
+       <h3>
+        Nội dung Ramdisk...
+       </h3>
+      </div>
+     </div>
+    </div>
+   </div>
+   <!-- ================= 5. THÔNG TIN KHÁC ================= -->
+   <div class="thung-chua-muc-lon" id="MUC-V-THONG-TIN-KHAC">
+    <div class="thung-chua-ung-dung" id="NHOM-THONG-TIN">
+     <div class="trang-noi-dung" id="khac-taixuong" style="display: none;">
+      <h2 class="tieu-de-muc">
+       ⬇ Trung Tâm Tải Xuống
+      </h2>
+      <div class="khung-bai-viet">
+       <p>
+        Kho lưu trữ an toàn trên đám mây:
+        <a href="https://drive.google.com/drive/folders/1H4BNAWkYtTYMAyl6XOyYOTJp3nQuAwvo?usp=drive_link" style="color:#00d9ff; font-weight: bold; text-decoration: none;" target="_blank">
+         Truy cập Google Drive
+        </a>
+       </p>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="khac-kichhoat" style="display: none;">
+      <h2 class="tieu-de-muc">
+       🔑 Bản Quyền &amp; Kích Hoạt
+      </h2>
+      <div class="card-wrap" style="display:flex;gap:20px;flex-wrap:wrap;margin:15px 0;width:100%;">
+       <div class="card" style="flex:1 1 0%;min-width:200px;max-width:100%;display:flex;flex-direction:column;border:1px solid rgba(150,150,150,0.3);background:rgba(150,150,150,0.02);color:inherit;border-radius:10px;overflow:hidden;box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <div class="" style="padding:20px;display:flex;flex-direction:column;flex:1;">
+         <p class="" style="font-size:14px;line-height:1.6;opacity:0.9;margin:0 0 15px 0;">
+          <span class="" style="color: rgb(160, 174, 192); font-size: 16px; background-color: rgb(21, 26, 36);">
+           Tại MiniApp4All, chúng tôi áp dụng chính sách
+          </span>
+          <font class="" color="#e6e600" style="font-size: 16px; background-color: rgb(21, 26, 36);">
+           <strong class="">
+            1 Key kích hoạt toàn bộ Hệ sinh thái. Toàn bộ ứng dụng chỉ cần 1 key duy nhất
+           </strong>
+           .
+          </font>
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="" style="display:flex;flex-wrap:wrap;align-items:center;gap:20px;border:1px solid #333;background:rgba(255,255,255,0.03);padding:20px;border-radius:12px;width:100%;margin:15px 0;">
+       <div style="flex:0 0 140px;height:120px;display:flex;align-items:center;justify-content:center; min-width: 0;">
+        <img class="" src="images/Logo.jpg" style="max-height:100%;max-width:100%;object-fit:contain;border-radius:10px"/>
+       </div>
+       <div class="" style="flex:1 1 0%;min-width:200px;display:flex;flex-direction:column;">
+        <h3 class="" style="margin:0 0 10px 0;font-size:20px;color:#00d2ff;">
+         HƯỚNG DẪN KÍCH HOẠT
+        </h3>
+        <p style="font-size: 18px !important; line-height: 1.6; color: rgb(187, 187, 187); margin: 0px 0px 15px;">
+        </p>
+        <div class="">
+         Chọn KÍCH HOẠT
+        </div>
+        <div class="">
+         GỬI MÃ HOẶC CHỤP HÌNH VÀ GỬI TÁC GIẢ
+        </div>
+        <div class="">
+         <b>
+          <font class="" color="#d8d800">
+           CHI PHÍ KÍCH HOẠT LÀ:       250.000 VNĐ
+          </font>
+         </b>
+        </div>
+        <div class="">
+         Vui lòng gửi kèm ảnh chụp biên lai và mã (hoặc ảnh QR) để nhận Key kích hoạt
+         <div class="">
+          <br/>
+         </div>
+        </div>
+        <div class="">
+        </div>
+        <div class="">
+         Thời gian phản hồi và cấp key thông thường từ 10-30 phút trong giờ hành chính.
+        </div>
+        <div class="">
+        </div>
+        <div class="">
+         (Key có thể dùng cho toàn bộ các ứng dụng tại Miniapp4all.github.io)
+        </div>
+       </div>
+       <img class="" src="images/MBbank.png" style="width: 216px; max-width: 100%; height: 285px; object-fit: contain; flex-shrink: 0; min-width: 0; display: block; margin: 15px auto 0 auto"/>
+       <img class="" src="images/VPbank.png" style="width: 236px; height: 277px; object-fit: contain; flex-shrink: 0; display: block; margin: 15px auto 0px; max-width: none !important; min-width: 10px !important;"/>
+      </div>
+     </div>
+     <div class="trang-noi-dung" id="khac-vechungtoi" style="display: none;">
+      <h2 class="tieu-de-muc">
+       💡 Về MiniApp4All
+      </h2>
+      <div class="khung-bai-viet">
+       <p>
+        Thiết kế với tinh thần tối giản, mang lại hiệu suất làm việc tốt nhất.
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div class="grid-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center;">
+    <div class="grid-item-text" style="min-width: 0; width: 100%;">
+    </div>
+    <div class="grid-item-img" style="min-width: 0; width: 100%; display: flex; justify-content: center;">
+    </div>
+   </div>
+   <footer class="" style="background: rgba(0, 0, 0, 0.85); padding: 40px 20px; font-family: sans-serif; margin-top: 20px; width: 100%; min-height: 255px; max-width: 100%; height: 279px; overflow: auto !important; resize: vertical !important;">
+    <div class="" style="display: flex; flex-wrap: wrap; gap: 30px; max-width: 1000px; margin: 0px auto; justify-content: space-between;">
+     <div class="" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 250px; max-width: 100%;">
+      <h3 class="" style="color:#007acc;margin-top:0;">
+       MiniApp4All
+      </h3>
+      <p class="" style="font-size:14px;color:#bbb;line-height:1.6;">
+       Giải pháp tuyệt vời cho PC của bạn
+      </p>
+      <p class="" style="font-size:14px;color:#bbb;">
+       📞 +84.911.933.550
+      </p>
+      <div class="">
+       📧 lehieutlhp@mail.com
+      </div>
+     </div>
+     <div class="" style="flex: 1 1 0%; min-width: 150px; max-width: 100%;">
+      <h4 class="" style="color: rgb(255, 255, 255); margin-top: 0px;">
+       Liên Kết
+      </h4>
+      <a class="" href="#" style="color: rgb(187, 187, 187); display: block; text-decoration: none; margin-bottom: 8px; font-size: 14px;">
+       Trang chủ:
+      </a>
+      <a class="" href="https://miniapp4all.github.io/" style="">
+       <font class="" color="#00c300">
+        MiniApp4All - Công Cụ Tối Giản, Hiệu Suất Tối Đa
+       </font>
+      </a>
+     </div>
+     <div class="" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 150px; max-width: 100%; text-align: center;">
+      <h4 class="" style="margin-top:0;">
+       Messenger
+      </h4>
+      <img class="" src="images/Messenger.png" style="width: 102px; max-width: 100%; height: 197px; border-radius: 8px; border: 2px solid #fff; object-fit: contain"/>
+     </div>
+     <div class="" style="color: rgb(255, 255, 255); flex: 1 1 0%; min-width: 150px; max-width: 100%; text-align: center;">
+      <h4 class="" style="margin-top:0;">
+       Zalo
+      </h4>
+      <img class="" src="images/Zalo.jpg" style="width: 102px; max-width: 100%; height: 197px; border-radius: 8px; border: 2px solid #fff; object-fit: contain"/>
+     </div>
+    </div>
+    <div class="" style="color: rgb(119, 119, 119); text-align: center; border-top: 1px solid rgb(51, 51, 51); margin-top: 30px; padding-top: 20px; font-size: 12px;">
+     © 2026 Bản quyền thuộc về MiniApp4All.
+    </div>
+   </footer>
+  </main>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. Menu Cấp 1 (Đóng/mở khối menu con)
+    const cacTieuDeMucLon = document.querySelectorAll('.tieu-de-muc-lon');
+    cacTieuDeMucLon.forEach(tieuDe => {
+        tieuDe.addEventListener('click', function() {
+            this.classList.toggle('thu-gon');
+            const khoiMenu = this.nextElementSibling;
+            if (khoiMenu && khoiMenu.classList.contains('khoi-menu-con')) {
+                khoiMenu.classList.toggle('thu-gon');
             }
-          }
-        }
-      }
-
-      danhSachNutChuyen.forEach(nut => {
-        nut.addEventListener('click', function() {
-          const idTrangDich = this.getAttribute('data-trang');
-          chuyenTrang(idTrangDich);
         });
-      });
-
-      danhSachNutXoMenu.forEach(nutXo => {
-        nutXo.addEventListener('click', function() {
-          const idMenuCon = this.getAttribute('data-menu');
-          const menuCon = document.getElementById(idMenuCon);
-          const dangMoKhom = menuCon.classList.contains('mo-ra');
-          
-          document.querySelectorAll('.menu-con').forEach(menu => menu.classList.remove('mo-ra'));
-          document.querySelectorAll('.nut-mo-menu-con').forEach(nut => nut.classList.remove('xo-menu'));
-
-          if (!dangMoKhom) {
-            menuCon.classList.add('mo-ra');
-            this.classList.add('xo-menu');
-          }
-        });
-      });
-
-      // =========================================
-      // CODE JS MỚI: XỬ LÝ CLICK ĐÓNG/MỞ CHO MỌI KHỐI DANH MỤC
-      // (Không cần dùng ID cứng nữa, cứ tạo class "co-the-bam" là chạy được)
-      // =========================================
-      const cacNutToggleMenu = document.querySelectorAll('.tieu-de-menu.co-the-bam');
-      
-      cacNutToggleMenu.forEach(nut => {
-        nut.addEventListener('click', function() {
-          // Đảo trạng thái class cho chính nút tiêu đề (để xoay mũi tên)
-          this.classList.toggle('da-thu-gon');
-          
-          // Lấy cái khối danh sách nằm ngay dưới nó để ẩn/hiện
-          const khoiMenuBenDuoi = this.nextElementSibling;
-          if (khoiMenuBenDuoi && khoiMenuBenDuoi.classList.contains('khoi-menu-thu-gon')) {
-            khoiMenuBenDuoi.classList.toggle('da-thu-gon');
-          }
-        });
-      });
-
     });
+
+    // 2. Menu Cấp 2 (Xổ mục ứng dụng - Hiện chỉ còn ở phần Free)
+    const cacNutXoMenu = document.querySelectorAll('.nut-xo-menu');
+    cacNutXoMenu.forEach(nutXo => {
+        nutXo.addEventListener('click', function() {
+            const idMenu = this.getAttribute('data-menu');
+            const menuCon = document.getElementById(idMenu);
+            if(!menuCon) return;
+
+            const dangMo = menuCon.classList.contains('mo-ra');
+            document.querySelectorAll('.menu-cap-2').forEach(m => m.classList.remove('mo-ra'));
+            document.querySelectorAll('.nut-xo-menu').forEach(n => n.classList.remove('xo-ra'));
+
+            if (!dangMo) {
+                menuCon.classList.add('mo-ra');
+                this.classList.add('xo-ra');
+            }
+        });
+    });
+
+    // 3. Chuyển Trang Nội Dung
+    const cacNutChuyenTrang = document.querySelectorAll('.nut-menu');
+    cacNutChuyenTrang.forEach(nut => {
+        nut.addEventListener('click', function() {
+            const idTrang = this.getAttribute('data-trang');
+            if(!idTrang) return;
+
+            // Ẩn toàn bộ các trang con
+            document.querySelectorAll('.trang-noi-dung').forEach(trang => trang.classList.remove('hien-thi'));
+            
+            // Bật trang đích
+            const trangDich = document.getElementById(idTrang);
+            if (trangDich) {
+                trangDich.classList.add('hien-thi');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }
+
+            // Giao diện bôi đen menu
+            document.querySelectorAll('.nut-menu').forEach(n => n.classList.remove('dang-chon'));
+            this.classList.add('dang-chon');
+        });
+    });
+
+});
   </script>
-</body>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+                var activeEid = "2478194403088";
+                if(activeEid) {
+                    setTimeout(() => {
+                        var el = document.querySelector('[data-editor-id="'+activeEid+'"]');
+                        if(el) {
+                            el.classList.add('editor-highlight');
+                            // Dùng 'instant' thay vì 'smooth' để mắt không bị chóng mặt mỗi khi gõ Text làm View tự Refresh
+                            el.scrollIntoView({behavior: 'instant', block: 'center'});
+                        }
+                    }, 50); // Cho DOM thở 50 mili giây để render xong hình học trước khi nhảy tới
+                }
+            });
+  </script>
+  <script>
+   document.addEventListener('DOMContentLoaded', function() {
+                var activeEid = "2477506449888";
+                if(activeEid) {
+                    setTimeout(() => {
+                        var el = document.querySelector('[data-editor-id="'+activeEid+'"]');
+                        if(el) {
+                            el.classList.add('editor-highlight');
+                            // Dùng 'instant' thay vì 'smooth' để mắt không bị chóng mặt mỗi khi gõ Text làm View tự Refresh
+                            el.scrollIntoView({behavior: 'instant', block: 'center'});
+                        }
+                    }, 50); // Cho DOM thở 50 mili giây để render xong hình học trước khi nhảy tới
+                }
+            });
+  </script>
+  <script id="miniapp-nav-script">
+   document.addEventListener('DOMContentLoaded', function() {
+            var pageIds = [];
+            document.querySelectorAll('[data-trang]').forEach(function(btn) {
+                var tId = btn.getAttribute('data-trang');
+                if (tId && pageIds.indexOf(tId) === -1) pageIds.push(tId);
+            });
+            document.body.addEventListener('click', function(e) {
+                var btn = e.target.closest('[data-trang]');
+                if (btn) {
+                    var targetId = btn.getAttribute('data-trang');
+                    var targetPage = document.getElementById(targetId);
+                    if (targetPage) {
+                        e.preventDefault();
+                        pageIds.forEach(function(id) {
+                            var p = document.getElementById(id);
+                            if (p) {
+                                p.classList.remove('trang-dang-hien-thi');
+                                p.style.setProperty('display', 'none', 'important');
+                            }
+                        });
+                        targetPage.classList.add('trang-dang-hien-thi');
+                        targetPage.style.setProperty('display', 'block', 'important');
+                        
+                        document.querySelectorAll('[data-trang]').forEach(function(b) {
+                            b.classList.remove('menu-dang-chon');
+                        });
+                        document.querySelectorAll('[data-trang="' + targetId + '"]').forEach(function(ab){ 
+                            ab.classList.add('menu-dang-chon'); 
+                        });
+                    }
+                }
+            });
+        });
+  </script>
+ </body>
 </html>
